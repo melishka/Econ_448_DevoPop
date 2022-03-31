@@ -133,7 +133,7 @@ To complete this assignment, answer the following questions.
 
 1. Download R and RStudio and upload this .Rmd file (click the Code button at the top of the page) *or* open JupyterLab for the class and open First_Week_Exercise.Rmd there (remember to click the blue button then RStudio).
 2. What is the median life expectancy in the world in 1952? In 2007?
-3. Choose a country other than Japan.  Plot the median life expectancy against GDP per capita from 1952 (or whatever the earliest year available is) to 2007.
+3. Choose a country other than Japan.  Plot the life expectancy against GDP per capita from 1952 (or whatever the earliest year available is) to 2007. (Corrected from original version to remove the word median.)
 4. What is your experience with R? If you haven't used R before, do you have experience with any other programming languages or statistical software (SPSS, SAS, Stata, etc.) or Excel?
 
 You can submit these results however you choose, but a simple option would be to modify this notebook to answer the questions above, execute the relevant code, and hit "preview" in R Studio to create a html document that can be submitted with code and results.
