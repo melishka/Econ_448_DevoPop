@@ -26,8 +26,9 @@ library("HMDHFDplus")
 
 ## Lab Exercises
 ```{r}
-ASMR_A<-matrix(c(22,60,18),c(8,3,43), nrow=3, ncol=2, dimnames=list(c("<15","15-64",">64"), c("Pop_Percent","Deaths_per_1000")))
-ASMR_A<-as.data.frame(ASMR_A)
+##Thanks to Laura Jackson for correcting my code here!
+ASMR_A<-matrix(c(22,60,18,8,3,43), nrow=3, dimnames=list(c("<15","15-64",">64"), c("Pop_Percent","Deaths_per_1000"))) 
+ASMR_A<-as.data.frame(ASMR_A) 
 ASMR_A
 
 ```
