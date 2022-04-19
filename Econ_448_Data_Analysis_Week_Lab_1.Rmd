@@ -3,9 +3,8 @@ title: "R Notebook"
 output: html_notebook
 ---
 
-Preliminary set up.
-
-Install these packages.
+# Linear Regression Exercises with Dummy Variables and Other Controls
+Preliminary set up. Install these packages.
 
 ```{r}
 ## For now, you need to install these every time in the cloud server.  Only once on your own machine.
