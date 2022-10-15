@@ -1,0 +1,173 @@
+---
+title: "Econ 448"
+author: "Melissa Knox"
+date: "`r format(Sys.time(), '%m/%d/%Y')`"
+output: html_notebook
+subtitle: "Problem Set 1 - Due 10/25/22 @11:59pm"
+---
+
+This is the first problem set for Econ 448.  In it, you will answer a mix of questions that require both conceptual and analysis work.  **I prefer that you submit your entire document as one html document generated from your Markdown Notebook.** However, you may answer the concept and calculation questions separately in the word processor of your choice (converted to pdf), but please submit your code and results for any of the data analysis questions as a pdf or html file. You do not need to submit any of the lab exercises below.  This is just to help you learn the code for the formulas.
+```{r message=FALSE, warning=FALSE}
+## Packages you may need - need to load every session if you are in the cloud
+## Trying something new that should play better with R
+if (!require("pacman")) install.packages("pacman") #pacman is the package that installs packages nicely
+pacman::p_load(HMDHFDplus, tidyverse, ggplot2, dplyr, lattice) #these are the packages you may need
+
+```
+
+```{r message=FALSE, warning=FALSE}
+## Load every time, but only once per session 
+library("ggplot2")
+library("dplyr")
+library("HMDHFDplus")
+```
+
+
+## Problem Set 1 Lab
+```{r}
+##Loading population data into a matrix for later calculations
+ASMR_A<-matrix(c(22,60, 18,8,3,43), nrow=3, ncol=2, dimnames=list(c("<15","15-64",">64"), c("Pop_Percent","Deaths_per_1000")))
+ASMR_A<-as.data.frame(ASMR_A)
+ASMR_A
+
+```
+Multiplying two vectors together (dot product) can be used to calculate a weighted average, for example: $Y=w_{1}*x_{1}+w_{2}*x_{2}+w_{3}*x_{3}+w_{4}*x_{4}$
+
+```{r}
+## The code below produces the dot product of the two columns
+## i.e. it multiplies element 1 of the first column by element 1 of the second, etc, and adds all of the results
+CMR<-ASMR_A$Pop_Percent%*%ASMR_A$Deaths_per_1000/100
+CMR
+
+```
+
+You can even use the notebook to display your results in regular text (look at the html to see this in action). This could be useful for your final paper.
+
+The crude mortality rate in Country A is `r CMR` deaths per 1000 people.
+
+#### Was Malthus right? Calculating mortality and fertility rates from real-world data
+Malthus predicted that excessive population growth would correct itself, either through "positive checks" of increased misery and death or "preventive checks" of reduced marriage and fewer births. One crude way to test for evidence of "positive checks" is to look for a positive relationship between the birth rate and the death rate.
+
+In this exercise, we will use the HMDHFDplus package to access the Human Mortality Database. To complete this exercise, you will have to go to mortality.org to register for your own account to access the data. Once you do so, you can assign your login and password information to variables in R by using commands like myname<-"knoxm@uw.edu" and mypass<-"my secret password".
+
+This is an exercise with several steps that you can use to complete the data questions in your problem set.
+
+1. Use the HMD package to get total deaths by year and age group, then construct total deaths by year.  
+```{r}
+## First, set your country here to make it easier to change in the code below:
+country<-"USA"
+## Read file from web
+## This gives you total male, total
+## female, and overall total deaths
+## by year
+
+mortality_by_year_age <- readHMDweb(CNTRY=country, item="Deaths_1x1", username=myname, password=mypass) 
+
+head(mortality_by_year_age)
+
+```
+
+This data is by age and year.  This will be useful for calculating age-specific mortality in your problem set, but for now let's aggregate to get the total number of deaths.
+
+```{r}
+## mortality_by_year_age contains total mortality by 
+## age group for each year (starting in 1933)
+## (note: Total is column 5, as indicated in the code)
+## To get total mortality in all age groups in each
+## year, sum "Total" column over all ages for each
+## year separately, using group_by and summarise in dplyr
+mortality_by_year<-mortality_by_year_age %>%
+  group_by(Year) %>%
+  summarise(Crude_Deaths =sum(Total))
+
+## The code above made a new data frame with just
+## Year and Total, but renamed as Crude_Deaths
+head(mortality_by_year)
+```
+2. Get total births per year (lucky for us, they have these as yearly totals already).
+```{r}
+births_by_year <- readHMDweb(CNTRY=country, item="Births", username=myname, password=mypass) 
+births_by_year <- dplyr::select(births_by_year, Year, Total)
+births_by_year <- dplyr::rename(births_by_year, Crude_Births=Total) 
+
+head(births_by_year)
+```
+3. Finally, get population by year and age. We need to aggregate as with mortality (but again, don't do this when calculating age-specific mortality rates).
+
+```{r}
+population_by_year_age <- readHMDweb(CNTRY=country, item="Population", username=myname, password=mypass) 
+
+## Aggregate and rename as above
+pop_by_year<-population_by_year_age %>%
+  group_by(Year) %>%
+  summarise(Population_Total =sum(Total1))
+
+head(pop_by_year)
+```
+
+```{r}
+## Now merge into one data frame
+malthus <- merge(pop_by_year, mortality_by_year, by='Year', all=FALSE) 
+malthus <- merge(malthus, births_by_year, by='Year')
+
+## Finally, calculate rates by dividing by population totals
+malthus$CBR <- malthus$Crude_Births/malthus$Population_Total
+malthus$CMR <- malthus$Crude_Deaths/malthus$Population_Total
+head(malthus)
+
+```
+
+Now plot to see the relationship between CBR and CMR in the U.S.
+```{r}
+malthus %>%
+  ggplot(aes(x=CMR, y=CBR))+geom_point()+ggtitle("Malthus Plot for USA")
+```
+Or use this code to plot a smoothed line on the data (vary the final number to change the degree of fitted polynomial).
+```{r}
+malthus %>%
+  ggplot(aes(x=CMR, y=CBR))+geom_point()+geom_smooth(method=lm, formula= y~poly(x,3))+ggtitle("Malthus Plot for USA with Fitted Polynomial")
+```
+
+So, what do you think about Malthus's conjecture? Can you repeat with another country with more years of data, like Sweden? Country codes are here: https://www.mortality.org/Data/DataAvailability and Sweden's is CHE. Note: Malthus actually wrote about Sweden and their propensity for vice and reliance on positive population checks.
+
+## Questions to Submit
+### Conceptual Questions
+Note: These questions are designed to help you think about the issues raised in this class, rather than to have a "right" or "wrong" answer.
+
+1. It took Finland about 50 years to go through its demographic transition around the turn of the 20th century.  For this question, go to populationpyramid.net, choose a country in Asia, Africa, or Central or South America that is currently in the third stage or later of its demographic transition.  Look back in time to find a year in which it was in the second stage.  Then figure out approximately how many years it took the country to enter the third stage  In your answer, tell me: Name of the country, year it was in the second stage, years to third stage.  Did this country take more or less time than Finland.  Try to think of at least two reasons why that might be the case and write a short description of your reasoning. Note: If you can't find when the country was in its second stage, look for a different country.
+
+2. The Millennium Development Goals (https://www.who.int/news-room/fact-sheets/detail/millennium-development-goals-(mdgs)) were 8 goals set forth by the United Nations in the late 1990s that were meant to serve as a framework for reducing extreme poverty along multiple dimensions by 2015. Consult the file "africa-millennium-development-goals.xlsx" found in github or at https://data.humdata.org/dataset/africa-millennium-development-goals. Choose one goal and two countries. State the goal, the countries, the measures used to assess progress in the goal, and compare and contrast the progress of the two countries toward achieving that goal.  
+
+### Calculation Questions (show your work)
+3. You are a young RA working at the World Bank.  It’s 4:55 and your boss just came into your cubicle to tell you that he has a meeting at 8 am to discuss new anti-poverty strategies in the fictional country of Portlandia.  He hands you the following information and asks for a poverty profile.  Oh, and he has a tennis game in 20 minutes, so could you include some policy recommendations and have the report on his desk by the morning?  
+
+    The paper he hands you says:
+      
+      Portlandia is a small, poor country where the people are divided into four equal sized groups consisting of 
+      1000 people each.  One group earns $100 a year, one earns $500 a year, one earns $900 a year, and the final 
+      group earns $1500 a year.  The poverty line is set at $1000.  We have a budget of $300,000 for poverty      
+      alleviation. 
+
+    3.1 Please calculate the Head Count Ratio, and Income Gap Ratio for this country. (Include code, but this could
+    just be simple calculations.)
+    
+    3.2	The World Bank’s policy is to minimize head count ratio.  What will your recommendation be?  What will the 
+    new head count ratio be? (Include code)
+    
+    3.3 Do you think this is the correct approach to poverty alleviation?  Why or why not? 
+
+4. Calculate Total Fertility Rates
+The female population (in thousands) and births by mother's age group in Brazil in 2005 are in the table below. (The first chunk is the data, the second is there to display it nicely.) Use this data to calculate the Total Fertility Rate for Brazil at this time.
+```{r}
+fertility <-as.data.frame(matrix(c(8128,8531,8844, 8118, 7209, 6715, 6409,367.9,530.2,449.6, 264.4, 126.5, 38.4, 6.8), nrow=7, ncol=2, dimnames=list(c("15-19","20-24","25-29","30-34","35-39","40-44","45-49"), c("Population_Thousands","Births_Thousands"))))
+fertility
+```
+
+### Data Questions (include your code)
+5. For this question, we will practice reading in some real data from the Human Mortality Database at UC Berkeley.  Follow the steps in the lab to get an account and access the data you need.
+
+  Modify the code in the lab exercise above to calculate and then   plot the *Age Specific Mortality Rates* for a single year for     a country other than the US.  (Note: The list of countries is     here https://www.mortality.org/Data/DataAvailability. They are    mostly western countries, and I recommend picking a               Scandinavian country to get a long and more interesting time      series.)
+
+  Hint: Rather than aggregating over all deaths, you are going to   filter the data for one year only, then calculate ASMR for        that year. 
+
+6. Using the data you downloaded for problem 5, calculate the crude mortality rate for the country and year chosen.
