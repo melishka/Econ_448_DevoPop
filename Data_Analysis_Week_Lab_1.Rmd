@@ -1,0 +1,123 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Preliminary set up.
+
+Install these packages.
+```{r message=FALSE, warning=FALSE}
+## Packages you may need - need to load every session if you are in the cloud
+## Trying something new that should play better with R
+if (!require("pacman")) install.packages("pacman") #pacman is the package that installs packages nicely
+pacman::p_load(gapminder, fixest, tidyverse, ggplot2, dplyr, stargazer, modelsummary) #these are the packages you may need
+
+```
+
+
+Load your libraries.
+
+```{r message=FALSE, warning=FALSE}
+## The cloud server has tidyverse and ggplot2, but be sure to install those on your home machine if you are using that.
+library(gapminder)
+library(fixest)
+library(ggplot2)
+library(tidyverse)
+library(stargazer)
+library(modelsummary)
+```
+
+Now get data. We are using gapminder data and a pre-loaded dataset called "swiss." It contains province-level statistics on fertility and socio-economics in 1888 for the 47 French-speaking provinces in Switzerland. This is mid-demographic transition in this country.
+
+```{r}
+## It isn't strictly necessary to load these into data frames, but this is good practice for working with external data and it will allow you to make nice tables with stargazer
+DF_gap<-as.data.frame(gapminder)
+stargazer(DF_gap[c("lifeExp","gdpPercap")], type = "text")
+```
+
+
+
+## Linear Regression and Dummy Variables Using Gapminder
+
+
+First, let's plot the gap minder data again:
+
+```{r}
+## First for all years and continents
+ggplot(data=DF_gap, aes(lifeExp,log(gdpPercap), color=continent))+geom_point(alpha = 0.3,  position = position_jitter())
+```
+
+We can estimate the slope and intercept of this line
+
+```{r, warning=FALSE}
+model1<-lm(lifeExp ~ log(gdpPercap), DF_gap)
+modelsummary(model1) #This will look blank if you have a black background.
+#stargazer(model1, type = "text") ##Stargazer is nice, but it won't work for the fixed effects (feols) models below.
+```
+
+But as you recognized in the first week exercise, this relationship is hiding some interesting heterogeneity. For example, look at the relationship between life expectancy and year:
+
+```{r}
+ggplot(data=DF_gap, aes(year, lifeExp, color=continent))+geom_point()
+```
+
+Now lets look at the original relationship for one year.
+
+```{r}
+## Then just for one year (can change year or even continent here)
+gapminder %>%
+  filter(year==1972) %>%
+  ggplot(aes(lifeExp,log(gdpPercap), color=continent))+geom_point(alpha = 0.3,  position = position_jitter())
+
+```
+
+What we see in this data is that there are probably underlying patterns by year and continent that we aren't fully accounting for in a simple regression.
+
+So let's try a model where each country has its own intercept.
+```{r}
+model2 <-feols(lifeExp ~ log(gdpPercap) + factor(continent) + factor(year), data=DF_gap)
+modelsummary(model2)
+```
+
+
+
+
+```{r}
+# Regression with same slope but different intercepts for each continent
+DF_gap_67<-filter(DF_gap, year==1967)
+fm <- feols(lifeExp ~ i(continent)+gdpPercap*i(continent), data=DF_gap_67)
+modelsummary(fm)
+```
+```{r}
+## We can plot this - separate intercepts and slopes for each continent
+ggplot(data=DF_gap, aes(lifeExp,log(gdpPercap), color=continent))+geom_point(alpha = 0.3,  position = position_jitter())+stat_smooth(method="lm")
+```
+
+## Regression with Control Variables Using "swiss" Data
+
+Now let's look at data with a few more control variables.  The fertility/agriculture/catholic variables are from 0-100.
+```{r}
+data(swiss)
+DF_swiss<-as.data.frame(swiss)
+stargazer(DF_swiss, type = "text")
+```
+How should we look at this data on a graph?
+
+```{r}
+## Let's try to plot Fertility vs. Infant Mortality while looking at variation in different variables.
+ggplot(data=DF_swiss, aes(Infant.Mortality, Fertility, color=Agriculture)) + geom_point()
+```
+Now let's look at these relationships a little more carefully with linear regression.
+```{r}
+model3 <- feols(Fertility ~ Infant.Mortality, data=DF_swiss)
+summary(model3)
+```
+
+How do we interpret this relationship?  Does it change if we add control variables? How do you interpret the coefficients on the variables? Be sure to take statistical signicance into account in your interpretation.
+
+```{r}
+model4 <- feols(Fertility ~ Infant.Mortality + Catholic + Agriculture + Education + Examination, data=DF_swiss)
+summary(model4)
+#stargazer(model4, type = "text")
+```
+Does the relationship between these variables look like what we would expect based on what we have learned and seen so far?  Why do think the differences exist?
