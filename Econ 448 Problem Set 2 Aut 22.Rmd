@@ -1,6 +1,6 @@
 ---
 title: "Econ 448"
-subtitle: "Problem Set 2 - Due 05/08/2022 @11:59pm"
+subtitle: "Problem Set 2 - Due 11/13/22 @11:59pm"
 author: Melissa Knox
 date: "`r format(Sys.time(), '%m/%d/%Y')`"
 output: html_notebook  
