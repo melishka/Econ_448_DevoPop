@@ -1,0 +1,144 @@
+---
+title: "Child Mortality Lab"
+date: "`r format(Sys.time(), '%m/%d/%Y')`"
+output: html_notebook
+author: Melissa Knox
+---
+## Overview and Setup
+For this exercise, we will estimate the relationship between mother's education and child health, using the fraction of the mother's children who have died as our measure of child health.
+
+These exercises use the data set "1% sample Ethiopia ever-married women age 15+" available via the Econ 448 class account from ipums.org (class code is W0NV72).  Please download the data and answer the following questions.
+
+```{r}
+
+```
+
+Install these packages and (optional) change your working directory every time you start a fresh session.  
+
+```{r, warning=FALSE}
+library(ggplot2)
+library(tidyr)
+library(ivreg)
+library(dplyr)
+library(fixest)
+library(doBy)
+library(stargazer)
+library(coefplot)
+setwd("~/OneDrive - UW/Pandemic Teaching/Econ 448 Data Course")
+```
+
+Read in the data.  You will have to download it from IPUMS and save it in your R working directory or upload it to the JupyterHub.
+
+```{r}
+library(ipumsr)
+ddi <- read_ipums_ddi("~/OneDrive - UW/Pandemic Teaching/Econ 448 Data Course/ipumsi_00007.xml")  
+ipumsr::ipums_view(ddi)
+df_ipums <- read_ipums_micro(ddi)
+```
+
+
+## Data Cleaning
+Much of the work we do to analyze data is actually processing (or cleaning) raw data to get it ready to be analyzed.  This often means creating new variables, re-scaling existing variables, and even changing the unit of observation in each row.
+
+```{r}
+df_analysis <- as.data.frame(df_ipums)
+
+#Filtering don't knows and nonsense values
+df_analysis<-filter(df_analysis, YRSCHOOL<90)  
+df_analysis<-filter(df_analysis, YRSCHOOL_SP<90) 
+df_analysis<-filter(df_analysis, CHBORN<31) #Values over 30 are don't knows
+head(df_analysis)
+```
+
+We should also create some dummy variables.
+```{r}
+#Make dummy variables for urban, literacy, and employment
+df_analysis$URBAN <- ifelse(df_analysis$URBAN == 2, 1, 0) 
+df_analysis$LITERATE<-ifelse(df_analysis$LIT==2,1,0)
+df_analysis$EMPLOYED<-ifelse(df_analysis$EMPSTAT==1,1,0)
+
+#View the new variables and others of potential interest.
+stargazer(df_analysis[c("YRSCHOOL", "YRSCHOOL_SP", "CHBORN", "CHBORNM", "CHBORNF", "CHSURV", "URBAN", "LITERATE", "EMPLOYED")], type = "text")
+
+
+```
+
+Now we need to construct a measure of child mortality, using children born and children who survived.
+
+```{r}
+#Create your new variables and then look at their summary statistics. It's always a good idea to look at your data as much as possible!
+df_analysis<-transform(df_analysis,CMR=((CHBORN-CHSURV)/CHBORN))
+
+stargazer(df_analysis[c("CHBORN","CMR")], type = "text")
+```
+But maybe we only want to look at women who have ever had children:
+```{r}
+df_analysis<-filter(df_analysis, CHBORN>0)
+stargazer(df_analysis[c("CHBORN","CMR")], type = "text")
+```
+
+
+## Analysis
+The first step of analysis is often visualizing our data. Lets look at a simple scatter plot.
+```{r}
+ggplot(df_analysis, aes(x=YRSCHOOL,y=CMR))+geom_point()
+```
+But it's hard to see what is happening with all of those dots, so let's try just looking at mean CMR by years of education.
+```{r}
+#Create a new data frame that has mean CMR by years of schooling.
+#Can you look at median instead? Do you see any major differences? What about creating the same table by spouse's characteristics?
+collapse <- summaryBy(CHBORN+CMR ~ YRSCHOOL, FUN=c(mean),na.rm=TRUE, data=df_analysis)
+collapse
+```
+
+Now we can plot these means versus years of education.
+
+```{r}
+ggplot(collapse, aes(x=YRSCHOOL,y=CMR.mean))+geom_point()
+```
+Or, you could look at the same graph, but let the color of the dots reflect the mean number of children born at that level of schooling.This figure adds the extra information that women with less schooling have, on average, both more children and higher child mortality.
+```{r}
+ggplot(collapse, aes(x=YRSCHOOL,y=CMR.mean, color=CHBORN.mean))+geom_point()
+```
+
+An alternative to this type of plot is the "coefficient plot." With a coefficient plot, we regress the outcome on a series of dummy variables for years of education and then plot the coefficients and confidence intervals. The y-axis shows the difference between the mean outcome for each value of years of education, relative to the mean value for zero years of education.
+
+```{r}
+f_ols1<-feols(CMR~i(YRSCHOOL), data=df_analysis)
+summary(f_ols1)
+```
+
+Now plot (iplot is part of the coefplot package).
+```{r}
+iplot(f_ols1)
+```
+
+Now let's see how the effect of schooling changes as we control for other important factors that might be associated with schooling.
+```{r}
+f_ols2<-feols(CMR~i(YRSCHOOL)+CHBORN+AGE+EMPLOYED+LITERATE, data=df_analysis)
+iplot(f_ols2)
+```
+Ok, now we might want to see what we get from the control variables, so let's plot them both together. I found a package (ggiplot) that works a bit better than iplot here. Can you interpret the difference in coefficients shown in the figure below?
+
+```{r}
+#install.packages(ggiplot)
+#library(ggiplot)
+ggiplot(list('No Controls' = f_ols1, 'Controls' = f_ols2),main = 'Child Mortality and Education', ref.line = -1, pt.join = TRUE)
+
+```
+
+Just for "fun" now let's look at this by child sex.
+```{r}
+df_analysis<-transform(df_analysis,CMR_M=((CHBORNM-CHSURVM)/CHBORNM))
+df_analysis<-transform(df_analysis,CMR_F=((CHBORNF-CHSURVF)/CHBORNF))
+stargazer(df_analysis[c("CMR_M","CMR_F")], type = "text")
+```
+
+```{r}
+f_ols3<-feols(CMR_M~i(YRSCHOOL), df_analysis)
+f_ols4<-feols(CMR_F~i(YRSCHOOL), df_analysis)
+```
+
+```{r}
+ggiplot(list('Male CMR' = f_ols3, 'Female CMR' = f_ols4),main = 'Child Survival by Sex and Education', ref.line = -1, pt.join = TRUE)
+```
