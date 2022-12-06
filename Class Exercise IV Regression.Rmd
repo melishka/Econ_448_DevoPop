@@ -6,7 +6,8 @@ output: html_notebook
 ```{r}
 #install.packages("ivreg", dependencies = TRUE)
 #install.packages("fixest")
-install.packages("stargazer")
+#install.packages("stargazer")
+remotes::install_github('rstudio/gt')
 ```
 
 ```{r}
@@ -18,6 +19,7 @@ library(dplyr)
 library(fixest)
 library(modelsummary)
 library(stargazer)
+library(gt)
 ```
 
 
@@ -30,7 +32,7 @@ stargazer(SchoolingReturns, type = "text")  ##You can also set `type' to latex (
 
 Perform OLS regression of logged wage on education and other characteristics:
 ```{r}
-m_ols <- lm(log(wage) ~ education + poly(experience, 2) + ethnicity + smsa + south, data = SchoolingReturns)
+m_ols <- lm(log(wage) ~ education + experience + ethnicity + smsa + south, data = SchoolingReturns)
 msummary(list('Results'=m_ols))
 
 ```
@@ -38,37 +40,64 @@ msummary(list('Results'=m_ols))
 Small aside, you can use feols from fixest package to deal with "categorical variables":
 
 ```{r}
-f_ols<-feols(log(wage) ~ education + poly(experience, 2) + ethnicity + smsa + south+i(parents14), data = SchoolingReturns)
-msummary(f_ols)
+f_ols<-feols(log(wage) ~ education + experience + ethnicity + smsa + south+i(parents14), data = SchoolingReturns)
+msummary(list('Linear'=m_ols,'Fixed Effects'=f_ols))
 ```
+```{r}
+models <- list(Linear = m_ols, FE= f_ols)
+cm <- c('education' = 'Years of Schooling',
+        'experience' = 'Experience', 
+        'ethnicityafam' = 'African American',
+        'smsayes' = 'Lives in City',
+        'southyes' = 'Lives in South',
+        '(Intercept)' = 'Constant')
+msummary(models,
+   coef_map = cm,
+   stars = TRUE,
+   title = 'Association Between Schooling and Log(Wage)',
+   subtitle = 'Models estimated using the Schooling Returns dataset.',
+   notes = c('First custom note to contain text.',
+             'Second custom note with different content.')) 
+```
+
 
 Now we want to perform two stage least squares/instrumental variables regression.  Here, it is because we think that our model suffers from omitted bias since education and wage are probably both influenced by some omitted variable related to unobserved characteristics of the person.  We need a valid (i.e. relevant and exogenous) instrument for education.  We can use whether or not the person grew up near a college.
 
 First, let's show the first stage, which will tell us if the instrument is relevant:
 ```{r}
-first_iv<-lm(education~nearcollege + poly(experience, 2) + ethnicity + smsa + south, model=TRUE, data = SchoolingReturns)
-summary(first_iv)
+first_iv<-lm(education~nearcollege + age + ethnicity + smsa + south, model=TRUE, data = SchoolingReturns)
+msummary(first_iv)
 
 ```
 Here, we see that the effect of 'nearcollegeyes' on education is positive and statistically significant.  We also see that the F-statistic (a measure of the overall explanatory value of the Xs in our model) is 451.9.  A standard benchmark for relevance is F>30.
 
-Now, let's do the full iv regression:
+Now, let's do the full iv regression (note that experience also depends on education, so we use age as an instrument for experience):
 ```{r}
-m_iv <- ivreg(log(wage) ~ education + poly(experience, 2) + ethnicity + smsa + 
-                south |nearcollege + poly(experience, 2) + ethnicity + smsa + south, data = SchoolingReturns)
-summary(m_iv)
+m_iv <- ivreg(log(wage) ~ education + experience + ethnicity + smsa + 
+                south |nearcollege + age + ethnicity + smsa + south, data = SchoolingReturns)
+msummary(m_iv)
 ```
 
 This model reproduces the results for the OLS model, but only the portion of education that can be explained by college proximity is used in estimating the effect.  We can compare the coefficients and standard errors from the two models using the following:
 ```{r}
-m_list <- list(OLS = m_ols, IV = m_iv)
+m_list <- list("First Stage" = first_iv, "IV" = m_iv)
+cm <- c('nearcollegeyes' = 'Near College',
+        'age' = 'Age',
+        'education' = 'Years of Schooling',
+        'experience' = 'Experience', 
+        'ethnicityafam' = 'African American',
+        'smsayes' = 'Lives in City',
+        'southyes' = 'Lives in South',
+        '(Intercept)' = 'Constant')
+msummary(m_list,
+   coef_map = cm,
+   stars = TRUE,
+   title = 'Association Between Schooling and Log(Wage) OLS and IV Results',
+   subtitle = 'Models estimated using the Schooling Returns dataset.',
+   notes = c('Proximity to college used as instrument for years of schooling.','Second custom note with different content.')) 
 msummary(m_list)
 ```
 
-Also, this neat command:
-```{r}
-modelplot(m_list, coef_omit = "Intercept|experience")
-```
 
 
 Now try this with the Ethiopia data! You can try using spouse's education as an instrument for a woman's own education.  
