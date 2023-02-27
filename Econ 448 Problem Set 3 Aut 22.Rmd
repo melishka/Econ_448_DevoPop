@@ -1,0 +1,44 @@
+---
+title: "Econ 448"
+subtitle: "Problem Set 3 - Due 12/01/2022 @11:59pm"
+author: Melissa Knox
+date: "`r format(Sys.time(), '%m/%d/%Y')`"
+output: html_notebook  
+---
+## Concept Questions
+
+
+1.	(14 points) Consider Weiss’ model of household production in a marriage between two people a and b with wages $w_a$ and $w_b$ (p. 84), but with constant returns to scale in production.  Total household production is $Z=\sqrt{(x_a+x_b)(t_a+t_b)}$ and both partners face the budget constraint $x_i=w_ih_i$ and time constraint $t_i+h_i=1$ for i=a,b.  Solve for Z in the following situations:
+
+1.1 (6 points) Household members have different comparative advantages in market work($w_a>w_b$) and the person with the higher market earnings devotes all of her time to market work while the person with lower market earnings devotes all of his time to home production.
+
+1.2 (6 points) All household members have the same comparative advantage in market work ($w_a=w_b$) and both partners spend ½ of their time in market work and ½ of their time in home production.
+
+1.3 (4 points) How do the gains from marriage differ in problem 1 from the increasing returns to scale situation examined in class?  Be specific about both cases.
+
+2. (15 points) One version of a family’s common preferences utility function can be 
+$U(c_m,c_f )=c_m^\alpha*c_f^{(1-\alpha)}$
+Where $c_m$ and $c_f$ are the consumption of the family’s product (Z) for person m and person f, respectively.  
+
+2.1 (7 points) If the family wants to choose cm and cf to maximize their utility subject to budget constraint $Z_mf=c_m+c_f$, solve for their optimal choice of consumption.
+  
+2.2 (4 points) Using the results from Weiss’s model (solved in lecture and the reading) that an individual i’s consumption of Z outside of marriage is $\frac{1}{4} w_i$, and the couple’s total married consumption is $max(w_m,w_f)$, find the gains from marriage for both parties if $w_m=w_f=w$ (your answer will be in terms of w and $\alpha$). 
+	
+2.3 (4 points) Using the results from Weiss’s model (solved in lecture and the reading) that an individual i’s consumption of Z outside of marriage is $\frac{1}{4} w_i$, and the couple’s total married consumption is $max(w_m,w_f)$, find the gains from marriage for both parties if $w_m>w_f$ (your answer will be in terms of $w_m, w_f$ and $\alpha$). 
+
+3. (16 points)In a simplified bargaining model of marriage, the couple jointly maximizes the following utility function:
+$U=[c_m - T_m]*[c_f- T_f]$
+
+Subject to $Z= c_m+c_f$, where Z is total family income
+
+And $c_m ≥ T_m$ and $c_f ≥ T_f$
+
+Person f is the female partner and m is the male partner
+
+
+3.1 (5 points) What is $c_f-T_f$?  Give two examples from class notes or readings of events that would increase the value of $T_f$ and explain why $T_f$ increases in these cases.  Be as specific as possible about your examples.
+
+3.2 (7 points) As shown in lecture, the utility maximizing condition on $C_m$ and $C_f$ is $C_m - T_m = C_f- T_f$. Solve for $C_f$ and $C_m$ in terms of Z,$T_m$, and $T_f$.
+
+3.3 (4 points) Imagine you had a survey with variables for $c_f$ and $T_f$. What does your answer to 3.2 predict about the relationship between these two variables? Write out a linear regression model that you could use to estimate this relationship and test your prediction.
+
