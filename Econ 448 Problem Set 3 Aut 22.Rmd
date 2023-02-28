@@ -42,3 +42,13 @@ Person f is the female partner and m is the male partner
 
 3.3 (4 points) Imagine you had a survey with variables for $c_f$ and $T_f$. What does your answer to 3.2 predict about the relationship between these two variables? Write out a linear regression model that you could use to estimate this relationship and test your prediction.
 
+## Data Analysis Questions
+4. These questions refer to the data set "0.1% sample Mexican women age 30+ 2000" available via the Econ 448 class account from ipums.org (class code is W0NV72).  Please create an account, download the data and answer the following questions.
+
+4.1 Create a formatted table of summary statistics (mean, std dev, max, min) for all variables that you use in your analysis (Hint: wait until you answer all of the other questions before finalizing this part so you know what variables you will use).
+
+4.2 Filter your observations so that you only have women in your sample who are single, married, and separated/divorced/widowed. Then create a new variable `ever_married' that indicates whether the woman has ever been married. Plot the proportion of women ever married by age, from age 30 to 65. 
+
+4.3 Now estimate the association between a woman's marital status and her status in the labor market. It's up to you whether you should treat marital status as the dependent or independent variable. Write the regression model you estimate, along with a 1-2 sentence justification of your choice of x and y. Show the results of your regression and write 1-2 sentences explaining your results.
+
+
