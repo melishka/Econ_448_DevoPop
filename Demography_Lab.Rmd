@@ -1,0 +1,129 @@
+---
+title: "Econ 448"
+author: "Melissa Knox"
+date: "`r format(Sys.time(), '%m/%d/%Y')`"
+output: html_notebook
+subtitle: "Demography Lab for Problem Set 1"
+---
+
+```{r message=FALSE, warning=FALSE}
+## Packages you may need - need to load every session if you are in the cloud
+## Trying something new that should play better with R
+if (!require("pacman")) install.packages("pacman") #pacman is the package that installs packages nicely
+pacman::p_load(HMDHFDplus, tidyverse, ggplot2, dplyr, lattice) #these are the packages you may need
+```
+
+```{r message=FALSE, warning=FALSE}
+## Load every time, but only once per session 
+library("ggplot2")
+library("dplyr")
+library("HMDHFDplus")
+```
+## Using R to Calculate Mortality and Fertility Rates from Tables
+```{r}
+##Loading population data into a matrix for later calculations
+ASMR_A<-matrix(c(22,60, 18,8,3,43), nrow=3, ncol=2, dimnames=list(c("<15","15-64",">64"), c("Pop_Percent","Deaths_per_1000")))
+ASMR_A<-as.data.frame(ASMR_A)
+ASMR_A
+
+```
+Multiplying two vectors together (dot product) can be used to calculate a weighted average, for example: $Y=w_{1}*x_{1}+w_{2}*x_{2}+w_{3}*x_{3}+w_{4}*x_{4}$
+
+```{r}
+## The code below produces the dot product of the two columns
+## i.e. it multiplies element 1 of the first column by element 1 of the second, etc, and adds all of the results
+CMR<-ASMR_A$Pop_Percent%*%ASMR_A$Deaths_per_1000/100
+CMR
+
+```
+
+You can even use the notebook to display your results in regular text (look at the html to see this in action). This could be useful for your final paper.
+
+The crude mortality rate in Country A is `r CMR` deaths per 1000 people.
+
+
+#### Was Malthus right? Calculating mortality and fertility rates from real-world data
+Malthus predicted that excessive population growth would correct itself, either through "positive checks" of increased misery and death or "preventive checks" of reduced marriage and fewer births. One crude way to test for evidence of "positive checks" is to look for a positive relationship between the birth rate and the death rate.
+
+In this exercise, we will use the HMDHFDplus package to access the Human Mortality Database. To complete this exercise, you will have to go to mortality.org to register for your own account to access the data. Once you do so, you can assign your login and password information to variables in R by using commands like myname<-"knoxm@uw.edu" and mypass<-"my secret password".
+
+This is an exercise with several steps that you can use to complete the data questions in your problem set.
+
+1. Use the HMD package to get total deaths by year and age group, then construct total deaths by year.  
+```{r}
+## First, set your country here to make it easier to change in the code below:
+country<-"USA"
+## Read file from web
+## This gives you total male, total
+## female, and overall total deaths
+## by year
+
+mortality_by_year_age <- readHMDweb(CNTRY=country, item="Deaths_1x1", username=myname, password=mypass) 
+
+head(mortality_by_year_age)
+
+```
+
+This data is by age and year.  This will be useful for calculating age-specific mortality in your problem set, but for now let's aggregate to get the total number of deaths.
+
+```{r}
+## mortality_by_year_age contains total mortality by 
+## age group for each year (starting in 1933)
+## (note: Total is column 5, as indicated in the code)
+## To get total mortality in all age groups in each
+## year, sum "Total" column over all ages for each
+## year separately, using group_by and summarise in dplyr
+mortality_by_year<-mortality_by_year_age %>%
+  group_by(Year) %>%
+  summarise(Crude_Deaths =sum(Total))
+
+## The code above made a new data frame with just
+## Year and Total, but renamed as Crude_Deaths
+head(mortality_by_year)
+```
+2. Get total births per year (lucky for us, they have these as yearly totals already).
+```{r}
+births_by_year <- readHMDweb(CNTRY=country, item="Births", username=myname, password=mypass) 
+births_by_year <- dplyr::select(births_by_year, Year, Total)
+births_by_year <- dplyr::rename(births_by_year, Crude_Births=Total) 
+
+head(births_by_year)
+```
+3. Finally, get population by year and age. We need to aggregate as with mortality (but again, don't do this when calculating age-specific mortality rates).
+
+```{r}
+population_by_year_age <- readHMDweb(CNTRY=country, item="Population", username=myname, password=mypass) 
+
+## Aggregate and rename as above
+pop_by_year<-population_by_year_age %>%
+  group_by(Year) %>%
+  summarise(Population_Total =sum(Total1))
+
+head(pop_by_year)
+```
+
+```{r}
+## Now merge into one data frame
+malthus <- merge(pop_by_year, mortality_by_year, by='Year', all=FALSE) 
+malthus <- merge(malthus, births_by_year, by='Year')
+
+## Finally, calculate rates by dividing by population totals
+malthus$CBR <- malthus$Crude_Births/malthus$Population_Total
+malthus$CMR <- malthus$Crude_Deaths/malthus$Population_Total
+head(malthus)
+
+```
+
+Now plot to see the relationship between CBR and CMR in the U.S.
+```{r}
+malthus %>%
+  ggplot(aes(x=CMR, y=CBR))+geom_point()+ggtitle("Malthus Plot for USA")
+```
+Or use this code to plot a smoothed line on the data (vary the final number to change the degree of fitted polynomial).
+```{r}
+malthus %>%
+  ggplot(aes(x=CMR, y=CBR))+geom_point()+geom_smooth(method=lm, formula= y~poly(x,3))+ggtitle("Malthus Plot for USA with Fitted Polynomial")
+```
+
+So, what do you think about Malthus's conjecture? Can you repeat with another country with more years of data, like Sweden? Country codes are here: https://www.mortality.org/Data/DataAvailability and Sweden's is CHE. Note: Malthus actually wrote about Sweden and their propensity for vice and reliance on positive population checks.
+
