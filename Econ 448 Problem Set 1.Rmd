@@ -1,0 +1,65 @@
+---
+title: "Econ 448"
+author: "Melissa Knox"
+date: "`r format(Sys.time(), '%m/%d/%Y')`"
+output: html_notebook
+subtitle: "Problem Set 1 - Due 04/16/23 @11:59pm"
+---
+
+This is the first problem set for Econ 448.  In it, you will answer a mix of questions that require both conceptual and analysis work.  **I prefer that you submit your entire document as one html document generated from your Markdown Notebook.** However, you may answer the concept and calculation questions separately in the word processor of your choice (converted to pdf), but please submit your code and results for any of the data analysis questions as a pdf or html file. You do not need to submit any of the lab exercises below.  This is just to help you learn the code for the formulas.
+```{r message=FALSE, warning=FALSE}
+## Packages you may need - need to load every session if you are in the cloud
+## Trying something new that should play better with R
+if (!require("pacman")) install.packages("pacman") #pacman is the package that installs packages nicely
+pacman::p_load(HMDHFDplus, tidyverse, ggplot2, dplyr, lattice) #these are the packages you may need
+
+```
+
+```{r message=FALSE, warning=FALSE}
+## Load every time, but only once per session 
+library("ggplot2")
+library("dplyr")
+library("HMDHFDplus")
+```
+
+
+### Conceptual Questions
+Note: These questions are designed to help you think about the issues raised in this class, rather than to have a "right" or "wrong" answer.
+
+1. It took Finland about 50 years to go through its demographic transition around the turn of the 20th century.  For this question, go to populationpyramid.net, choose a country in Asia, Africa, or Central or South America that is currently in the third stage or later of its demographic transition.  Look back in time to find a year in which it was in the second stage.  Then figure out approximately how many years it took the country to enter the third stage  In your answer, tell me: Name of the country, year it was in the second stage, years to third stage.  Did this country take more or less time than Finland.  Try to think of at least two reasons why that might be the case and write a short description of your reasoning. Note: If you can't find when the country was in its second stage, look for a different country.
+
+2. The Millennium Development Goals (https://www.who.int/news-room/fact-sheets/detail/millennium-development-goals-(mdgs)) were 8 goals set forth by the United Nations in the late 1990s that were meant to serve as a framework for reducing extreme poverty along multiple dimensions by 2015. Consult the file "africa-millennium-development-goals.xlsx" found in github or at https://data.humdata.org/dataset/africa-millennium-development-goals. Choose one goal and two countries. State the goal, the countries, the measures used to assess progress in the goal, and compare and contrast the progress of the two countries toward achieving that goal.  
+
+### Calculation Questions (show your work or include your code)
+3. You are a young RA working at the World Bank.  It’s 4:55 and your boss just came into your cubicle to tell you that he has a meeting at 8 am to discuss new anti-poverty strategies in the fictional country of Portlandia.  He hands you the following information and asks for a poverty profile.  Oh, and he has a tennis game in 20 minutes, so could you include some policy recommendations and have the report on his desk by the morning?  
+
+    The paper he hands you says:
+      
+      Portlandia is a small, poor country where the people are divided into four equal sized groups consisting of 
+      1000 people each.  One group earns $100 a year, one earns $500 a year, one earns $900 a year, and the final 
+      group earns $1500 a year.  The poverty line is set at $1000.  We have a budget of $300,000 for poverty      
+      alleviation. 
+
+    3.1 Please calculate the Head Count Ratio, and Income Gap Ratio for this country. (Include code, but this could
+    just be simple calculations.)
+    
+    3.2	The World Bank’s policy is to minimize head count ratio.  What will your recommendation be?  What will the 
+    new head count ratio be? (Include code)
+    
+    3.3 Do you think this is the correct approach to poverty alleviation?  Why or why not? 
+
+4. Calculate Total Fertility Rates
+The female population (in thousands) and births by mother's age group in Brazil in 2005 are in the table below. (The first chunk is the data, the second is there to display it nicely.) Use this data to calculate the Total Fertility Rate for Brazil at this time.
+```{r}
+fertility <-as.data.frame(matrix(c(8128,8531,8844, 8118, 7209, 6715, 6409,367.9,530.2,449.6, 264.4, 126.5, 38.4, 6.8), nrow=7, ncol=2, dimnames=list(c("15-19","20-24","25-29","30-34","35-39","40-44","45-49"), c("Population_Thousands","Births_Thousands"))))
+fertility
+```
+
+### Data Questions (include your code)
+5. For this question, we will practice reading in some real data from the Human Mortality Database at UC Berkeley.  Follow the steps in the lab to get an account and access the data you need.
+
+  Modify the code in the lab exercise above to calculate and then   plot the *Age Specific Mortality Rates* for a single year for     a country other than the US.  (Note: The list of countries is here https://www.mortality.org/Data/DataAvailability. They are mostly western countries, and I recommend picking a               Scandinavian country to get a long and more interesting time series.)
+
+  Hint: Rather than aggregating over all deaths, you are going to filter the data for one year only, then calculate ASMR for that year. 
+
+6. Using the data you downloaded for problem 5, calculate the crude mortality rate for the country and year chosen.
