@@ -8,7 +8,6 @@ Preliminary set up.
 Install these packages.
 ```{r message=FALSE, warning=FALSE}
 ## Packages you may need - need to load every session if you are in the cloud
-## Trying something new that should play better with R
 if (!require("pacman")) install.packages("pacman") #pacman is the package that installs packages nicely
 pacman::p_load(gapminder, fixest, tidyverse, ggplot2, dplyr, stargazer, modelsummary) #these are the packages you may need
 
