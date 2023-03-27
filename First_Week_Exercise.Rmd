@@ -1,5 +1,5 @@
 ---
-title: "Week 1 Exercise"
+title: "Econ 448 First Week Exercise"
 author: "Melissa Knox"
 output: html_notebook
 ---
@@ -8,8 +8,7 @@ You will familiarize yourself with the R computing language, R Studio environmen
 
 There are two ways to complete this project: Downloading and installing R on your own machine (or using an already installed version of R on a campus computer), or running this notebook in the cloud version of R.  
 
-### Installing R
-Note: This worked great on my laptop and then I had a lot of issues with my work desktop, so your mileage may vary here.
+### Installing R on Your Personal Machine
 * Download [R](https://cran.r-project.org/) and [RStudio](https://www.rstudio.com/products/rstudio/download/) (recommended over using R alone)
 * (Windows) Install [Rtools](https://cran.r-project.org/bin/windows/Rtools/).  Note that there are instructions on this page for creating a text file called .Renviron that identifies a path for R to use to find Rtools.  It seemse complicated, but is fairly straightforward in practice.
 
@@ -17,7 +16,7 @@ Note: This worked great on my laptop and then I had a lot of issues with my work
 * I have set up a Jupyter Notebook for use in this class to make it really easy for you to run these programs in a cloud version of R Studio.  The link is in the class navigation pane.  
 
 ## R Markdown and Notebooks
-This is the html document produced by an [R Markdown](http://rmarkdown.rstudio.com) Notebook. You can download the code to run in R above (Code>Download Rmd). When you execute code within the notebook, the results appear beneath the code. You can download this file, experiment with it, and change it to suit your needs. When you are ready to finalize your results, make sure that you have run all of the relevant chunks of code and then click preview above to create a html document of your own with code and results included.
+This is the html document produced by an [R Markdown](http://rmarkdown.rstudio.com) Notebook. You can download the code to run in R above (Code>Download Rmd). When you execute code within the notebook, the results appear beneath the code. You can download this file, experiment with it, and change it to suit your needs. When you are ready to finalize your results, make sure that you have run all of the relevant chunks of code and then click preview (do not knit!) above to create a html document of your own with code and results included.
 
 The grey box below is called a chunk.  Try executing this chunk by clicking the green arrow on the far left, the *Run* button within the chunk, or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*.
 
@@ -30,15 +29,9 @@ Once you've installed RStudio, you have to install your packages (but only do th
 
 If you use the class jupyterhub, you may not need to install any packages.
 ```{r}
-## Run this code if you haven't run it before, but only needs to be run once after you have installed R.
-
-install.packages('tidyverse', dependencies=TRUE, repos="https://cran.rstudio.com")
-install.packages("rmarkdown", dependencies = TRUE)
-install.packages("dplyr", dependencies = TRUE)
-install.packages("xml2")
-install.packages("ggplot2", dependencies = TRUE)
-install.packages("gapminder", dependencies = TRUE)
-install.packages("lifecycle", dependencies = TRUE)
+## Run this code if you haven't run it before, but only needs to be run once after you have installed R.Not needed in JupyterHub.
+if (!require("pacman")) install.packages("pacman") #pacman is the package that installs packages nicely
+pacman::p_load(rmarkdown, dplyr, gapminder, tidyverse, xml2, ggplot2, dplyr, lifecycle) #these are the packages you may need
 ```
 
 After installing your packages, you need to load the ones you will be using in your program every time.  
