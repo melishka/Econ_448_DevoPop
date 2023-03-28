@@ -6,6 +6,9 @@ output: html_notebook
 subtitle: "Demography Lab for Problem Set 1"
 ---
 
+## Setup
+Remember to install packages when necessary and always load them using the library command.
+
 ```{r message=FALSE, warning=FALSE}
 ## Packages you may need - need to load every session if you are in the cloud
 ## Trying something new that should play better with R
@@ -42,7 +45,7 @@ You can even use the notebook to display your results in regular text (look at t
 The crude mortality rate in Country A is `r CMR` deaths per 1000 people.
 
 
-#### Was Malthus right? Calculating mortality and fertility rates from real-world data
+## Was Malthus right? Calculating mortality and fertility rates from real-world data
 Malthus predicted that excessive population growth would correct itself, either through "positive checks" of increased misery and death or "preventive checks" of reduced marriage and fewer births. One crude way to test for evidence of "positive checks" is to look for a positive relationship between the birth rate and the death rate.
 
 In this exercise, we will use the HMDHFDplus package to access the Human Mortality Database. To complete this exercise, you will have to go to mortality.org to register for your own account to access the data. Once you do so, you can assign your login and password information to variables in R by using commands like myname<-"knoxm@uw.edu" and mypass<-"my secret password".
