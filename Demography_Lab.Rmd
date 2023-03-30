@@ -10,8 +10,7 @@ subtitle: "Demography Lab for Problem Set 1"
 Remember to install packages when necessary and always load them using the library command.
 
 ```{r message=FALSE, warning=FALSE}
-## Packages you may need - need to load every session if you are in the cloud
-## Trying something new that should play better with R
+## Packages you may need - should not need to load in RStudio Server. Only need to load once in your personal machine.
 if (!require("pacman")) install.packages("pacman") #pacman is the package that installs packages nicely
 pacman::p_load(HMDHFDplus, tidyverse, ggplot2, dplyr, lattice) #these are the packages you may need
 ```
