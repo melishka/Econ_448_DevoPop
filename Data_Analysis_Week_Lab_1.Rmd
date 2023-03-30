@@ -7,9 +7,9 @@ Preliminary set up.
 
 Install these packages.
 ```{r message=FALSE, warning=FALSE}
-## Packages you may need - need to load every session if you are in the cloud
+## Packages you may need, shouldn't need to load in cloud
 if (!require("pacman")) install.packages("pacman") #pacman is the package that installs packages nicely
-pacman::p_load(gapminder, fixest, tidyverse, ggplot2, dplyr, stargazer, modelsummary) #these are the packages you may need
+pacman::p_load(gapminder, fixest, tidyverse, ggplot2, dplyr, stargazer) #these are the packages you may need
 
 ```
 
@@ -23,7 +23,7 @@ library(fixest)
 library(ggplot2)
 library(tidyverse)
 library(stargazer)
-library(modelsummary)
+
 ```
 
 Now get data. We are using gapminder data and a pre-loaded dataset called "swiss." It contains province-level statistics on fertility and socio-economics in 1888 for the 47 French-speaking provinces in Switzerland. This is mid-demographic transition in this country.
