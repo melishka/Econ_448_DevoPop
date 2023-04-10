@@ -86,10 +86,10 @@ head(mortality_by_year)
 2. Get total births per year (lucky for us, they have these as yearly totals already).
 ```{r}
 births_by_year <- readHMDweb(CNTRY=country, item="Births", username=myname, password=mypass) 
-births_by_year <- dplyr::select(births_by_year, Year, Total)
-births_by_year <- dplyr::rename(births_by_year, Crude_Births=Total) 
+births_by_year_total <- dplyr::select(births_by_year, Year, Total)
+crude_births_by_year <- dplyr::rename(births_by_year_total, Crude_Births=Total) 
 
-head(births_by_year)
+head(crude_births_by_year)
 ```
 3. Finally, get population by year and age. We need to aggregate as with mortality (but again, don't do this when calculating age-specific mortality rates).
 
@@ -107,7 +107,7 @@ head(pop_by_year)
 ```{r}
 ## Now merge into one data frame
 malthus <- merge(pop_by_year, mortality_by_year, by='Year', all=FALSE) 
-malthus <- merge(malthus, births_by_year, by='Year')
+malthus <- merge(malthus, crude_births_by_year, by='Year')
 
 ## Finally, calculate rates by dividing by population totals
 malthus$CBR <- malthus$Crude_Births/malthus$Population_Total
