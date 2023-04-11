@@ -54,7 +54,7 @@ This is an exercise with several steps that you can use to complete the data que
 1. Use the HMD package to get total deaths by year and age group, then construct total deaths by year.  
 ```{r}
 ## First, set your country here to make it easier to change in the code below:
-country<-"USA"
+country<-"CHE"
 ## Read file from web
 ## This gives you total male, total
 ## female, and overall total deaths
