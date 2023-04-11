@@ -103,7 +103,7 @@ summary(DF_country)
 Plot the relationship below.  The plot represents the evolution of life expectancy as the economy grows for one country, incorporating the social, political, and health contexts of that particular country, as well as changing health technology.
 ```{r}
 ## Create a scatter plot of life expectancy and GDP per capita for the country of Japan.  
-ggplot(DF_country, aes(x=gdpPercap, y=lifeExp, color=continent))+geom_point()
+ggplot(DF_country, aes(x=gdpPercap, y=lifeExp, color=country))+geom_point()
 ```
 ****
 ## To Do
