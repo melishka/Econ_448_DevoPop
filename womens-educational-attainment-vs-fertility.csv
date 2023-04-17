@@ -1,4 +1,4 @@
-Entity,Code,Year,Fertility rate - Sex: all - Age: all - Variant: estimates,"Mean years of schooling, women (in reproductive age 15 to 49) (Our World In Data (2017))",Population (historical estimates),Continent
+Entity,Code,Year,Fertility,Education,Population,Continent
 Abkhazia,OWID_ABK,2015,,,,Asia
 Afghanistan,AFG,1950,7.2484,0.0629936,7480464,
 Afghanistan,AFG,1951,7.2596,,7571542,
