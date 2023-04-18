@@ -79,12 +79,22 @@ ggplot(data=DF_gap, mapping=aes(lifeExp,log(gdpPercap), color=continent, SHAPE=c
 
 ## Regression with Control Variables Using "swiss" Data
 
-Now let's look at data with a few more control variables.  The fertility/agriculture/catholic variables are from 0-100.
+Now let's look at data with a few more control variables. R's built-in "Swiss" data has standardized fertility and socio-economic indicators for 47 French-speaking provinces of Switzerland in 1888. This is around the start of that country's demographic transition. 
 ```{r}
 data(swiss)
 DF_swiss<-as.data.frame(swiss)
 stargazer(DF_swiss, type = "text")
 ```
+The fertility/agriculture/catholic variables are proportions. Specifically:
+
+* Fertility:‘common standardized fertility measure’
+* Agriculture:	% of males involved in agriculture as occupation
+* Examination:	% draftees receiving highest mark on army examination
+* Education:	% education beyond primary school for draftees.
+* Catholic:	% ‘catholic’ (as opposed to ‘protestant’).
+* Infant.Mortality:	live births who live less than 1 year.
+
+
 How should we look at this data on a graph?
 
 ```{r}
@@ -98,15 +108,6 @@ stargazer(model3, type="text")
 ```
 
 How do we interpret this relationship?  Does it change if we add control variables? How do you interpret the coefficients on the variables? Be sure to take statistical significance into account in your interpretation.
-Note the following variable definitions:
-
-* Fertility:‘common standardized fertility measure’
-* Agriculture:	% of males involved in agriculture as occupation
-* Examination:	% draftees receiving highest mark on army examination
-* Education:	% education beyond primary school for draftees.
-* Catholic:	% ‘catholic’ (as opposed to ‘protestant’).
-* Infant.Mortality:	live births who live less than 1 year.
-
 
 ```{r, warning=FALSE}
 model4 <- lm(Fertility ~ Infant.Mortality + Catholic + Agriculture + Education + Examination, data=DF_swiss)
