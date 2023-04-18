@@ -60,7 +60,7 @@ Now, let's see if we can explain some of the variation here with some dummy vari
 One thing we might want to control for is year, since we might imagine that the average number of children is declining in all countries by year.  Run the code below, is this what we find?
 ```{r, warning=FALSE}
 DF$Year <- factor(DF$Year)
-ols_2 <- lm(data=DF,Fertility~Education+Year)
+ols_2 <- lm(data=DF,Fertility~Education+Year) #We could also include factor(Year) in the regression and skip the first line of code above.
 stargazer(ols_2, type="text")
 ```
 Now let's run the same regression, but only for two years of data - 1950 and 2010. Then we can use the "predict" function to plot the regression line for each of the two years. Can you describe in words what this regression is plotting? 
@@ -88,3 +88,9 @@ We could also plot regression lines with different slopes and intercepts by year
 
 ggplot(data=DF_2, mapping=aes(x=Education, y=Fertility, color=Year, SHAPE=Year))+geom_point()+geom_smooth(method=lm, fill=NA)
 ```
+
+## To Do:
+1. Load the data set located at "https://github.com/melishka/Econ_448_DevoPop/blob/main/womens-educational-attainment-vs-fertility-oecd.csv" 
+This is similar to the data we just worked with, but is only for 1960 and has a new variable called "OECD." The OECD variable is a dummy variable indicating whether a country was a founding member of the OECD in 1961. This is meant to be a proxy for economic development.
+2. What sign do you expect this variable to take if you include it in a linear regression with fertility as the outcome (the y-variable)? Why?
+3. Run a linear regression of fertility on education that includes the OECD dummy variable as a control variable. Interpret the coefficient on the OECD dummy in words.
