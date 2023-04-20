@@ -101,9 +101,9 @@ Load data
 DF_OECD<-read.csv("https://raw.githubusercontent.com/melishka/Econ_448_DevoPop/main/womens-educational-attainment-vs-fertility-oecd.csv", header= TRUE, sep=",")
 stargazer(DF_OECD, type = "text")
 ```
-2. Regression
+2. Regression. Note that you don't have to set OECD as a factor variable to get the result, but this makes both graphs below nicer.
 ```{r}
-ols_4 <- lm(Fertility ~ Education + OECD, data=DF_OECD)
+ols_4 <- lm(Fertility ~ Education + factor(OECD), data=DF_OECD)
 summary(ols_4)
 ```
 
