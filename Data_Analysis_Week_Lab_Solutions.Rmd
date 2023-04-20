@@ -1,0 +1,129 @@
+---
+title: "Data Analysis Lab 1"
+date: "`r format(Sys.time(), '%m/%d/%Y')`"
+author: "Melissa Knox"
+output: html_notebook
+---
+
+## Introduction to Data Analysis
+In this lab, we will be practicing simple regression skills using linear regression with continuous and binary (aka "dummy") variables.
+
+First, let's load our libraries.
+
+```{r, warning=FALSE}
+library(ggplot2)
+library(tidyr)
+library(dplyr)
+library(stargazer)
+```
+
+Now, let's load our data. This data is from https://ourworldindata.org/fertility-rate#women-s-education-empirical-evidence. I cleaned it up a bit and put it in Github, but you are encouraged to explore the source.
+
+```{r, warning=FALSE}
+DF<-read.csv("https://raw.githubusercontent.com/melishka/Econ_448_DevoPop/main/womens-educational-attainment-vs-fertility.csv", header= TRUE, sep=",")
+head(DF)
+```
+
+First,let's drop all of those missing values (the NAs).
+```{r, warning=FALSE}
+# Dropping NA values
+DF <- drop_na(data=DF,Fertility)
+DF <- drop_na(data=DF,Education)
+head(DF)
+```
+
+It's always good practice to summarize and visualize your data before you work with and before you start describing your analysis results. Stargazer is my new favorite way to produce quick, easy to read tables.
+```{r, warning=FALSE}
+stargazer(DF, type="text")
+```
+
+Let's visualize the data:
+
+
+```{r, warning=FALSE}
+ggplot(data=DF, mapping=aes(x=Education, y=Fertility, color=Year))+geom_point()
+```
+
+Now we want to fit a line to the data:
+
+```{r, warning=FALSE}
+ols_1 <- lm(Fertility ~ Education, data=DF)
+stargazer(ols_1, type="text")
+```
+
+And see what this looks like graphically:
+```{r, warning=FALSE}
+ggplot(data=DF, mapping=aes(x=Education, y=Fertility))+geom_point()+geom_smooth(method=lm, formula=y~x, se=TRUE)+ggtitle("Total Fertility versus Mean Years of Education for Women by Country")
+```
+Now, let's see if we can explain some of the variation here with some dummy variables. What seems relevant?
+
+One thing we might want to control for is year, since we might imagine that the average number of children is declining in all countries by year.  Run the code below, is this what we find?
+```{r, warning=FALSE}
+DF$Year <- factor(DF$Year)
+ols_2 <- lm(data=DF,Fertility~Education+Year) #We could also include factor(Year) in the regression and skip the first line of code above.
+stargazer(ols_2, type="text")
+```
+Now let's run the same regression, but only for two years of data - 1950 and 2010. Then we can use the "predict" function to plot the regression line for each of the two years. Can you describe in words what this regression is plotting? 
+```{r, warning=FALSE}
+# Regression with same slope but different intercepts for each year (confine to two years)
+# Run in two parts so we can see the regression output first
+
+DF_2 <- filter(DF,Year %in% c(1950,2010))
+
+ols_3 <- lm(data=DF_2,Fertility~Education+Year)
+stargazer(ols_3, type="text")
+```
+
+```{r, warning=}
+DF_2 = cbind(DF_2, pred = predict(ols_3))
+
+ggplot(data=DF_2, mapping=aes(x=Education, y=Fertility, color=Year)) + geom_point() + 
+  geom_line(mapping=aes(y=pred))
+```
+We could also plot regression lines with different slopes and intercepts by year, but this would require a more advanced linear regression model. Luckily, ggplot can do it for us quite easily.
+
+```{r, warning=FALSE}
+# Regression lines with different slopes and different intercepts by year
+# (Would require interaction between Year and Education to model in regression)
+
+ggplot(data=DF_2, mapping=aes(x=Education, y=Fertility, color=Year, SHAPE=Year))+geom_point()+geom_smooth(method=lm, fill=NA)
+```
+
+## To Do:
+1. Load the data set located at "https://github.com/melishka/Econ_448_DevoPop/blob/main/womens-educational-attainment-vs-fertility-oecd.csv" 
+This is similar to the data we just worked with, but is only for 1960 and has a new variable called "OECD." The OECD variable is a dummy variable indicating whether a country was a founding member of the OECD in 1961. This is meant to be a proxy for economic development.
+2. What sign do you expect this variable to take if you include it in a linear regression with fertility as the outcome (the y-variable)? Why?
+3. Run a linear regression of fertility on education that includes the OECD dummy variable as a control variable. Interpret the coefficient on the OECD dummy in words.
+
+## Coding Answer
+Load data
+```{r, warning=FALSE}
+DF_OECD<-read.csv("https://raw.githubusercontent.com/melishka/Econ_448_DevoPop/main/womens-educational-attainment-vs-fertility-oecd.csv", header= TRUE, sep=",")
+stargazer(DF_OECD, type = "text")
+```
+2. Regression
+```{r}
+ols_4 <- lm(Fertility ~ Education + OECD, data=DF_OECD)
+summary(ols_4)
+```
+
+3. One way to do the plot (since we were having trouble in class)
+```{r}
+ggplot(DF_OECD, aes(x = Education, y = Fertility, color = OECD)) +
+  geom_point() +
+  geom_abline(intercept = coef(ols_4)[1], slope = coef(ols_4)[2], linetype = "dashed") +
+  geom_abline(intercept = coef(ols_4)[1] + coef(ols_4)[3], slope = coef(ols_4)[2])
+
+```
+
+
+
+4. The original way to do the plot seems to work now that I have re-typed it. Not sure what I was missing before, but I think it's necessary to identify OECD as a factor variable here.
+```{r, warning = FALSE}
+DF_OECD$OECD <- factor(DF_OECD$OECD)
+ols_5 <- lm(data=DF_OECD,Fertility~Education+OECD)
+DF_OECD = cbind(DF_OECD, pred = predict(ols_5))
+
+ggplot(data=DF_OECD, mapping=aes(x=Education, y=Fertility, color=OECD)) + geom_point() + 
+  geom_line(mapping=aes(y=pred))
+```
