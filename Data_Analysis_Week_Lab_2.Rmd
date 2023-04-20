@@ -95,22 +95,7 @@ The fertility/agriculture/catholic variables are proportions. Specifically:
 * Infant.Mortality:	live births who live less than 1 year.
 
 
-How should we look at this data on a graph?
-
-```{r}
-## Let's try to plot Fertility vs. Infant Mortality while looking at variation in different variables.
-ggplot(data=DF_swiss, aes(Infant.Mortality, Fertility, color=Agriculture)) + geom_point()
-```
-Now let's look at these relationships a little more carefully with linear regression.
-```{r, warning=FALSE}
-model3 <- lm(Fertility ~ Infant.Mortality, data=DF_swiss)
-stargazer(model3, type="text")
-```
-
-How do we interpret this relationship?  Does it change if we add control variables? How do you interpret the coefficients on the variables? Be sure to take statistical significance into account in your interpretation.
-
-```{r, warning=FALSE}
-model4 <- lm(Fertility ~ Infant.Mortality + Catholic + Agriculture + Education + Examination, data=DF_swiss)
-stargazer(model4, type = "text")
-```
-Does the relationship between these variables look like what we would expect based on what we have learned and seen so far?  Why do think the differences exist?
+## To Do
+1. Develop a hypothesis about which of the variables in the data you expect to be associated with fertility (i.e. develop an estimating equation with fertility as the outcome). What signs do you expect to see on the coefficients?
+2. Test your hypothesis on DF_swiss.
+3. Why might your estimated coefficients be biased? In other words, why might you not be able to infer a causal relationship from your estimates even when the coefficients are statistically significant and consistent with economic theory?
