@@ -24,7 +24,7 @@ Now replace I with $Y+L*w$, where Y is male income, $L*w$ is female wage income,
 2. Why would an estimate of the effect of contraceptive use on a woman's fertility potentially be biased?  How does Miller use a natural experiment to remove this bias?  In your answer, define the natural experiment and discuss how the natural experiment satisfies the "exclusion restriction" for the bias you described in the first part of this question. 
 
 ## Data Analysis Questions
-3. These questions refer to the data set "1% sample Botswana ever-married women age 15+" available via the Econ 448 class account from ipums.org (class code is W0NV72).  Please create an account, download the data and answer the following questions.
+3. These questions refer to the data set "1% sample Botswana ever-married women age 15+" available via the Econ 448 class account from ipums.org (class code is 9JIY6C).  Please create an account, download the data and answer the following questions.
 
 3.1 Create a formatted table of summary statistics (mean, std dev, max, min) for all variables that you use in your analysis (Hint: wait until you answer all of the other questions before finalizing this part so you know what variables you will use).
 
