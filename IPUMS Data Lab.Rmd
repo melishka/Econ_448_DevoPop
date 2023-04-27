@@ -7,7 +7,7 @@ author: Melissa Knox
 ## Overview and Setup
 For this exercise, we will practice opening, examining, and analyzing data from IPUMS, a web repository of population data.
 
-These exercises use the data set "1% sample Botswana ever-married women age 15+" available via the Econ 448 class account from https://international.ipums.org/international/ (class code is W0NV72).  Please download the data and answer the following questions.
+These exercises use the data set "1% sample Botswana ever-married women age 15+" available via the Econ 448 class account from https://international.ipums.org/international/ (class code is 9JIY6C).  Please download the data and answer the following questions.
 
 ```{r}
 #Remember, only need to run these commands once
