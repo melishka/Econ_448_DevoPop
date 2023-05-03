@@ -28,7 +28,7 @@ Now replace I with $Y+L*w$, where Y is male income, $L*w$ is female wage income,
 
 3.1 Create a formatted table of summary statistics (mean, std dev, max, min) for all variables that you use in your analysis (Hint: wait until you answer all of the other questions before finalizing this part so you know what variables you will use).
 
-3.2 Plot mean number of children against mean years of education. What relationship do you see between these data and what does that tell you about what output you would expect from a regression?
+3.2 Plot mean number of children against years of education. What relationship do you see between these data and what does that tell you about what output you would expect from a regression?
 
 3.3 Using the main data frame, use ordinary least squares to estimate the coefficient $\beta_1$ in the regression model $Y_i=\beta_0+\beta_1X_i+\epsilon_i$, where Y is children ever born and X is a woman's education.  Show your results. Does the sign match what you expect to see? Note: Typically, we might transform the data, perhaps by taking the log of children, or use a non-linear regression such as a Poisson regression here.  However, the zeros make this a little more complicated.   
 
