@@ -1,0 +1,133 @@
+---
+title: "Marriage Lab"
+date: "`r format(Sys.time(), '%m/%d/%Y')`"
+output: html_notebook
+author: Melissa Knox
+---
+## Overview and Setup
+In this lab, we will look at earnings and employment for married, single, and divorced women in Mexico.These exercises use the data set "0.1% sample Mexican women aged 18+ with state info" available via the Econ 448 class account from https://international.ipums.org/international/.  Please download the data and answer the following questions.
+
+```{r}
+#Remember, only need to run these commands once
+pacman::p_load(fixest,ivreg,doBy,htmltools,shiny,DT, coefplot, vtable)
+
+```
+
+Install these packages and (optional) change your working directory every time you start a fresh session. 
+
+```{r, warning=FALSE, message=FALSE}
+library(ggplot2)
+library(tidyr)
+library(ivreg)
+library(dplyr)
+library(fixest)
+library(doBy)
+library(stargazer)
+library(ipumsr)
+library(coefplot)
+library(readr)
+library(vtable)
+#setwd("C:/Users/knoxm/OneDrive - UW/Pandemic Teaching/Econ 448 Data Course")
+```
+
+Read in the data that you should have downloaded from IPUMS. The xml file is on GitHub, or you can download it yourself when you get the data.
+
+```{r}
+##This code will read in the ipums data using the data dictionary.  When you look at your data, the variables will have labels (as will the values).
+## You will also get a nice data dictionary in RStudio's viewer pane (bottom right)
+ddi <- read_ipums_ddi("ipumsi_00015.xml")  ##Use whatever title your file has when it downloads, but the name here should be correct for this exercise.
+ipumsr::ipums_view(ddi)
+df_ipums <- read_ipums_micro(ddi)  
+df_analysis <-as.data.frame(df_ipums)
+head(df_analysis)
+```
+
+
+## Data Cleaning
+These data have similar coding to the Botswana data, so we will do much of the same cleaning. However, unmarried women will have NA instead of a spouse's age or education. To avoid accidentally filtering these women out of the data, I have modfied the code somewhat below.
+
+```{r}
+#In addition to 99, I see that some of the education variables are coded as 90, 91, etc. I will filter those out as well. 
+df_analysis<-filter(df_analysis, YRSCHOOL<90)  #Several complicated codes over 90 here, so filtering these out
+df_analysis<-filter(df_analysis, is.na(YRSCHOOL_SP)|YRSCHOOL_SP<90)
+df_analysis<-filter(df_analysis, CHBORN<31) #Values over 30 are don't knows
+df_analysis<-filter(df_analysis, is.na(AGE_SP)|AGE_SP<101) #Get rid of 999 in age of spouse
+
+df_analysis<-filter(df_analysis, AGE<65) #Want to look at working-age women only
+df_analysis<-filter(df_analysis, MARST<4) #Get rid of widowed/don't know marital status - could keep widows in
+
+stargazer(df_analysis, type = "text")
+```
+
+These data have income earned in them, but they are top-coded so that values above 999,999,997 pesos are just entered as 999,999,997. Values above that number are essentially "don't know" so we will code them as 0.
+
+```{r}
+df_analysis$INCEARN<-ifelse(df_analysis$INCEARN>99999997,0,df_analysis$INCEARN)
+df_analysis$INCEARN_SP<-ifelse(df_analysis$INCEARN_SP>99999997,0,df_analysis$INCEARN_SP)
+```
+Next, we make some dummy variables. You are going to want to create new variable names for these and preserve your original variables so that you don't need to reload your data from scratch every time you noticed you made a mistake and need to start over.
+
+```{r}
+##Recode to a dummy variable that is 1 if the person is currently employed, and 0 otherwise. Currently EMPSTAT=2 means unemployed, =3 means inactive, and =9 means unknown/missing.
+df_analysis$EMPLOYED<-ifelse(df_analysis$EMPSTAT==1,1,0)
+
+df_analysis$RURAL<-ifelse(df_analysis$URBAN==1,1,0)
+
+#Single (never-married) women have MARST==1, married MARST==2, etc. 
+df_analysis$MARRIED<-ifelse(df_analysis$MARST==2,1,0) 
+
+df_analysis$EVER_MAR<-ifelse(df_analysis$MARST>=2,1,0)
+
+df_analysis$DIVORCED<-ifelse(df_analysis$MARST==3,1,0)
+
+```
+
+
+Now let's just look at a few variables of interest in a well-formatted table with summary statistics of our choosing.
+```{r, warning=FALSE}
+st(df_analysis, var=c("MARRIED","DIVORCED","AGE", "RURAL", "EMPLOYED", "INCEARN"), labels=c("Married", "Divorced", "Age", "Rural", "Employed", "Earned Income (Pesos)"), out='return')
+```
+
+Now we want to merge these data with data on Mexican states that have unilateral divorce. Load the file below from GitHub (or download to your own machine). Data are from "Does unilateral divorce impact women's labor supply? Evidence from Mexico" by Lauren Hoehn-Velasco and Jacob Penglase (https://doi.org/10.1016/j.jebo.2021.04.028). The data include a numerical key for each Mexican state and the year that state implemented unilateral divorce.
+
+
+```{r, warning=FALSE}
+Mexico_Divorce <- read.csv("https://raw.githubusercontent.com/melishka/Econ_448_DevoPop/main/Mexico_Divorce.csv")
+head(Mexico_Divorce)
+```
+Lucky for us, Mexico (like the U.S.) uses a set of universal codes for their states, so we can match this new data to the census data.
+```{r}
+df_2 <- merge(df_analysis, Mexico_Divorce, by='GEO1_MX', all=FALSE) 
+head(df_2)
+```
+
+Finally, we are going to use this information to create a dummy variable that is 1 when the woman lives in a state with unilateral (or no fault) divorce. Remember, this data was collected, so let's set the variable to be 1 when the variable 'Unilateral' is 2015 or before.
+```{r}
+df_2$NOFAULT<-ifelse(df_2$Unilateral<=2015,1,0)
+df_2_mar<-filter(df_2, EVER_MAR==1)
+summary(df_2_mar$NOFAULT)
+```
+
+Finally, we want to use this information to discover something about divorced women in our sample. 
+
+First, are women more likely to be divorced in states with unilateral divorce?
+```{r, warning=FALSE}
+model1<-lm(DIVORCED~NOFAULT+poly(AGE,2)+CHBORN+YRSCHOOL, data=df_2_mar)
+stargazer(model1, type='text')
+```
+Now, let's look at whether divorced women earn more than married women. 
+
+```{r, warning=FALSE}
+model2<-lm(log(INCEARN+1)~DIVORCED+poly(AGE,2)+YRSCHOOL+CHBORN, data=df_2_mar)
+stargazer(model2, type='text')
+```
+
+But now you might ask, what if divorced women are just different from married women in a way that is also correlated with their earnings (e.g. divorced women are less likely to have children)? Or what if having higher earnings *causes* some women to get divorcced?
+
+For these reasons, we may want to try to use an instrumental variables or two-stage least squares model to estimate the effect of divorce on earnings without bias. Here, we use living in a state with unilateral divorce as an instrument for being divorced. (Note: Does this instrument meet the validity requirements?)
+
+```{r}
+model3<-ivreg(log(INCEARN+1)~DIVORCED+ poly(AGE,2)+YRSCHOOL + CHBORN | NOFAULT+ poly(AGE,2)+YRSCHOOL+CHBORN, data = df_2_mar)
+summary(model3)
+```
+
