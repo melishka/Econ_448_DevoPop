@@ -7,15 +7,12 @@ author: Melissa Knox
 ## Overview and Setup
 For this exercise, we will estimate the relationship between mother's education and child health, using the fraction of the mother's children who have died as our measure of child health.
 
-These exercises use the data set "1% sample Ethiopia ever-married women age 15+" available via the Econ 448 class account from ipums.org (class code is W0NV72).  Please download the data and answer the following questions.
+These exercises use the data set "1% sample Ethiopia ever-married women age 15+" available via the Econ 448 class account from ipums.org.  Please download the data and answer the following questions.
 
-```{r}
-
-```
 
 Install these packages and (optional) change your working directory every time you start a fresh session.  
 
-```{r, warning=FALSE}
+```{r, warning=FALSE, message=FALSE}
 library(ggplot2)
 library(tidyr)
 library(ivreg)
@@ -24,14 +21,14 @@ library(fixest)
 library(doBy)
 library(stargazer)
 library(coefplot)
-setwd("~/OneDrive - UW/Pandemic Teaching/Econ 448 Data Course")
+library(ipumsr)
+library(vtable)
 ```
 
 Read in the data.  You will have to download it from IPUMS and save it in your R working directory or upload it to the JupyterHub.
 
 ```{r}
-library(ipumsr)
-ddi <- read_ipums_ddi("~/OneDrive - UW/Pandemic Teaching/Econ 448 Data Course/ipumsi_00007.xml")  
+ddi <- read_ipums_ddi("C:/Users/knoxm/OneDrive - UW/Pandemic Teaching/Econ 448 Data Course/ipumsi_00007.xml")  
 ipumsr::ipums_view(ddi)
 df_ipums <- read_ipums_micro(ddi)
 ```
@@ -47,6 +44,7 @@ df_analysis <- as.data.frame(df_ipums)
 df_analysis<-filter(df_analysis, YRSCHOOL<90)  
 df_analysis<-filter(df_analysis, YRSCHOOL_SP<90) 
 df_analysis<-filter(df_analysis, CHBORN<31) #Values over 30 are don't knows
+df_analysis<-filter(df_analysis, CHSURV<31) #Values over 30 are don't knows
 head(df_analysis)
 ```
 
@@ -58,10 +56,12 @@ df_analysis$LITERATE<-ifelse(df_analysis$LIT==2,1,0)
 df_analysis$EMPLOYED<-ifelse(df_analysis$EMPSTAT==1,1,0)
 
 #View the new variables and others of potential interest.
-stargazer(df_analysis[c("YRSCHOOL", "YRSCHOOL_SP", "CHBORN", "CHBORNM", "CHBORNF", "CHSURV", "URBAN", "LITERATE", "EMPLOYED")], type = "text")
+stargazer(df_analysis, type='text')
 
 
 ```
+
+
 
 Now we need to construct a measure of child mortality, using children born and children who survived.
 
@@ -71,11 +71,8 @@ df_analysis<-transform(df_analysis,CMR=((CHBORN-CHSURV)/CHBORN))
 
 stargazer(df_analysis[c("CHBORN","CMR")], type = "text")
 ```
-But maybe we only want to look at women who have ever had children:
-```{r}
-df_analysis<-filter(df_analysis, CHBORN>0)
-stargazer(df_analysis[c("CHBORN","CMR")], type = "text")
-```
+Note that we filtered out the women with zero children when we filtered out the "don't knows" from CHSURV.
+
 
 
 ## Analysis
@@ -121,8 +118,8 @@ iplot(f_ols2)
 Ok, now we might want to see what we get from the control variables, so let's plot them both together. I found a package (ggiplot) that works a bit better than iplot here. Can you interpret the difference in coefficients shown in the figure below?
 
 ```{r}
-#install.packages(ggiplot)
-#library(ggiplot)
+install.packages("ggiplot", repos = "https://grantmcdermott.r-universe.dev")
+library(ggiplot)
 ggiplot(list('No Controls' = f_ols1, 'Controls' = f_ols2),main = 'Child Mortality and Education', ref.line = -1, pt.join = TRUE)
 
 ```

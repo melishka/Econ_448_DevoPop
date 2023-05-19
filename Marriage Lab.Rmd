@@ -126,8 +126,8 @@ But now you might ask, what if divorced women are just different from married wo
 
 For these reasons, we may want to try to use an instrumental variables or two-stage least squares model to estimate the effect of divorce on earnings without bias. Here, we use living in a state with unilateral divorce as an instrument for being divorced. (Note: Does this instrument meet the validity requirements?)
 
-```{r}
+```{r, warning=FALSE}
 model3<-ivreg(log(INCEARN+1)~DIVORCED+ poly(AGE,2)+YRSCHOOL + CHBORN | NOFAULT+ poly(AGE,2)+YRSCHOOL+CHBORN, data = df_2_mar)
-summary(model3)
+stargazer(model3, type="text")
 ```
 

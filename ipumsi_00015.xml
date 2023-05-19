@@ -13,7 +13,7 @@
       </rspStmt>
       <prodStmt>
         <producer abbr="IPUMS" affiliation="University of Minnesota" role="Documentation">IPUMS</producer>
-        <prodDate date="2023-05-06">May 6, 2023</prodDate>
+        <prodDate date="2023-05-11">May 11, 2023</prodDate>
         <prodPlac>IPUMS, 50 Willey Hall, 225 - 19th Avenue South, Minneapolis, MN 55455</prodPlac>
       </prodStmt>
       <distStmt>
@@ -31,7 +31,7 @@
       </rspStmt>
       <prodStmt>
         <producer abbr="IPUMS" affiliation="University of Minnesota" role="Documentation">IPUMS</producer>
-        <prodDate date="2023-05-06">May 6, 2023</prodDate>
+        <prodDate date="2023-05-11">May 11, 2023</prodDate>
         <prodPlac>IPUMS, 50 Willey Hall, 225 - 19th Avenue South, Minneapolis, MN 55455</prodPlac>
       </prodStmt>
       <distStmt>
@@ -42,7 +42,7 @@
         <serInfo>DOI:10.18128/D020.V7.3</serInfo>
       </serStmt>
       <verStmt>
-        <version date="2023-05-06"/>
+        <version date="2023-05-11"/>
       </verStmt>
     </citation>
     <stdyInfo>
