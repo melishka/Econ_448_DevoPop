@@ -1,0 +1,41 @@
+---
+title: "Econ 448"
+subtitle: "Problem Set 4 - Due 06/04/2023 @11:59pm"
+author: Melissa Knox
+date: "`r format(Sys.time(), '%m/%d/%Y')`"
+output: html_notebook
+---
+## Concept Questions
+
+You can submit your answers to these in a separate document from the data questions below or you can use markdown to write equations using similar syntax to LaTex.  (c.f. https://rmd4sci.njtierney.com/math)
+
+1. In a bargaining model of household decision-making, the couple jointly maximizes the following utility function:
+$U=[U(C_m)- T_m]*[U(C_f)- T_f]$
+
+Subject to $Y= C_m+C_f$, where Y is total family income
+    
+Person f is the female partner and m is the male partner
+
+  1.1 In Nancy Qian’s paper, which variable in the preceding model changes as a direct                  consequence of an increase in tea prices in China?
+    
+  1.2 What other model variables will be affected following this change?
+    
+  1.3 What do Qian’s findings regarding girls’ survival suggest about the female partner’s    preferences in this model?
+    
+  1.4 How does Qian justify rejecting the unitary model of household decision-making in this      paper?
+
+## Data Analysis Questions
+
+These questions refer to the data set "1% sample Ethiopia ever-married women age 15+" available via the Econ 448 class account from ipums.org.  Please download the data and answer the following questions.
+
+1. Clean your data, as shown in the IPUMS and Child Mortality Labs. Create a formatted table of summary statistics (mean, std dev, max, min) for all variables that you use in your analysis (Hint: wait until you answer all of the other questions before finalizing this part). Write one paragraph describing your data using the numbers in this table. 
+
+2. Regress child mortality rate on women's education, include control variables for age, urban residence (create a dummy variable for residence in an urban area), and at least one other control variable of your choosing.  Tell me why you included that control variable and what you expect the sign to be for the the coefficients on that control variable.
+
+3. Display your regression results from 2 in a table. Label your variables in the table and give your table a title.  Were the signs on the coefficients as expected? 
+
+4. Why might the estimated relationship between child mortality and women's education you estimated above be biased? Even though this is the data science section, draw on at least one of the course readings to support your argument.
+
+5. Using her spouse's education as an instrumental variable for a woman's education, perform two stage least squares.  Display the results of your second stage in a table that meets the same criteria as the table you created in 3.
+
+6. Write one paragraph discussing how the results you found in your OLS and two stage least squares regressions (#2 and #5) relate to the theoretical model(s) learned in the course. Think of this as a practice run for your paper.
