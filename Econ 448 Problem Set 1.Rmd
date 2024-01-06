@@ -3,7 +3,7 @@ title: "Econ 448"
 author: "Melissa Knox"
 date: "`r format(Sys.time(), '%m/%d/%Y')`"
 output: html_notebook
-subtitle: "Problem Set 1 - Due 04/16/23 @11:59pm"
+subtitle: "Problem Set 1 - Due 01/21/24 @11:59pm"
 ---
 
 This is the first problem set for Econ 448.  In it, you will answer a mix of questions that require both conceptual and analysis work.  **I prefer that you submit your entire document as one html document generated from your Markdown Notebook.** However, you may answer the concept and calculation questions separately in the word processor of your choice (converted to pdf), but please submit your code and results for any of the data analysis questions as a pdf or html file. You do not need to submit any of the lab exercises below.  This is just to help you learn the code for the formulas.
