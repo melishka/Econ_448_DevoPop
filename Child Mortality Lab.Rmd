@@ -23,6 +23,7 @@ library(stargazer)
 library(coefplot)
 library(ipumsr)
 library(vtable)
+library(ggfixest)
 ```
 
 Read in the data.  You will have to download it from IPUMS and save it in your R working directory or upload it to the JupyterHub.
