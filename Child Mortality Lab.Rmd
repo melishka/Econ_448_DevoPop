@@ -28,7 +28,7 @@ library(vtable)
 Read in the data.  You will have to download it from IPUMS and save it in your R working directory or upload it to the JupyterHub.
 
 ```{r}
-ddi <- read_ipums_ddi("C:/Users/knoxm/OneDrive - UW/Pandemic Teaching/Econ 448 Data Course/ipumsi_00007.xml")  
+ddi <- read_ipums_ddi("ipumsi_00007.xml")  
 ipumsr::ipums_view(ddi)
 df_ipums <- read_ipums_micro(ddi)
 ```
@@ -118,8 +118,8 @@ iplot(f_ols2)
 Ok, now we might want to see what we get from the control variables, so let's plot them both together. I found a package (ggiplot) that works a bit better than iplot here. Can you interpret the difference in coefficients shown in the figure below?
 
 ```{r}
-install.packages("ggiplot", repos = "https://grantmcdermott.r-universe.dev")
-library(ggiplot)
+#install.packages("ggfixest")
+#library(ggfixest)
 ggiplot(list('No Controls' = f_ols1, 'Controls' = f_ols2),main = 'Child Mortality and Education', ref.line = -1, pt.join = TRUE)
 
 ```
