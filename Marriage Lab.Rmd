@@ -1,19 +1,13 @@
 ---
-title: "Marriage Lab"
+title: "Econ 448 Marriage Lab"
+author: Melissa Knox
 date: "`r format(Sys.time(), '%m/%d/%Y')`"
 output: html_notebook
-author: Melissa Knox
 ---
 ## Overview and Setup
 In this lab, we will look at earnings and employment for married, single, and divorced women in Mexico.These exercises use the data set "0.1% sample Mexican women aged 18+ with state info" available via the Econ 448 class account from https://international.ipums.org/international/.  Please download the data and answer the following questions.
 
-```{r}
-#Remember, only need to run these commands once
-pacman::p_load(fixest,ivreg,doBy,htmltools,shiny,DT, coefplot, vtable)
-
-```
-
-Install these packages and (optional) change your working directory every time you start a fresh session. 
+Please install any necessary packages, but only once. If you are working in the class RStudio server, you should not need to do this. 
 
 ```{r, warning=FALSE, message=FALSE}
 library(ggplot2)
@@ -27,7 +21,6 @@ library(ipumsr)
 library(coefplot)
 library(readr)
 library(vtable)
-#setwd("C:/Users/knoxm/OneDrive - UW/Pandemic Teaching/Econ 448 Data Course")
 ```
 
 Read in the data that you should have downloaded from IPUMS. The xml file is on GitHub, or you can download it yourself when you get the data.

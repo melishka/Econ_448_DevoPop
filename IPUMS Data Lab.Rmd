@@ -1,21 +1,15 @@
 ---
-title: "IPUMS Data Lab"
+title: "Econ 448 IPUMS Data Lab"
+author: Melissa Knox
 date: "`r format(Sys.time(), '%m/%d/%Y')`"
 output: html_notebook
-author: Melissa Knox
 ---
 ## Overview and Setup
 For this exercise, we will practice opening, examining, and analyzing data from IPUMS, a web repository of population data.
 
-These exercises use the data set "1% sample Botswana ever-married women age 15+" available via the Econ 448 class account from https://international.ipums.org/international/ (class code is 9JIY6C).  Please download the data and answer the following questions.
+These exercises use the data set "1% sample Botswana ever-married women age 15+" available via the Econ 448 class account from https://international.ipums.org/international/.  See Canvas announcements for the class code. Please download the data and answer the following questions.
 
-```{r}
-#Remember, only need to run these commands once
-pacman::p_load(fixest,ivreg,doBy,htmltools,shiny,DT, coefplot)
-
-```
-
-Install these packages and (optional) change your working directory every time you start a fresh session. 
+Please install any necessary packages, but only once. If you are working in the class RStudio server, you should not need to do this. 
 
 ```{r, warning=FALSE}
 library(ggplot2)
@@ -27,13 +21,11 @@ library(doBy)
 library(stargazer)
 library(ipumsr)
 library(coefplot)
-#setwd("C:/Users/knoxm/OneDrive - UW/Pandemic Teaching/Econ 448 Data Course")
 ```
 
-Read in the data.  You will have to download a zipped folder called something like "Download.DAT" from the "My Data" page in IPUMS. Save this entire zipped folder as is in your R working directory or in the directory you set above. See Canvas for instructions for loading this file into the JupyterHub.
+Read in the data.  You will have to download a zipped folder called something like "ipumsi_XX.dat.gz" from the "My Data" page in IPUMS. Save this entire zipped folder as is in your R working directory or upload it into the course materials folder in the class JupyterHub. YOU MUST HAVE TWO FILES WITH THE SAME NAME BUT DIFFERENT EXTENSIONS IN THE SAME DIRECTORY FOR THIS TO WORK.
 
 ```{r}
-## install.packages("ipumsr")
 
 ##This code will read in the ipums data using the data dictionary.  When you look at your data, the variables will have labels (as will the values).
 ## You will also get a nice data dictionary in RStudio's viewer pane (bottom right)

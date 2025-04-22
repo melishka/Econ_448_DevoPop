@@ -1,7 +1,9 @@
 ---
 title: "Econ 448 First Week Exercise"
 author: "Melissa Knox"
+date: "`r format(Sys.time(), '%m/%d/%Y')`"
 output: html_notebook
+subtitle: "Check Canvas for Due Date"
 ---
 ## Getting Started with R
 You will familiarize yourself with the R computing language, R Studio environment, and R Markdown language. If you are already familiar with these, then lucky you, you are ahead of me! If not, read on.
