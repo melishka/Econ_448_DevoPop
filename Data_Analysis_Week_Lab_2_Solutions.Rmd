@@ -1,0 +1,73 @@
+---
+title: "Data Analysis Lab 2 Solutions"
+date: "`r format(Sys.time(), '%m/%d/%Y')`"
+author: "Melissa Knox"
+output: html_notebook
+---
+## Data Analysis Second Lab Solutions
+
+
+```{r message=FALSE, warning=FALSE}
+library(gapminder)
+library(fixest)
+library(ggplot2)
+library(tidyverse)
+library(stargazer)
+library(modelsummary)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Regression with Control Variables Using "swiss" Data
+
+Now let's look at data with a few more control variables. R's built-in "Swiss" data has standardized fertility and socio-economic indicators for 47 French-speaking provinces of Switzerland in 1888. This is around the start of that country's demographic transition. 
+```{r}
+data(swiss)
+DF_swiss<-as.data.frame(swiss)
+stargazer(DF_swiss, type = "text")
+```
+The fertility/agriculture/catholic variables are proportions. Specifically:
+
+* Fertility:‘common standardized fertility measure’
+* Agriculture:	% of males involved in agriculture as occupation
+* Examination:	% draftees receiving highest mark on army examination
+* Education:	% education beyond primary school for draftees.
+* Catholic:	% ‘catholic’ (as opposed to ‘protestant’).
+* Infant.Mortality:	live births who live less than 1 year.
+
+
+## To Do
+1. Develop a hypothesis about which of the variables in the data you expect to be associated with fertility (i.e. develop an estimating equation with fertility as the outcome). What signs do you expect to see on the coefficients?
+
+Answer: Lots of potential answers here! Instead of typing them out, I will show you some figures.
+
+```{r}
+## Let's try to plot Fertility vs. Infant Mortality while looking at variation in different variables.
+ggplot(data=DF_swiss, aes(Infant.Mortality, Fertility, color=Agriculture)) + geom_point()
+```
+
+```{r}
+## Let's try to plot Fertility vs. Education while looking at variation in different the proportion Catholic.
+ggplot(data=DF_swiss, aes(Education, Fertility, color=Catholic)) + geom_point()
+```
+
+2. Test your hypothesis on DF_swiss.
+```{r}
+model1 <- lm(Fertility ~ Infant.Mortality + Catholic + Education, data=DF_swiss)
+#summary(model1)
+stargazer(model1, type = "text")
+```
+
+3. Why might your estimated coefficients be biased? In other words, why might you not be able to infer a causal relationship from your estimates even when the coefficients are statistically significant and consistent with economic theory?
+
+Answer: There could be reverse causality or omitted variable bias here. See lecture notes for some reasons why.

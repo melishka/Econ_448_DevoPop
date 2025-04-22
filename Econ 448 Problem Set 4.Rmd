@@ -1,9 +1,11 @@
 ---
 title: "Econ 448"
-subtitle: "Problem Set 4 - Due 06/04/2023 @11:59pm"
-author: Melissa Knox
+author: "Melissa Knox"
 date: "`r format(Sys.time(), '%m/%d/%Y')`"
-output: html_notebook
+output:
+  pdf_document: default
+  html_notebook: default
+subtitle: Problem Set 4
 ---
 ## Concept Questions
 
@@ -30,7 +32,7 @@ These questions refer to the data set "1% sample Ethiopia ever-married women age
 
 1. Clean your data, as shown in the IPUMS and Child Mortality Labs. Create a formatted table of summary statistics (mean, std dev, max, min) for all variables that you use in your analysis (Hint: wait until you answer all of the other questions before finalizing this part). Write one paragraph describing your data using the numbers in this table. 
 
-2. Regress child mortality rate on women's education, include control variables for age, urban residence (Note on 05/29/23: Do not use an urban dummy in this data), and at least one other control variable of your choosing.  Tell me why you included that control variable and what you expect the sign to be for the the coefficients on that control variable.
+2. Regress child mortality rate on women's education, include control variables for age, urban residence (create a dummy variable for residence in an urban area), and at least one other control variable of your choosing.  Tell me why you included that control variable and what you expect the sign to be for the the coefficients on that control variable.
 
 3. Display your regression results from 2 in a table. Label your variables in the table and give your table a title.  Were the signs on the coefficients as expected? 
 

@@ -1,19 +1,14 @@
 ---
-title: "Econ 448"
+title: "Econ 448 Problem Set 1"
 author: "Melissa Knox"
 date: "`r format(Sys.time(), '%m/%d/%Y')`"
 output: html_notebook
-subtitle: "Problem Set 1 - Due 01/21/24 @11:59pm"
+subtitle: "Check Canvas for Due Date"
 ---
 
-This is the first problem set for Econ 448.  In it, you will answer a mix of questions that require both conceptual and analysis work.  **I prefer that you submit your entire document as one html document generated from your Markdown Notebook.** However, you may answer the concept and calculation questions separately in the word processor of your choice (converted to pdf), but please submit your code and results for any of the data analysis questions as a pdf or html file. You do not need to submit any of the lab exercises below.  This is just to help you learn the code for the formulas.
-```{r message=FALSE, warning=FALSE}
-## Packages you may need - need to load every session if you are in the cloud
-## Trying something new that should play better with R
-if (!require("pacman")) install.packages("pacman") #pacman is the package that installs packages nicely
-pacman::p_load(HMDHFDplus, tidyverse, ggplot2, dplyr, lattice) #these are the packages you may need
+This is the first problem set for Econ 448.  In it, you will answer a mix of questions that require both conceptual and analysis work.  **I prefer that you submit your entire document as one html document generated from your Markdown Notebook.** However, you may answer the concept and calculation questions separately in the word processor of your choice (converted to pdf), but please submit your code and results for any of the data analysis questions as a pdf or html file. 
 
-```
+Please install any necessary packages, but only once. If you are working in the class RStudio server, you should not need to do this. 
 
 ```{r message=FALSE, warning=FALSE}
 ## Load every time, but only once per session 

@@ -1,8 +1,12 @@
 ---
 title: "Child Mortality Lab"
+author: "Melissa Knox"
 date: "`r format(Sys.time(), '%m/%d/%Y')`"
-output: html_notebook
-author: Melissa Knox
+output:
+  html_notebook: default
+  html_document:
+    df_print: paged
+  pdf_document: default
 ---
 ## Overview and Setup
 For this exercise, we will estimate the relationship between mother's education and child health, using the fraction of the mother's children who have died as our measure of child health.
@@ -11,7 +15,6 @@ These exercises use the data set "1% sample Ethiopia ever-married women age 15+"
 
 
 Install these packages and (optional) change your working directory every time you start a fresh session.  
-
 ```{r, warning=FALSE, message=FALSE}
 library(ggplot2)
 library(tidyr)
@@ -23,17 +26,16 @@ library(stargazer)
 library(coefplot)
 library(ipumsr)
 library(vtable)
-library(ggfixest)
 ```
 
-Read in the data.  You will have to download it from IPUMS and save it in your R working directory or upload it to the JupyterHub.
+Now read the data. You should have downloaded a file called "ipumsi_00007.dat.gz" from your IPUMS account.
+
 
 ```{r}
 ddi <- read_ipums_ddi("ipumsi_00007.xml")  
 ipumsr::ipums_view(ddi)
 df_ipums <- read_ipums_micro(ddi)
 ```
-
 
 ## Data Cleaning
 Much of the work we do to analyze data is actually processing (or cleaning) raw data to get it ready to be analyzed.  This often means creating new variables, re-scaling existing variables, and even changing the unit of observation in each row.
@@ -119,8 +121,8 @@ iplot(f_ols2)
 Ok, now we might want to see what we get from the control variables, so let's plot them both together. I found a package (ggiplot) that works a bit better than iplot here. Can you interpret the difference in coefficients shown in the figure below?
 
 ```{r}
-#install.packages("ggfixest")
-#library(ggfixest)
+install.packages("ggiplot", repos = "https://grantmcdermott.r-universe.dev")
+library(ggiplot)
 ggiplot(list('No Controls' = f_ols1, 'Controls' = f_ols2),main = 'Child Mortality and Education', ref.line = -1, pt.join = TRUE)
 
 ```
