@@ -1,11 +1,9 @@
 ---
-title: "Econ 448"
+title: "Econ 448 Problem Set 3"
 author: "Melissa Knox"
 date: "`r format(Sys.time(), '%m/%d/%Y')`"
-output:
-  pdf_document: default
-  html_notebook: default
-subtitle: Problem Set 3
+output: html_notebook
+subtitle: "Check Canvas for Due Date"
 ---
 ## Concept Questions
 
