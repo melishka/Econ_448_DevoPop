@@ -1,14 +1,13 @@
 ---
-title: "R Notebook"
+title: "Econ 448 Class Exercise IV Regression"
+author: "Melissa Knox"
+date: "`r format(Sys.time(), '%m/%d/%Y')`"
 output: html_notebook
 ---
 
-```{r}
-#install.packages("ivreg", dependencies = TRUE)
-#install.packages("fixest")
-#install.packages("stargazer")
-remotes::install_github('rstudio/gt')
-```
+## Overview and Setup
+Install these packages once (if working on your personal machine). You do not need to do this if you are working in the class server. 
+
 
 ```{r}
 library(ipumsr)

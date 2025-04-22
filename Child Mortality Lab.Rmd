@@ -1,20 +1,16 @@
 ---
-title: "Child Mortality Lab"
+title: "Econ 448 Child Mortality Lab"
 author: "Melissa Knox"
 date: "`r format(Sys.time(), '%m/%d/%Y')`"
-output:
-  html_notebook: default
-  html_document:
-    df_print: paged
-  pdf_document: default
+output: html_notebook
 ---
 ## Overview and Setup
 For this exercise, we will estimate the relationship between mother's education and child health, using the fraction of the mother's children who have died as our measure of child health.
 
 These exercises use the data set "1% sample Ethiopia ever-married women age 15+" available via the Econ 448 class account from ipums.org.  Please download the data and answer the following questions.
 
+Install these packages once (if working on your personal machine). You do not need to do this if you are working in the class server. 
 
-Install these packages and (optional) change your working directory every time you start a fresh session.  
 ```{r, warning=FALSE, message=FALSE}
 library(ggplot2)
 library(tidyr)
@@ -28,7 +24,7 @@ library(ipumsr)
 library(vtable)
 ```
 
-Now read the data. You should have downloaded a file called "ipumsi_00007.dat.gz" from your IPUMS account.
+Now read the data. You should have downloaded a file called "ipumsi_00007.dat.gz" from your IPUMS account. Make sure you have both files (xml and dat.gz) and that they are in the same directoy.
 
 
 ```{r}

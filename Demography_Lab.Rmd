@@ -1,13 +1,12 @@
 ---
-title: "Econ 448"
+title: "Econ 448 Demography Lab"
 author: "Melissa Knox"
 date: "`r format(Sys.time(), '%m/%d/%Y')`"
 output: html_notebook
-subtitle: "Demography Lab for Problem Set 1"
 ---
 
-## Setup
-Remember to install packages when necessary and always load them using the library command.
+## Overview and Setup
+Install these packages once (if working on your personal machine). You do not need to do this if you are working in the class server. 
 
 ```{r message=FALSE, warning=FALSE}
 ## Load every time, but only once per session 
@@ -42,7 +41,10 @@ The crude mortality rate in Country A is `r CMR` deaths per 1000 people.
 ## Was Malthus right? Calculating mortality and fertility rates from real-world data
 Malthus predicted that excessive population growth would correct itself, either through "positive checks" of increased misery and death or "preventive checks" of reduced marriage and fewer births. One crude way to test for evidence of "positive checks" is to look for a positive relationship between the birth rate and the death rate.
 
-In this exercise, we will use the HMDHFDplus package to access the Human Mortality Database. To complete this exercise, you will have to go to mortality.org to register for your own account to access the data. Once you do so, you can assign your login and password information to variables in R by using commands like myname<-"knoxm@uw.edu" and mypass<-"my secret password".
+In this exercise, we will use the HMDHFDplus package to access the Human Mortality Database. To complete this exercise, you will have to go to mortality.org to register for your own account to access the data. Once you do so, you can assign your login and password information to variables in R by using commands like 
+```{r}
+myname<-"knoxm@uw.edu" and mypass<-"my secret password"
+```
 
 This is an exercise with several steps that you can use to complete the data questions in your problem set.
 
