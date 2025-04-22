@@ -11,9 +11,9 @@
 
 <meta name="author" content="Melissa Knox" />
 
-<meta name="date" content="2023-04-10" />
+<meta name="date" content="2025-04-22" />
 
-<title>Econ 448</title>
+<title>Econ 448 Class Exercise IV Regression</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -1513,7 +1513,7 @@ window.initializeCodeFolding = function(show) {
     $(this).detach().appendTo(div);
 
     // add a show code button right above
-    var showCodeText = $('<span>' + (showThis ? 'Hide' : 'Code') + '</span>');
+    var showCodeText = $('<span>' + (showThis ? 'Hide' : 'Show') + '</span>');
     var showCodeButton = $('<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm code-folding-btn pull-right float-right"></button>');
     showCodeButton.append(showCodeText);
     showCodeButton
@@ -1539,7 +1539,7 @@ window.initializeCodeFolding = function(show) {
     //   * Change text
     //   * add a class for intermediate states styling
     div.on('hide.bs.collapse', function () {
-      showCodeText.text('Code');
+      showCodeText.text('Show');
       showCodeButton.addClass('btn-collapsing');
     });
     div.on('hidden.bs.collapse', function () {
@@ -1748,321 +1748,164 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">Econ 448</h1>
-<h3 class="subtitle">Demography Lab for Problem Set 1</h3>
+<h1 class="title toc-ignore">Econ 448 Class Exercise IV Regression</h1>
 <h4 class="author">Melissa Knox</h4>
-<h4 class="date">04/10/2023</h4>
+<h4 class="date">04/22/2025</h4>
 
 </div>
 
 
 <!-- rnb-text-begin -->
-<div id="setup" class="section level2">
-<h2>Setup</h2>
-<p>Remember to install packages when necessary and always load them
-using the library command.</p>
+<div id="overview-and-setup" class="section level2">
+<h2>Overview and Setup</h2>
+<p>Install these packages once (if working on your personal machine).
+You do not need to do this if you are working in the class server.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuIyMgUGFja2FnZXMgeW91IG1heSBuZWVkIC0gc2hvdWxkIG5vdCBuZWVkIHRvIGxvYWQgaW4gUlN0dWRpbyBTZXJ2ZXIuIE9ubHkgbmVlZCB0byBsb2FkIG9uY2UgaW4geW91ciBwZXJzb25hbCBtYWNoaW5lLlxuaWYgKCFyZXF1aXJlKFxccGFjbWFuXFwpKSBpbnN0YWxsLnBhY2thZ2VzKFxccGFjbWFuXFwpICNwYWNtYW4gaXMgdGhlIHBhY2thZ2UgdGhhdCBpbnN0YWxscyBwYWNrYWdlcyBuaWNlbHlcbnBhY21hbjo6cF9sb2FkKEhNREhGRHBsdXMsIHRpZHl2ZXJzZSwgZ2dwbG90MiwgZHBseXIsIGxhdHRpY2UpICN0aGVzZSBhcmUgdGhlIHBhY2thZ2VzIHlvdSBtYXkgbmVlZFxuYGBgXG5gYGAifQ== -->
-<pre class="r"><code>```r
-## Packages you may need - should not need to load in RStudio Server. Only need to load once in your personal machine.
-if (!require(\pacman\)) install.packages(\pacman\) #pacman is the package that installs packages nicely
-pacman::p_load(HMDHFDplus, tidyverse, ggplot2, dplyr, lattice) #these are the packages you may need</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuIyMgTG9hZCBldmVyeSB0aW1lLCBidXQgb25seSBvbmNlIHBlciBzZXNzaW9uIFxubGlicmFyeShcXGdncGxvdDJcXClcbmxpYnJhcnkoXFxkcGx5clxcKVxubGlicmFyeShcXEhNREhGRHBsdXNcXClcbmBgYFxuYGBgIn0= --&gt;
-
-```r
-```r
-## Load every time, but only once per session 
-library(\ggplot2\)
-library(\dplyr\)
-library(\HMDHFDplus\)</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-## Using R to Calculate Mortality and Fertility Rates from Tables
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuIyNMb2FkaW5nIHBvcHVsYXRpb24gZGF0YSBpbnRvIGEgbWF0cml4IGZvciBsYXRlciBjYWxjdWxhdGlvbnNcbkFTTVJfQTwtbWF0cml4KGMoMjIsNjAsIDE4LDgsMyw0MyksIG5yb3c9MywgbmNvbD0yLCBkaW1uYW1lcz1saXN0KGMoXFw8MTVcXCxcXDE1LTY0XFwsXFw+NjRcXCksIGMoXFxQb3BfUGVyY2VudFxcLFxcRGVhdGhzX3Blcl8xMDAwXFwpKSlcbkFTTVJfQTwtYXMuZGF0YS5mcmFtZShBU01SX0EpXG5BU01SX0FcblxuYGBgXG5gYGAifQ== --&gt;
-
-```r
-```r
-##Loading population data into a matrix for later calculations
-ASMR_A&lt;-matrix(c(22,60, 18,8,3,43), nrow=3, ncol=2, dimnames=list(c(\&lt;15\,\15-64\,\&gt;64\), c(\Pop_Percent\,\Deaths_per_1000\)))
-ASMR_A&lt;-as.data.frame(ASMR_A)
-ASMR_A
-</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-Multiplying two vectors together (dot product) can be used to calculate a weighted average, for example: $Y=w_{1}*x_{1}+w_{2}*x_{2}+w_{3}*x_{3}+w_{4}*x_{4}$
-
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuIyMgVGhlIGNvZGUgYmVsb3cgcHJvZHVjZXMgdGhlIGRvdCBwcm9kdWN0IG9mIHRoZSB0d28gY29sdW1uc1xuIyMgaS5lLiBpdCBtdWx0aXBsaWVzIGVsZW1lbnQgMSBvZiB0aGUgZmlyc3QgY29sdW1uIGJ5IGVsZW1lbnQgMSBvZiB0aGUgc2Vjb25kLCBldGMsIGFuZCBhZGRzIGFsbCBvZiB0aGUgcmVzdWx0c1xuQ01SPC1BU01SX0EkUG9wX1BlcmNlbnQlKiVBU01SX0EkRGVhdGhzX3Blcl8xMDAwLzEwMFxuQ01SXG5cbmBgYFxuYGBgIn0= --&gt;
-
-```r
-```r
-## The code below produces the dot product of the two columns
-## i.e. it multiplies element 1 of the first column by element 1 of the second, etc, and adds all of the results
-CMR&lt;-ASMR_A$Pop_Percent%*%ASMR_A$Deaths_per_1000/100
-CMR
-</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-You can even use the notebook to display your results in regular text (look at the html to see this in action). This could be useful for your final paper.
-
-The crude mortality rate in Country A is 11.3 deaths per 1000 people.
-
-
-## Was Malthus right? Calculating mortality and fertility rates from real-world data
-Malthus predicted that excessive population growth would correct itself, either through &quot;positive checks&quot; of increased misery and death or &quot;preventive checks&quot; of reduced marriage and fewer births. One crude way to test for evidence of &quot;positive checks&quot; is to look for a positive relationship between the birth rate and the death rate.
-
-In this exercise, we will use the HMDHFDplus package to access the Human Mortality Database. To complete this exercise, you will have to go to mortality.org to register for your own account to access the data. Once you do so, you can assign your login and password information to variables in R by using commands like myname&lt;-&quot;knoxm@uw.edu&quot; and mypass&lt;-&quot;my secret password&quot;.
-
-This is an exercise with several steps that you can use to complete the data questions in your problem set.
-
-1. Use the HMD package to get total deaths by year and age group, then construct total deaths by year.  
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuIyMgRmlyc3QsIHNldCB5b3VyIGNvdW50cnkgaGVyZSB0byBtYWtlIGl0IGVhc2llciB0byBjaGFuZ2UgaW4gdGhlIGNvZGUgYmVsb3c6XG5jb3VudHJ5PC1cXFVTQVxcXG4jIyBSZWFkIGZpbGUgZnJvbSB3ZWJcbiMjIFRoaXMgZ2l2ZXMgeW91IHRvdGFsIG1hbGUsIHRvdGFsXG4jIyBmZW1hbGUsIGFuZCBvdmVyYWxsIHRvdGFsIGRlYXRoc1xuIyMgYnkgeWVhclxuXG5tb3J0YWxpdHlfYnlfeWVhcl9hZ2UgPC0gcmVhZEhNRHdlYihDTlRSWT1jb3VudHJ5LCBpdGVtPVxcRGVhdGhzXzF4MVxcLCB1c2VybmFtZT1teW5hbWUsIHBhc3N3b3JkPW15cGFzcykgXG5cbmhlYWQobW9ydGFsaXR5X2J5X3llYXJfYWdlKVxuXG5gYGBcbmBgYCJ9 --&gt;
-
-```r
-```r
-## First, set your country here to make it easier to change in the code below:
-country&lt;-\USA\
-## Read file from web
-## This gives you total male, total
-## female, and overall total deaths
-## by year
-
-mortality_by_year_age &lt;- readHMDweb(CNTRY=country, item=\Deaths_1x1\, username=myname, password=mypass) 
-
-head(mortality_by_year_age)
-</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-This data is by age and year.  This will be useful for calculating age-specific mortality in your problem set, but for now let&#39;s aggregate to get the total number of deaths.
-
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuIyMgbW9ydGFsaXR5X2J5X3llYXJfYWdlIGNvbnRhaW5zIHRvdGFsIG1vcnRhbGl0eSBieSBcbiMjIGFnZSBncm91cCBmb3IgZWFjaCB5ZWFyIChzdGFydGluZyBpbiAxOTMzKVxuIyMgKG5vdGU6IFRvdGFsIGlzIGNvbHVtbiA1LCBhcyBpbmRpY2F0ZWQgaW4gdGhlIGNvZGUpXG4jIyBUbyBnZXQgdG90YWwgbW9ydGFsaXR5IGluIGFsbCBhZ2UgZ3JvdXBzIGluIGVhY2hcbiMjIHllYXIsIHN1bSBcXFRvdGFsXFwgY29sdW1uIG92ZXIgYWxsIGFnZXMgZm9yIGVhY2hcbiMjIHllYXIgc2VwYXJhdGVseSwgdXNpbmcgZ3JvdXBfYnkgYW5kIHN1bW1hcmlzZSBpbiBkcGx5clxubW9ydGFsaXR5X2J5X3llYXI8LW1vcnRhbGl0eV9ieV95ZWFyX2FnZSAlPiVcbiAgZ3JvdXBfYnkoWWVhcikgJT4lXG4gIHN1bW1hcmlzZShDcnVkZV9EZWF0aHMgPXN1bShUb3RhbCkpXG5cbiMjIFRoZSBjb2RlIGFib3ZlIG1hZGUgYSBuZXcgZGF0YSBmcmFtZSB3aXRoIGp1c3RcbiMjIFllYXIgYW5kIFRvdGFsLCBidXQgcmVuYW1lZCBhcyBDcnVkZV9EZWF0aHNcbmhlYWQobW9ydGFsaXR5X2J5X3llYXIpXG5gYGBcbmBgYCJ9 --&gt;
-
-```r
-```r
-## mortality_by_year_age contains total mortality by 
-## age group for each year (starting in 1933)
-## (note: Total is column 5, as indicated in the code)
-## To get total mortality in all age groups in each
-## year, sum \Total\ column over all ages for each
-## year separately, using group_by and summarise in dplyr
-mortality_by_year&lt;-mortality_by_year_age %&gt;%
-  group_by(Year) %&gt;%
-  summarise(Crude_Deaths =sum(Total))
-
-## The code above made a new data frame with just
-## Year and Total, but renamed as Crude_Deaths
-head(mortality_by_year)</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-2. Get total births per year (lucky for us, they have these as yearly totals already).
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuYmlydGhzX2J5X3llYXIgPC0gcmVhZEhNRHdlYihDTlRSWT1jb3VudHJ5LCBpdGVtPVxcQmlydGhzXFwsIHVzZXJuYW1lPW15bmFtZSwgcGFzc3dvcmQ9bXlwYXNzKSBcbmJpcnRoc19ieV95ZWFyX3RvdGFsIDwtIGRwbHlyOjpzZWxlY3QoYmlydGhzX2J5X3llYXIsIFllYXIsIFRvdGFsKVxuY3J1ZGVfYmlydGhzX2J5X3llYXIgPC0gZHBseXI6OnJlbmFtZShiaXJ0aHNfYnlfeWVhcl90b3RhbCwgQ3J1ZGVfQmlydGhzPVRvdGFsKSBcblxuaGVhZChjcnVkZV9iaXJ0aHNfYnlfeWVhcilcbmBgYFxuYGBgIn0= --&gt;
-
-```r
-```r
-births_by_year &lt;- readHMDweb(CNTRY=country, item=\Births\, username=myname, password=mypass) 
-births_by_year_total &lt;- dplyr::select(births_by_year, Year, Total)
-crude_births_by_year &lt;- dplyr::rename(births_by_year_total, Crude_Births=Total) 
-
-head(crude_births_by_year)</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-3. Finally, get population by year and age. We need to aggregate as with mortality (but again, don&#39;t do this when calculating age-specific mortality rates).
-
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxucG9wdWxhdGlvbl9ieV95ZWFyX2FnZSA8LSByZWFkSE1Ed2ViKENOVFJZPWNvdW50cnksIGl0ZW09XFxQb3B1bGF0aW9uXFwsIHVzZXJuYW1lPW15bmFtZSwgcGFzc3dvcmQ9bXlwYXNzKSBcblxuIyMgQWdncmVnYXRlIGFuZCByZW5hbWUgYXMgYWJvdmVcbnBvcF9ieV95ZWFyPC1wb3B1bGF0aW9uX2J5X3llYXJfYWdlICU+JVxuICBncm91cF9ieShZZWFyKSAlPiVcbiAgc3VtbWFyaXNlKFBvcHVsYXRpb25fVG90YWwgPXN1bShUb3RhbDEpKVxuXG5oZWFkKHBvcF9ieV95ZWFyKVxuYGBgXG5gYGAifQ== --&gt;
-
-```r
-```r
-population_by_year_age &lt;- readHMDweb(CNTRY=country, item=\Population\, username=myname, password=mypass) 
-
-## Aggregate and rename as above
-pop_by_year&lt;-population_by_year_age %&gt;%
-  group_by(Year) %&gt;%
-  summarise(Population_Total =sum(Total1))
-
-head(pop_by_year)</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuIyMgTm93IG1lcmdlIGludG8gb25lIGRhdGEgZnJhbWVcbm1hbHRodXMgPC0gbWVyZ2UocG9wX2J5X3llYXIsIG1vcnRhbGl0eV9ieV95ZWFyLCBieT0nWWVhcicsIGFsbD1GQUxTRSkgXG5tYWx0aHVzIDwtIG1lcmdlKG1hbHRodXMsIGNydWRlX2JpcnRoc19ieV95ZWFyLCBieT0nWWVhcicpXG5cbiMjIEZpbmFsbHksIGNhbGN1bGF0ZSByYXRlcyBieSBkaXZpZGluZyBieSBwb3B1bGF0aW9uIHRvdGFsc1xubWFsdGh1cyRDQlIgPC0gbWFsdGh1cyRDcnVkZV9CaXJ0aHMvbWFsdGh1cyRQb3B1bGF0aW9uX1RvdGFsXG5tYWx0aHVzJENNUiA8LSBtYWx0aHVzJENydWRlX0RlYXRocy9tYWx0aHVzJFBvcHVsYXRpb25fVG90YWxcbmhlYWQobWFsdGh1cylcblxuYGBgXG5gYGAifQ== --&gt;
-
-```r
-```r
-## Now merge into one data frame
-malthus &lt;- merge(pop_by_year, mortality_by_year, by=&#39;Year&#39;, all=FALSE) 
-malthus &lt;- merge(malthus, crude_births_by_year, by=&#39;Year&#39;)
-
-## Finally, calculate rates by dividing by population totals
-malthus$CBR &lt;- malthus$Crude_Births/malthus$Population_Total
-malthus$CMR &lt;- malthus$Crude_Deaths/malthus$Population_Total
-head(malthus)
-</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-Now plot to see the relationship between CBR and CMR in the U.S.
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxubWFsdGh1cyAlPiVcbiAgZ2dwbG90KGFlcyh4PUNNUiwgeT1DQlIpKStnZW9tX3BvaW50KCkrZ2d0aXRsZShcXE1hbHRodXMgUGxvdCBmb3IgVVNBXFwpXG5gYGBcbmBgYCJ9 --&gt;
-
-```r
-```r
-malthus %&gt;%
-  ggplot(aes(x=CMR, y=CBR))+geom_point()+ggtitle(\Malthus Plot for USA\)</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-Or use this code to plot a smoothed line on the data (vary the final number to change the degree of fitted polynomial).
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxubWFsdGh1cyAlPiVcbiAgZ2dwbG90KGFlcyh4PUNNUiwgeT1DQlIpKStnZW9tX3BvaW50KCkrZ2VvbV9zbW9vdGgobWV0aG9kPWxtLCBmb3JtdWxhPSB5fnBvbHkoeCwzKSkrZ2d0aXRsZShcXE1hbHRodXMgUGxvdCBmb3IgVVNBIHdpdGggRml0dGVkIFBvbHlub21pYWxcXClcbmBgYFxuYGBgIn0= --&gt;
-
-```r
-```r
-malthus %&gt;%
-  ggplot(aes(x=CMR, y=CBR))+geom_point()+geom_smooth(method=lm, formula= y~poly(x,3))+ggtitle(\Malthus Plot for USA with Fitted Polynomial\)</code></pre>
-<p>```</p>
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHViR2xpY21GeWVTaHBjSFZ0YzNJcFhHNXNhV0p5WVhKNUtHZG5jR3h2ZERJcFhHNXNhV0p5WVhKNUtIUnBaSGx5S1Z4dWJHbGljbUZ5ZVNocGRuSmxaeWxjYm14cFluSmhjbmtvWkhCc2VYSXBYRzVzYVdKeVlYSjVLR1pwZUdWemRDbGNibXhwWW5KaGNua29iVzlrWld4emRXMXRZWEo1S1Z4dWJHbGljbUZ5ZVNoemRHRnlaMkY2WlhJcFhHNXNhV0p5WVhKNUtHZDBLVnh1WUdCZ0luMD0gLS0+XG5cbmBgYHJcbmxpYnJhcnkoaXB1bXNyKVxubGlicmFyeShnZ3Bsb3QyKVxubGlicmFyeSh0aWR5cilcbmxpYnJhcnkoaXZyZWcpXG5saWJyYXJ5KGRwbHlyKVxubGlicmFyeShmaXhlc3QpXG5saWJyYXJ5KG1vZGVsc3VtbWFyeSlcbmxpYnJhcnkoc3RhcmdhemVyKVxubGlicmFyeShndClcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShpcHVtc3IpXG5saWJyYXJ5KGdncGxvdDIpXG5saWJyYXJ5KHRpZHlyKVxubGlicmFyeShpdnJlZylcbmxpYnJhcnkoZHBseXIpXG5saWJyYXJ5KGZpeGVzdClcbmxpYnJhcnkobW9kZWxzdW1tYXJ5KVxubGlicmFyeShzdGFyZ2F6ZXIpXG5saWJyYXJ5KGd0KVxuYGBgIn0= -->
+<pre class="r"><code>library(ipumsr)
+library(ggplot2)
+library(tidyr)
+library(ivreg)
+library(dplyr)
+library(fixest)
+library(modelsummary)
+library(stargazer)
+library(gt)</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>So, what do you think about Malthus’s conjecture? Can you repeat with
-another country with more years of data, like Sweden? Country codes are
-here: <a href="https://www.mortality.org/Data/DataAvailability" class="uri">https://www.mortality.org/Data/DataAvailability</a> and
-Sweden’s is CHE. Note: Malthus actually wrote about Sweden and their
-propensity for vice and reliance on positive population checks.</p>
+<p>Load “Returns to Schooling” data from ivreg package:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVaR0YwWVNoY0lsTmphRzl2YkdsdVoxSmxkSFZ5Ym5OY0lpd2djR0ZqYTJGblpUMWNJbWwyY21WblhDSXBYRzV6ZEdGeVoyRjZaWElvVTJOb2IyOXNhVzVuVW1WMGRYSnVjeXdnZEhsd1pTQTlJRndpZEdWNGRGd2lLU0FnSXlOWmIzVWdZMkZ1SUdGc2MyOGdjMlYwSUdCMGVYQmxKeUIwYnlCc1lYUmxlQ0FvWkdWbVlYVnNkQ2tnYjNJZ2FIUnRiQzVjYmx4dVlHQmdJbjA9IC0tPlxuXG5gYGByXG5kYXRhKFwiU2Nob29saW5nUmV0dXJuc1wiLCBwYWNrYWdlPVwiaXZyZWdcIilcbnN0YXJnYXplcihTY2hvb2xpbmdSZXR1cm5zLCB0eXBlID0gXCJ0ZXh0XCIpICAjI1lvdSBjYW4gYWxzbyBzZXQgYHR5cGUnIHRvIGxhdGV4IChkZWZhdWx0KSBvciBodG1sLlxuXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGF0YShcIlNjaG9vbGluZ1JldHVybnNcIiwgcGFja2FnZT1cIml2cmVnXCIpXG5zdGFyZ2F6ZXIoU2Nob29saW5nUmV0dXJucywgdHlwZSA9IFwidGV4dFwiKSAgIyNZb3UgY2FuIGFsc28gc2V0IGB0eXBlJyB0byBsYXRleCAoZGVmYXVsdCkgb3IgaHRtbC5cblxuYGBgIn0= -->
+<pre class="r"><code>data(&quot;SchoolingReturns&quot;, package=&quot;ivreg&quot;)
+stargazer(SchoolingReturns, type = &quot;text&quot;)  ##You can also set `type&#39; to latex (default) or html.
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Perform OLS regression of logged wage on education and other
+characteristics:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHViVjl2YkhNZ1BDMGdiRzBvYkc5bktIZGhaMlVwSUg0Z1pXUjFZMkYwYVc5dUlDc2daWGh3WlhKcFpXNWpaU0FySUdWMGFHNXBZMmwwZVNBcklITnRjMkVnS3lCemIzVjBhQ3dnWkdGMFlTQTlJRk5qYUc5dmJHbHVaMUpsZEhWeWJuTXBYRzV0YzNWdGJXRnllU2hzYVhOMEtDZFNaWE4xYkhSekp6MXRYMjlzY3lrcFhHNWNibUJnWUNKOSAtLT5cblxuYGBgclxubV9vbHMgPC0gbG0obG9nKHdhZ2UpIH4gZWR1Y2F0aW9uICsgZXhwZXJpZW5jZSArIGV0aG5pY2l0eSArIHNtc2EgKyBzb3V0aCwgZGF0YSA9IFNjaG9vbGluZ1JldHVybnMpXG5tc3VtbWFyeShsaXN0KCdSZXN1bHRzJz1tX29scykpXG5cbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubV9vbHMgPC0gbG0obG9nKHdhZ2UpIH4gZWR1Y2F0aW9uICsgZXhwZXJpZW5jZSArIGV0aG5pY2l0eSArIHNtc2EgKyBzb3V0aCwgZGF0YSA9IFNjaG9vbGluZ1JldHVybnMpXG5tc3VtbWFyeShsaXN0KCdSZXN1bHRzJz1tX29scykpXG5cbmBgYCJ9 -->
+<pre class="r"><code>m_ols &lt;- lm(log(wage) ~ education + experience + ethnicity + smsa + south, data = SchoolingReturns)
+msummary(list(&#39;Results&#39;=m_ols))
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Small aside, you can use feols from fixest package to deal with
+“categorical variables”:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVabDl2YkhNOExXWmxiMnh6S0d4dlp5aDNZV2RsS1NCK0lHVmtkV05oZEdsdmJpQXJJR1Y0Y0dWeWFXVnVZMlVnS3lCbGRHaHVhV05wZEhrZ0t5QnpiWE5oSUNzZ2MyOTFkR2dyYVNod1lYSmxiblJ6TVRRcExDQmtZWFJoSUQwZ1UyTm9iMjlzYVc1blVtVjBkWEp1Y3lsY2JtMXpkVzF0WVhKNUtHeHBjM1FvSjB4cGJtVmhjaWM5YlY5dmJITXNKMFpwZUdWa0lFVm1abVZqZEhNblBXWmZiMnh6S1NsY2JtQmdZQ0o5IC0tPlxuXG5gYGByXG5mX29sczwtZmVvbHMobG9nKHdhZ2UpIH4gZWR1Y2F0aW9uICsgZXhwZXJpZW5jZSArIGV0aG5pY2l0eSArIHNtc2EgKyBzb3V0aCtpKHBhcmVudHMxNCksIGRhdGEgPSBTY2hvb2xpbmdSZXR1cm5zKVxubXN1bW1hcnkobGlzdCgnTGluZWFyJz1tX29scywnRml4ZWQgRWZmZWN0cyc9Zl9vbHMpKVxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZl9vbHM8LWZlb2xzKGxvZyh3YWdlKSB+IGVkdWNhdGlvbiArIGV4cGVyaWVuY2UgKyBldGhuaWNpdHkgKyBzbXNhICsgc291dGgraShwYXJlbnRzMTQpLCBkYXRhID0gU2Nob29saW5nUmV0dXJucylcbm1zdW1tYXJ5KGxpc3QoJ0xpbmVhcic9bV9vbHMsJ0ZpeGVkIEVmZmVjdHMnPWZfb2xzKSlcbmBgYCJ9 -->
+<pre class="r"><code>f_ols&lt;-feols(log(wage) ~ education + experience + ethnicity + smsa + south+i(parents14), data = SchoolingReturns)
+msummary(list(&#39;Linear&#39;=m_ols,&#39;Fixed Effects&#39;=f_ols))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHViVzlrWld4eklEd3RJR3hwYzNRb1RHbHVaV0Z5SUQwZ2JWOXZiSE1zSUVaRlBTQm1YMjlzY3lsY2JtTnRJRHd0SUdNb0oyVmtkV05oZEdsdmJpY2dQU0FuV1dWaGNuTWdiMllnVTJOb2IyOXNhVzVuSnl4Y2JpQWdJQ0FnSUNBZ0oyVjRjR1Z5YVdWdVkyVW5JRDBnSjBWNGNHVnlhV1Z1WTJVbkxDQmNiaUFnSUNBZ0lDQWdKMlYwYUc1cFkybDBlV0ZtWVcwbklEMGdKMEZtY21sallXNGdRVzFsY21sallXNG5MRnh1SUNBZ0lDQWdJQ0FuYzIxellYbGxjeWNnUFNBblRHbDJaWE1nYVc0Z1EybDBlU2NzWEc0Z0lDQWdJQ0FnSUNkemIzVjBhSGxsY3ljZ1BTQW5UR2wyWlhNZ2FXNGdVMjkxZEdnbkxGeHVJQ0FnSUNBZ0lDQW5LRWx1ZEdWeVkyVndkQ2tuSUQwZ0owTnZibk4wWVc1MEp5bGNibTF6ZFcxdFlYSjVLRzF2WkdWc2N5eGNiaUFnSUdOdlpXWmZiV0Z3SUQwZ1kyMHNYRzRnSUNCemRHRnljeUE5SUZSU1ZVVXNYRzRnSUNCMGFYUnNaU0E5SUNkQmMzTnZZMmxoZEdsdmJpQkNaWFIzWldWdUlGTmphRzl2YkdsdVp5QmhibVFnVEc5bktGZGhaMlVwSnl4Y2JpQWdJSE4xWW5ScGRHeGxJRDBnSjAxdlpHVnNjeUJsYzNScGJXRjBaV1FnZFhOcGJtY2dkR2hsSUZOamFHOXZiR2x1WnlCU1pYUjFjbTV6SUdSaGRHRnpaWFF1Snl4Y2JpQWdJRzV2ZEdWeklEMGdZeWduUm1seWMzUWdZM1Z6ZEc5dElHNXZkR1VnZEc4Z1kyOXVkR0ZwYmlCMFpYaDBMaWNzWEc0Z0lDQWdJQ0FnSUNBZ0lDQWdKMU5sWTI5dVpDQmpkWE4wYjIwZ2JtOTBaU0IzYVhSb0lHUnBabVpsY21WdWRDQmpiMjUwWlc1MExpY3BLU0JjYm1CZ1lDSjkgLS0+XG5cbmBgYHJcbm1vZGVscyA8LSBsaXN0KExpbmVhciA9IG1fb2xzLCBGRT0gZl9vbHMpXG5jbSA8LSBjKCdlZHVjYXRpb24nID0gJ1llYXJzIG9mIFNjaG9vbGluZycsXG4gICAgICAgICdleHBlcmllbmNlJyA9ICdFeHBlcmllbmNlJywgXG4gICAgICAgICdldGhuaWNpdHlhZmFtJyA9ICdBZnJpY2FuIEFtZXJpY2FuJyxcbiAgICAgICAgJ3Ntc2F5ZXMnID0gJ0xpdmVzIGluIENpdHknLFxuICAgICAgICAnc291dGh5ZXMnID0gJ0xpdmVzIGluIFNvdXRoJyxcbiAgICAgICAgJyhJbnRlcmNlcHQpJyA9ICdDb25zdGFudCcpXG5tc3VtbWFyeShtb2RlbHMsXG4gICBjb2VmX21hcCA9IGNtLFxuICAgc3RhcnMgPSBUUlVFLFxuICAgdGl0bGUgPSAnQXNzb2NpYXRpb24gQmV0d2VlbiBTY2hvb2xpbmcgYW5kIExvZyhXYWdlKScsXG4gICBzdWJ0aXRsZSA9ICdNb2RlbHMgZXN0aW1hdGVkIHVzaW5nIHRoZSBTY2hvb2xpbmcgUmV0dXJucyBkYXRhc2V0LicsXG4gICBub3RlcyA9IGMoJ0ZpcnN0IGN1c3RvbSBub3RlIHRvIGNvbnRhaW4gdGV4dC4nLFxuICAgICAgICAgICAgICdTZWNvbmQgY3VzdG9tIG5vdGUgd2l0aCBkaWZmZXJlbnQgY29udGVudC4nKSkgXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubW9kZWxzIDwtIGxpc3QoTGluZWFyID0gbV9vbHMsIEZFPSBmX29scylcbmNtIDwtIGMoJ2VkdWNhdGlvbicgPSAnWWVhcnMgb2YgU2Nob29saW5nJyxcbiAgICAgICAgJ2V4cGVyaWVuY2UnID0gJ0V4cGVyaWVuY2UnLCBcbiAgICAgICAgJ2V0aG5pY2l0eWFmYW0nID0gJ0FmcmljYW4gQW1lcmljYW4nLFxuICAgICAgICAnc21zYXllcycgPSAnTGl2ZXMgaW4gQ2l0eScsXG4gICAgICAgICdzb3V0aHllcycgPSAnTGl2ZXMgaW4gU291dGgnLFxuICAgICAgICAnKEludGVyY2VwdCknID0gJ0NvbnN0YW50Jylcbm1zdW1tYXJ5KG1vZGVscyxcbiAgIGNvZWZfbWFwID0gY20sXG4gICBzdGFycyA9IFRSVUUsXG4gICB0aXRsZSA9ICdBc3NvY2lhdGlvbiBCZXR3ZWVuIFNjaG9vbGluZyBhbmQgTG9nKFdhZ2UpJyxcbiAgIHN1YnRpdGxlID0gJ01vZGVscyBlc3RpbWF0ZWQgdXNpbmcgdGhlIFNjaG9vbGluZyBSZXR1cm5zIGRhdGFzZXQuJyxcbiAgIG5vdGVzID0gYygnRmlyc3QgY3VzdG9tIG5vdGUgdG8gY29udGFpbiB0ZXh0LicsXG4gICAgICAgICAgICAgJ1NlY29uZCBjdXN0b20gbm90ZSB3aXRoIGRpZmZlcmVudCBjb250ZW50LicpKSBcbmBgYCJ9 -->
+<pre class="r"><code>models &lt;- list(Linear = m_ols, FE= f_ols)
+cm &lt;- c(&#39;education&#39; = &#39;Years of Schooling&#39;,
+        &#39;experience&#39; = &#39;Experience&#39;, 
+        &#39;ethnicityafam&#39; = &#39;African American&#39;,
+        &#39;smsayes&#39; = &#39;Lives in City&#39;,
+        &#39;southyes&#39; = &#39;Lives in South&#39;,
+        &#39;(Intercept)&#39; = &#39;Constant&#39;)
+msummary(models,
+   coef_map = cm,
+   stars = TRUE,
+   title = &#39;Association Between Schooling and Log(Wage)&#39;,
+   subtitle = &#39;Models estimated using the Schooling Returns dataset.&#39;,
+   notes = c(&#39;First custom note to contain text.&#39;,
+             &#39;Second custom note with different content.&#39;)) </code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Now we want to perform two stage least squares/instrumental variables
+regression. Here, it is because we think that our model suffers from
+omitted bias since education and wage are probably both influenced by
+some omitted variable related to unobserved characteristics of the
+person. We need a valid (i.e. relevant and exogenous) instrument for
+education. We can use whether or not the person grew up near a
+college.</p>
+<p>First, let’s show the first stage, which will tell us if the
+instrument is relevant:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVabWx5YzNSZmFYWThMV3h0S0dWa2RXTmhkR2x2Ym41dVpXRnlZMjlzYkdWblpTQXJJR0ZuWlNBcklHVjBhRzVwWTJsMGVTQXJJSE50YzJFZ0t5QnpiM1YwYUN3Z2JXOWtaV3c5VkZKVlJTd2daR0YwWVNBOUlGTmphRzl2YkdsdVoxSmxkSFZ5Ym5NcFhHNXRjM1Z0YldGeWVTaG1hWEp6ZEY5cGRpbGNibHh1WUdCZ0luMD0gLS0+XG5cbmBgYHJcbmZpcnN0X2l2PC1sbShlZHVjYXRpb25+bmVhcmNvbGxlZ2UgKyBhZ2UgKyBldGhuaWNpdHkgKyBzbXNhICsgc291dGgsIG1vZGVsPVRSVUUsIGRhdGEgPSBTY2hvb2xpbmdSZXR1cm5zKVxubXN1bW1hcnkoZmlyc3RfaXYpXG5cbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmlyc3RfaXY8LWxtKGVkdWNhdGlvbn5uZWFyY29sbGVnZSArIGFnZSArIGV0aG5pY2l0eSArIHNtc2EgKyBzb3V0aCwgbW9kZWw9VFJVRSwgZGF0YSA9IFNjaG9vbGluZ1JldHVybnMpXG5tc3VtbWFyeShmaXJzdF9pdilcblxuYGBgIn0= -->
+<pre class="r"><code>first_iv&lt;-lm(education~nearcollege + age + ethnicity + smsa + south, model=TRUE, data = SchoolingReturns)
+msummary(first_iv)
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Here, we see that the effect of ‘nearcollegeyes’ on education is
+positive and statistically significant. We also see that the F-statistic
+(a measure of the overall explanatory value of the Xs in our model) is
+451.9. A standard benchmark for relevance is F&gt;30.</p>
+<p>Now, let’s do the full iv regression (note that experience also
+depends on education, so we use age as an instrument for
+experience):</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHViVjlwZGlBOExTQnBkbkpsWnloc2IyY29kMkZuWlNrZ2ZpQmxaSFZqWVhScGIyNGdLeUJsZUhCbGNtbGxibU5sSUNzZ1pYUm9ibWxqYVhSNUlDc2djMjF6WVNBcklGeHVJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lITnZkWFJvSUh4dVpXRnlZMjlzYkdWblpTQXJJR0ZuWlNBcklHVjBhRzVwWTJsMGVTQXJJSE50YzJFZ0t5QnpiM1YwYUN3Z1pHRjBZU0E5SUZOamFHOXZiR2x1WjFKbGRIVnlibk1wWEc1dGMzVnRiV0Z5ZVNodFgybDJLVnh1WUdCZ0luMD0gLS0+XG5cbmBgYHJcbm1faXYgPC0gaXZyZWcobG9nKHdhZ2UpIH4gZWR1Y2F0aW9uICsgZXhwZXJpZW5jZSArIGV0aG5pY2l0eSArIHNtc2EgKyBcbiAgICAgICAgICAgICAgICBzb3V0aCB8bmVhcmNvbGxlZ2UgKyBhZ2UgKyBldGhuaWNpdHkgKyBzbXNhICsgc291dGgsIGRhdGEgPSBTY2hvb2xpbmdSZXR1cm5zKVxubXN1bW1hcnkobV9pdilcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubV9pdiA8LSBpdnJlZyhsb2cod2FnZSkgfiBlZHVjYXRpb24gKyBleHBlcmllbmNlICsgZXRobmljaXR5ICsgc21zYSArIFxuICAgICAgICAgICAgICAgIHNvdXRoIHxuZWFyY29sbGVnZSArIGFnZSArIGV0aG5pY2l0eSArIHNtc2EgKyBzb3V0aCwgZGF0YSA9IFNjaG9vbGluZ1JldHVybnMpXG5tc3VtbWFyeShtX2l2KVxuYGBgIn0= -->
+<pre class="r"><code>m_iv &lt;- ivreg(log(wage) ~ education + experience + ethnicity + smsa + 
+                south |nearcollege + age + ethnicity + smsa + south, data = SchoolingReturns)
+msummary(m_iv)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>This model reproduces the results for the OLS model, but only the
+portion of education that can be explained by college proximity is used
+in estimating the effect. We can compare the coefficients and standard
+errors from the two models using the following:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHViVjlzYVhOMElEd3RJR3hwYzNRb1hDSkdhWEp6ZENCVGRHRm5aVndpSUQwZ1ptbHljM1JmYVhZc0lGd2lTVlpjSWlBOUlHMWZhWFlwWEc1amJTQThMU0JqS0NkdVpXRnlZMjlzYkdWblpYbGxjeWNnUFNBblRtVmhjaUJEYjJ4c1pXZGxKeXhjYmlBZ0lDQWdJQ0FnSjJGblpTY2dQU0FuUVdkbEp5eGNiaUFnSUNBZ0lDQWdKMlZrZFdOaGRHbHZiaWNnUFNBbldXVmhjbk1nYjJZZ1UyTm9iMjlzYVc1bkp5eGNiaUFnSUNBZ0lDQWdKMlY0Y0dWeWFXVnVZMlVuSUQwZ0owVjRjR1Z5YVdWdVkyVW5MQ0JjYmlBZ0lDQWdJQ0FnSjJWMGFHNXBZMmwwZVdGbVlXMG5JRDBnSjBGbWNtbGpZVzRnUVcxbGNtbGpZVzRuTEZ4dUlDQWdJQ0FnSUNBbmMyMXpZWGxsY3ljZ1BTQW5UR2wyWlhNZ2FXNGdRMmwwZVNjc1hHNGdJQ0FnSUNBZ0lDZHpiM1YwYUhsbGN5Y2dQU0FuVEdsMlpYTWdhVzRnVTI5MWRHZ25MRnh1SUNBZ0lDQWdJQ0FuS0VsdWRHVnlZMlZ3ZENrbklEMGdKME52Ym5OMFlXNTBKeWxjYm0xemRXMXRZWEo1S0cxZmJHbHpkQ3hjYmlBZ0lHTnZaV1pmYldGd0lEMGdZMjBzWEc0Z0lDQnpkR0Z5Y3lBOUlGUlNWVVVzWEc0Z0lDQjBhWFJzWlNBOUlDZEJjM052WTJsaGRHbHZiaUJDWlhSM1pXVnVJRk5qYUc5dmJHbHVaeUJoYm1RZ1RHOW5LRmRoWjJVcElFOU1VeUJoYm1RZ1NWWWdVbVZ6ZFd4MGN5Y3NYRzRnSUNCemRXSjBhWFJzWlNBOUlDZE5iMlJsYkhNZ1pYTjBhVzFoZEdWa0lIVnphVzVuSUhSb1pTQlRZMmh2YjJ4cGJtY2dVbVYwZFhKdWN5QmtZWFJoYzJWMExpY3NYRzRnSUNCdWIzUmxjeUE5SUdNb0oxQnliM2hwYldsMGVTQjBieUJqYjJ4c1pXZGxJSFZ6WldRZ1lYTWdhVzV6ZEhKMWJXVnVkQ0JtYjNJZ2VXVmhjbk1nYjJZZ2MyTm9iMjlzYVc1bkxpY3NKMU5sWTI5dVpDQmpkWE4wYjIwZ2JtOTBaU0IzYVhSb0lHUnBabVpsY21WdWRDQmpiMjUwWlc1MExpY3BLU0JjYm0xemRXMXRZWEo1S0cxZmJHbHpkQ2xjYm1CZ1lDSjkgLS0+XG5cbmBgYHJcbm1fbGlzdCA8LSBsaXN0KFwiRmlyc3QgU3RhZ2VcIiA9IGZpcnN0X2l2LCBcIklWXCIgPSBtX2l2KVxuY20gPC0gYygnbmVhcmNvbGxlZ2V5ZXMnID0gJ05lYXIgQ29sbGVnZScsXG4gICAgICAgICdhZ2UnID0gJ0FnZScsXG4gICAgICAgICdlZHVjYXRpb24nID0gJ1llYXJzIG9mIFNjaG9vbGluZycsXG4gICAgICAgICdleHBlcmllbmNlJyA9ICdFeHBlcmllbmNlJywgXG4gICAgICAgICdldGhuaWNpdHlhZmFtJyA9ICdBZnJpY2FuIEFtZXJpY2FuJyxcbiAgICAgICAgJ3Ntc2F5ZXMnID0gJ0xpdmVzIGluIENpdHknLFxuICAgICAgICAnc291dGh5ZXMnID0gJ0xpdmVzIGluIFNvdXRoJyxcbiAgICAgICAgJyhJbnRlcmNlcHQpJyA9ICdDb25zdGFudCcpXG5tc3VtbWFyeShtX2xpc3QsXG4gICBjb2VmX21hcCA9IGNtLFxuICAgc3RhcnMgPSBUUlVFLFxuICAgdGl0bGUgPSAnQXNzb2NpYXRpb24gQmV0d2VlbiBTY2hvb2xpbmcgYW5kIExvZyhXYWdlKSBPTFMgYW5kIElWIFJlc3VsdHMnLFxuICAgc3VidGl0bGUgPSAnTW9kZWxzIGVzdGltYXRlZCB1c2luZyB0aGUgU2Nob29saW5nIFJldHVybnMgZGF0YXNldC4nLFxuICAgbm90ZXMgPSBjKCdQcm94aW1pdHkgdG8gY29sbGVnZSB1c2VkIGFzIGluc3RydW1lbnQgZm9yIHllYXJzIG9mIHNjaG9vbGluZy4nLCdTZWNvbmQgY3VzdG9tIG5vdGUgd2l0aCBkaWZmZXJlbnQgY29udGVudC4nKSkgXG5tc3VtbWFyeShtX2xpc3QpXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubV9saXN0IDwtIGxpc3QoXCJGaXJzdCBTdGFnZVwiID0gZmlyc3RfaXYsIFwiSVZcIiA9IG1faXYpXG5jbSA8LSBjKCduZWFyY29sbGVnZXllcycgPSAnTmVhciBDb2xsZWdlJyxcbiAgICAgICAgJ2FnZScgPSAnQWdlJyxcbiAgICAgICAgJ2VkdWNhdGlvbicgPSAnWWVhcnMgb2YgU2Nob29saW5nJyxcbiAgICAgICAgJ2V4cGVyaWVuY2UnID0gJ0V4cGVyaWVuY2UnLCBcbiAgICAgICAgJ2V0aG5pY2l0eWFmYW0nID0gJ0FmcmljYW4gQW1lcmljYW4nLFxuICAgICAgICAnc21zYXllcycgPSAnTGl2ZXMgaW4gQ2l0eScsXG4gICAgICAgICdzb3V0aHllcycgPSAnTGl2ZXMgaW4gU291dGgnLFxuICAgICAgICAnKEludGVyY2VwdCknID0gJ0NvbnN0YW50Jylcbm1zdW1tYXJ5KG1fbGlzdCxcbiAgIGNvZWZfbWFwID0gY20sXG4gICBzdGFycyA9IFRSVUUsXG4gICB0aXRsZSA9ICdBc3NvY2lhdGlvbiBCZXR3ZWVuIFNjaG9vbGluZyBhbmQgTG9nKFdhZ2UpIE9MUyBhbmQgSVYgUmVzdWx0cycsXG4gICBzdWJ0aXRsZSA9ICdNb2RlbHMgZXN0aW1hdGVkIHVzaW5nIHRoZSBTY2hvb2xpbmcgUmV0dXJucyBkYXRhc2V0LicsXG4gICBub3RlcyA9IGMoJ1Byb3hpbWl0eSB0byBjb2xsZWdlIHVzZWQgYXMgaW5zdHJ1bWVudCBmb3IgeWVhcnMgb2Ygc2Nob29saW5nLicsJ1NlY29uZCBjdXN0b20gbm90ZSB3aXRoIGRpZmZlcmVudCBjb250ZW50LicpKSBcbm1zdW1tYXJ5KG1fbGlzdClcbmBgYCJ9 -->
+<pre class="r"><code>m_list &lt;- list(&quot;First Stage&quot; = first_iv, &quot;IV&quot; = m_iv)
+cm &lt;- c(&#39;nearcollegeyes&#39; = &#39;Near College&#39;,
+        &#39;age&#39; = &#39;Age&#39;,
+        &#39;education&#39; = &#39;Years of Schooling&#39;,
+        &#39;experience&#39; = &#39;Experience&#39;, 
+        &#39;ethnicityafam&#39; = &#39;African American&#39;,
+        &#39;smsayes&#39; = &#39;Lives in City&#39;,
+        &#39;southyes&#39; = &#39;Lives in South&#39;,
+        &#39;(Intercept)&#39; = &#39;Constant&#39;)
+msummary(m_list,
+   coef_map = cm,
+   stars = TRUE,
+   title = &#39;Association Between Schooling and Log(Wage) OLS and IV Results&#39;,
+   subtitle = &#39;Models estimated using the Schooling Returns dataset.&#39;,
+   notes = c(&#39;Proximity to college used as instrument for years of schooling.&#39;,&#39;Second custom note with different content.&#39;)) 
+msummary(m_list)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Now try this with the Ethiopia data! You can try using spouse’s
+education as an instrument for a woman’s own education.</p>
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiRWNvbiA0NDgiCmF1dGhvcjogIk1lbGlzc2EgS25veCIKZGF0ZTogImByIGZvcm1hdChTeXMudGltZSgpLCAnJW0vJWQvJVknKWAiCm91dHB1dDogaHRtbF9ub3RlYm9vawpzdWJ0aXRsZTogIkRlbW9ncmFwaHkgTGFiIGZvciBQcm9ibGVtIFNldCAxIgotLS0KCiMjIFNldHVwClJlbWVtYmVyIHRvIGluc3RhbGwgcGFja2FnZXMgd2hlbiBuZWNlc3NhcnkgYW5kIGFsd2F5cyBsb2FkIHRoZW0gdXNpbmcgdGhlIGxpYnJhcnkgY29tbWFuZC4KCmBgYHtyIG1lc3NhZ2U9RkFMU0UsIHdhcm5pbmc9RkFMU0V9CiMjIFBhY2thZ2VzIHlvdSBtYXkgbmVlZCAtIHNob3VsZCBub3QgbmVlZCB0byBsb2FkIGluIFJTdHVkaW8gU2VydmVyLiBPbmx5IG5lZWQgdG8gbG9hZCBvbmNlIGluIHlvdXIgcGVyc29uYWwgbWFjaGluZS4KaWYgKCFyZXF1aXJlKCJwYWNtYW4iKSkgaW5zdGFsbC5wYWNrYWdlcygicGFjbWFuIikgI3BhY21hbiBpcyB0aGUgcGFja2FnZSB0aGF0IGluc3RhbGxzIHBhY2thZ2VzIG5pY2VseQpwYWNtYW46OnBfbG9hZChITURIRkRwbHVzLCB0aWR5dmVyc2UsIGdncGxvdDIsIGRwbHlyLCBsYXR0aWNlKSAjdGhlc2UgYXJlIHRoZSBwYWNrYWdlcyB5b3UgbWF5IG5lZWQKYGBgCgpgYGB7ciBtZXNzYWdlPUZBTFNFLCB3YXJuaW5nPUZBTFNFfQojIyBMb2FkIGV2ZXJ5IHRpbWUsIGJ1dCBvbmx5IG9uY2UgcGVyIHNlc3Npb24gCmxpYnJhcnkoImdncGxvdDIiKQpsaWJyYXJ5KCJkcGx5ciIpCmxpYnJhcnkoIkhNREhGRHBsdXMiKQpgYGAKIyMgVXNpbmcgUiB0byBDYWxjdWxhdGUgTW9ydGFsaXR5IGFuZCBGZXJ0aWxpdHkgUmF0ZXMgZnJvbSBUYWJsZXMKYGBge3J9CiMjTG9hZGluZyBwb3B1bGF0aW9uIGRhdGEgaW50byBhIG1hdHJpeCBmb3IgbGF0ZXIgY2FsY3VsYXRpb25zCkFTTVJfQTwtbWF0cml4KGMoMjIsNjAsIDE4LDgsMyw0MyksIG5yb3c9MywgbmNvbD0yLCBkaW1uYW1lcz1saXN0KGMoIjwxNSIsIjE1LTY0IiwiPjY0IiksIGMoIlBvcF9QZXJjZW50IiwiRGVhdGhzX3Blcl8xMDAwIikpKQpBU01SX0E8LWFzLmRhdGEuZnJhbWUoQVNNUl9BKQpBU01SX0EKCmBgYApNdWx0aXBseWluZyB0d28gdmVjdG9ycyB0b2dldGhlciAoZG90IHByb2R1Y3QpIGNhbiBiZSB1c2VkIHRvIGNhbGN1bGF0ZSBhIHdlaWdodGVkIGF2ZXJhZ2UsIGZvciBleGFtcGxlOiAkWT13X3sxfSp4X3sxfSt3X3syfSp4X3syfSt3X3szfSp4X3szfSt3X3s0fSp4X3s0fSQKCmBgYHtyfQojIyBUaGUgY29kZSBiZWxvdyBwcm9kdWNlcyB0aGUgZG90IHByb2R1Y3Qgb2YgdGhlIHR3byBjb2x1bW5zCiMjIGkuZS4gaXQgbXVsdGlwbGllcyBlbGVtZW50IDEgb2YgdGhlIGZpcnN0IGNvbHVtbiBieSBlbGVtZW50IDEgb2YgdGhlIHNlY29uZCwgZXRjLCBhbmQgYWRkcyBhbGwgb2YgdGhlIHJlc3VsdHMKQ01SPC1BU01SX0EkUG9wX1BlcmNlbnQlKiVBU01SX0EkRGVhdGhzX3Blcl8xMDAwLzEwMApDTVIKCmBgYAoKWW91IGNhbiBldmVuIHVzZSB0aGUgbm90ZWJvb2sgdG8gZGlzcGxheSB5b3VyIHJlc3VsdHMgaW4gcmVndWxhciB0ZXh0IChsb29rIGF0IHRoZSBodG1sIHRvIHNlZSB0aGlzIGluIGFjdGlvbikuIFRoaXMgY291bGQgYmUgdXNlZnVsIGZvciB5b3VyIGZpbmFsIHBhcGVyLgoKVGhlIGNydWRlIG1vcnRhbGl0eSByYXRlIGluIENvdW50cnkgQSBpcyBgciBDTVJgIGRlYXRocyBwZXIgMTAwMCBwZW9wbGUuCgoKIyMgV2FzIE1hbHRodXMgcmlnaHQ/IENhbGN1bGF0aW5nIG1vcnRhbGl0eSBhbmQgZmVydGlsaXR5IHJhdGVzIGZyb20gcmVhbC13b3JsZCBkYXRhCk1hbHRodXMgcHJlZGljdGVkIHRoYXQgZXhjZXNzaXZlIHBvcHVsYXRpb24gZ3Jvd3RoIHdvdWxkIGNvcnJlY3QgaXRzZWxmLCBlaXRoZXIgdGhyb3VnaCAicG9zaXRpdmUgY2hlY2tzIiBvZiBpbmNyZWFzZWQgbWlzZXJ5IGFuZCBkZWF0aCBvciAicHJldmVudGl2ZSBjaGVja3MiIG9mIHJlZHVjZWQgbWFycmlhZ2UgYW5kIGZld2VyIGJpcnRocy4gT25lIGNydWRlIHdheSB0byB0ZXN0IGZvciBldmlkZW5jZSBvZiAicG9zaXRpdmUgY2hlY2tzIiBpcyB0byBsb29rIGZvciBhIHBvc2l0aXZlIHJlbGF0aW9uc2hpcCBiZXR3ZWVuIHRoZSBiaXJ0aCByYXRlIGFuZCB0aGUgZGVhdGggcmF0ZS4KCkluIHRoaXMgZXhlcmNpc2UsIHdlIHdpbGwgdXNlIHRoZSBITURIRkRwbHVzIHBhY2thZ2UgdG8gYWNjZXNzIHRoZSBIdW1hbiBNb3J0YWxpdHkgRGF0YWJhc2UuIFRvIGNvbXBsZXRlIHRoaXMgZXhlcmNpc2UsIHlvdSB3aWxsIGhhdmUgdG8gZ28gdG8gbW9ydGFsaXR5Lm9yZyB0byByZWdpc3RlciBmb3IgeW91ciBvd24gYWNjb3VudCB0byBhY2Nlc3MgdGhlIGRhdGEuIE9uY2UgeW91IGRvIHNvLCB5b3UgY2FuIGFzc2lnbiB5b3VyIGxvZ2luIGFuZCBwYXNzd29yZCBpbmZvcm1hdGlvbiB0byB2YXJpYWJsZXMgaW4gUiBieSB1c2luZyBjb21tYW5kcyBsaWtlIG15bmFtZTwtImtub3htQHV3LmVkdSIgYW5kIG15cGFzczwtIm15IHNlY3JldCBwYXNzd29yZCIuCgpUaGlzIGlzIGFuIGV4ZXJjaXNlIHdpdGggc2V2ZXJhbCBzdGVwcyB0aGF0IHlvdSBjYW4gdXNlIHRvIGNvbXBsZXRlIHRoZSBkYXRhIHF1ZXN0aW9ucyBpbiB5b3VyIHByb2JsZW0gc2V0LgoKMS4gVXNlIHRoZSBITUQgcGFja2FnZSB0byBnZXQgdG90YWwgZGVhdGhzIGJ5IHllYXIgYW5kIGFnZSBncm91cCwgdGhlbiBjb25zdHJ1Y3QgdG90YWwgZGVhdGhzIGJ5IHllYXIuICAKYGBge3J9CiMjIEZpcnN0LCBzZXQgeW91ciBjb3VudHJ5IGhlcmUgdG8gbWFrZSBpdCBlYXNpZXIgdG8gY2hhbmdlIGluIHRoZSBjb2RlIGJlbG93Ogpjb3VudHJ5PC0iVVNBIgojIyBSZWFkIGZpbGUgZnJvbSB3ZWIKIyMgVGhpcyBnaXZlcyB5b3UgdG90YWwgbWFsZSwgdG90YWwKIyMgZmVtYWxlLCBhbmQgb3ZlcmFsbCB0b3RhbCBkZWF0aHMKIyMgYnkgeWVhcgoKbW9ydGFsaXR5X2J5X3llYXJfYWdlIDwtIHJlYWRITUR3ZWIoQ05UUlk9Y291bnRyeSwgaXRlbT0iRGVhdGhzXzF4MSIsIHVzZXJuYW1lPW15bmFtZSwgcGFzc3dvcmQ9bXlwYXNzKSAKCmhlYWQobW9ydGFsaXR5X2J5X3llYXJfYWdlKQoKYGBgCgpUaGlzIGRhdGEgaXMgYnkgYWdlIGFuZCB5ZWFyLiAgVGhpcyB3aWxsIGJlIHVzZWZ1bCBmb3IgY2FsY3VsYXRpbmcgYWdlLXNwZWNpZmljIG1vcnRhbGl0eSBpbiB5b3VyIHByb2JsZW0gc2V0LCBidXQgZm9yIG5vdyBsZXQncyBhZ2dyZWdhdGUgdG8gZ2V0IHRoZSB0b3RhbCBudW1iZXIgb2YgZGVhdGhzLgoKYGBge3J9CiMjIG1vcnRhbGl0eV9ieV95ZWFyX2FnZSBjb250YWlucyB0b3RhbCBtb3J0YWxpdHkgYnkgCiMjIGFnZSBncm91cCBmb3IgZWFjaCB5ZWFyIChzdGFydGluZyBpbiAxOTMzKQojIyAobm90ZTogVG90YWwgaXMgY29sdW1uIDUsIGFzIGluZGljYXRlZCBpbiB0aGUgY29kZSkKIyMgVG8gZ2V0IHRvdGFsIG1vcnRhbGl0eSBpbiBhbGwgYWdlIGdyb3VwcyBpbiBlYWNoCiMjIHllYXIsIHN1bSAiVG90YWwiIGNvbHVtbiBvdmVyIGFsbCBhZ2VzIGZvciBlYWNoCiMjIHllYXIgc2VwYXJhdGVseSwgdXNpbmcgZ3JvdXBfYnkgYW5kIHN1bW1hcmlzZSBpbiBkcGx5cgptb3J0YWxpdHlfYnlfeWVhcjwtbW9ydGFsaXR5X2J5X3llYXJfYWdlICU+JQogIGdyb3VwX2J5KFllYXIpICU+JQogIHN1bW1hcmlzZShDcnVkZV9EZWF0aHMgPXN1bShUb3RhbCkpCgojIyBUaGUgY29kZSBhYm92ZSBtYWRlIGEgbmV3IGRhdGEgZnJhbWUgd2l0aCBqdXN0CiMjIFllYXIgYW5kIFRvdGFsLCBidXQgcmVuYW1lZCBhcyBDcnVkZV9EZWF0aHMKaGVhZChtb3J0YWxpdHlfYnlfeWVhcikKYGBgCjIuIEdldCB0b3RhbCBiaXJ0aHMgcGVyIHllYXIgKGx1Y2t5IGZvciB1cywgdGhleSBoYXZlIHRoZXNlIGFzIHllYXJseSB0b3RhbHMgYWxyZWFkeSkuCmBgYHtyfQpiaXJ0aHNfYnlfeWVhciA8LSByZWFkSE1Ed2ViKENOVFJZPWNvdW50cnksIGl0ZW09IkJpcnRocyIsIHVzZXJuYW1lPW15bmFtZSwgcGFzc3dvcmQ9bXlwYXNzKSAKYmlydGhzX2J5X3llYXJfdG90YWwgPC0gZHBseXI6OnNlbGVjdChiaXJ0aHNfYnlfeWVhciwgWWVhciwgVG90YWwpCmNydWRlX2JpcnRoc19ieV95ZWFyIDwtIGRwbHlyOjpyZW5hbWUoYmlydGhzX2J5X3llYXJfdG90YWwsIENydWRlX0JpcnRocz1Ub3RhbCkgCgpoZWFkKGNydWRlX2JpcnRoc19ieV95ZWFyKQpgYGAKMy4gRmluYWxseSwgZ2V0IHBvcHVsYXRpb24gYnkgeWVhciBhbmQgYWdlLiBXZSBuZWVkIHRvIGFnZ3JlZ2F0ZSBhcyB3aXRoIG1vcnRhbGl0eSAoYnV0IGFnYWluLCBkb24ndCBkbyB0aGlzIHdoZW4gY2FsY3VsYXRpbmcgYWdlLXNwZWNpZmljIG1vcnRhbGl0eSByYXRlcykuCgpgYGB7cn0KcG9wdWxhdGlvbl9ieV95ZWFyX2FnZSA8LSByZWFkSE1Ed2ViKENOVFJZPWNvdW50cnksIGl0ZW09IlBvcHVsYXRpb24iLCB1c2VybmFtZT1teW5hbWUsIHBhc3N3b3JkPW15cGFzcykgCgojIyBBZ2dyZWdhdGUgYW5kIHJlbmFtZSBhcyBhYm92ZQpwb3BfYnlfeWVhcjwtcG9wdWxhdGlvbl9ieV95ZWFyX2FnZSAlPiUKICBncm91cF9ieShZZWFyKSAlPiUKICBzdW1tYXJpc2UoUG9wdWxhdGlvbl9Ub3RhbCA9c3VtKFRvdGFsMSkpCgpoZWFkKHBvcF9ieV95ZWFyKQpgYGAKCmBgYHtyfQojIyBOb3cgbWVyZ2UgaW50byBvbmUgZGF0YSBmcmFtZQptYWx0aHVzIDwtIG1lcmdlKHBvcF9ieV95ZWFyLCBtb3J0YWxpdHlfYnlfeWVhciwgYnk9J1llYXInLCBhbGw9RkFMU0UpIAptYWx0aHVzIDwtIG1lcmdlKG1hbHRodXMsIGNydWRlX2JpcnRoc19ieV95ZWFyLCBieT0nWWVhcicpCgojIyBGaW5hbGx5LCBjYWxjdWxhdGUgcmF0ZXMgYnkgZGl2aWRpbmcgYnkgcG9wdWxhdGlvbiB0b3RhbHMKbWFsdGh1cyRDQlIgPC0gbWFsdGh1cyRDcnVkZV9CaXJ0aHMvbWFsdGh1cyRQb3B1bGF0aW9uX1RvdGFsCm1hbHRodXMkQ01SIDwtIG1hbHRodXMkQ3J1ZGVfRGVhdGhzL21hbHRodXMkUG9wdWxhdGlvbl9Ub3RhbApoZWFkKG1hbHRodXMpCgpgYGAKCk5vdyBwbG90IHRvIHNlZSB0aGUgcmVsYXRpb25zaGlwIGJldHdlZW4gQ0JSIGFuZCBDTVIgaW4gdGhlIFUuUy4KYGBge3J9Cm1hbHRodXMgJT4lCiAgZ2dwbG90KGFlcyh4PUNNUiwgeT1DQlIpKStnZW9tX3BvaW50KCkrZ2d0aXRsZSgiTWFsdGh1cyBQbG90IGZvciBVU0EiKQpgYGAKT3IgdXNlIHRoaXMgY29kZSB0byBwbG90IGEgc21vb3RoZWQgbGluZSBvbiB0aGUgZGF0YSAodmFyeSB0aGUgZmluYWwgbnVtYmVyIHRvIGNoYW5nZSB0aGUgZGVncmVlIG9mIGZpdHRlZCBwb2x5bm9taWFsKS4KYGBge3J9Cm1hbHRodXMgJT4lCiAgZ2dwbG90KGFlcyh4PUNNUiwgeT1DQlIpKStnZW9tX3BvaW50KCkrZ2VvbV9zbW9vdGgobWV0aG9kPWxtLCBmb3JtdWxhPSB5fnBvbHkoeCwzKSkrZ2d0aXRsZSgiTWFsdGh1cyBQbG90IGZvciBVU0Egd2l0aCBGaXR0ZWQgUG9seW5vbWlhbCIpCmBgYAoKU28sIHdoYXQgZG8geW91IHRoaW5rIGFib3V0IE1hbHRodXMncyBjb25qZWN0dXJlPyBDYW4geW91IHJlcGVhdCB3aXRoIGFub3RoZXIgY291bnRyeSB3aXRoIG1vcmUgeWVhcnMgb2YgZGF0YSwgbGlrZSBTd2VkZW4/IENvdW50cnkgY29kZXMgYXJlIGhlcmU6IGh0dHBzOi8vd3d3Lm1vcnRhbGl0eS5vcmcvRGF0YS9EYXRhQXZhaWxhYmlsaXR5IGFuZCBTd2VkZW4ncyBpcyBDSEUuIE5vdGU6IE1hbHRodXMgYWN0dWFsbHkgd3JvdGUgYWJvdXQgU3dlZGVuIGFuZCB0aGVpciBwcm9wZW5zaXR5IGZvciB2aWNlIGFuZCByZWxpYW5jZSBvbiBwb3NpdGl2ZSBwb3B1bGF0aW9uIGNoZWNrcy4KCg==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiRWNvbiA0NDggQ2xhc3MgRXhlcmNpc2UgSVYgUmVncmVzc2lvbiIKYXV0aG9yOiAiTWVsaXNzYSBLbm94IgpkYXRlOiAiYHIgZm9ybWF0KFN5cy50aW1lKCksICclbS8lZC8lWScpYCIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKIyMgT3ZlcnZpZXcgYW5kIFNldHVwCkluc3RhbGwgdGhlc2UgcGFja2FnZXMgb25jZSAoaWYgd29ya2luZyBvbiB5b3VyIHBlcnNvbmFsIG1hY2hpbmUpLiBZb3UgZG8gbm90IG5lZWQgdG8gZG8gdGhpcyBpZiB5b3UgYXJlIHdvcmtpbmcgaW4gdGhlIGNsYXNzIHNlcnZlci4gCgoKYGBge3J9CmxpYnJhcnkoaXB1bXNyKQpsaWJyYXJ5KGdncGxvdDIpCmxpYnJhcnkodGlkeXIpCmxpYnJhcnkoaXZyZWcpCmxpYnJhcnkoZHBseXIpCmxpYnJhcnkoZml4ZXN0KQpsaWJyYXJ5KG1vZGVsc3VtbWFyeSkKbGlicmFyeShzdGFyZ2F6ZXIpCmxpYnJhcnkoZ3QpCmBgYAoKCkxvYWQgIlJldHVybnMgdG8gU2Nob29saW5nIiBkYXRhIGZyb20gaXZyZWcgcGFja2FnZToKYGBge3J9CmRhdGEoIlNjaG9vbGluZ1JldHVybnMiLCBwYWNrYWdlPSJpdnJlZyIpCnN0YXJnYXplcihTY2hvb2xpbmdSZXR1cm5zLCB0eXBlID0gInRleHQiKSAgIyNZb3UgY2FuIGFsc28gc2V0IGB0eXBlJyB0byBsYXRleCAoZGVmYXVsdCkgb3IgaHRtbC4KCmBgYAoKUGVyZm9ybSBPTFMgcmVncmVzc2lvbiBvZiBsb2dnZWQgd2FnZSBvbiBlZHVjYXRpb24gYW5kIG90aGVyIGNoYXJhY3RlcmlzdGljczoKYGBge3J9Cm1fb2xzIDwtIGxtKGxvZyh3YWdlKSB+IGVkdWNhdGlvbiArIGV4cGVyaWVuY2UgKyBldGhuaWNpdHkgKyBzbXNhICsgc291dGgsIGRhdGEgPSBTY2hvb2xpbmdSZXR1cm5zKQptc3VtbWFyeShsaXN0KCdSZXN1bHRzJz1tX29scykpCgpgYGAKClNtYWxsIGFzaWRlLCB5b3UgY2FuIHVzZSBmZW9scyBmcm9tIGZpeGVzdCBwYWNrYWdlIHRvIGRlYWwgd2l0aCAiY2F0ZWdvcmljYWwgdmFyaWFibGVzIjoKCmBgYHtyfQpmX29sczwtZmVvbHMobG9nKHdhZ2UpIH4gZWR1Y2F0aW9uICsgZXhwZXJpZW5jZSArIGV0aG5pY2l0eSArIHNtc2EgKyBzb3V0aCtpKHBhcmVudHMxNCksIGRhdGEgPSBTY2hvb2xpbmdSZXR1cm5zKQptc3VtbWFyeShsaXN0KCdMaW5lYXInPW1fb2xzLCdGaXhlZCBFZmZlY3RzJz1mX29scykpCmBgYApgYGB7cn0KbW9kZWxzIDwtIGxpc3QoTGluZWFyID0gbV9vbHMsIEZFPSBmX29scykKY20gPC0gYygnZWR1Y2F0aW9uJyA9ICdZZWFycyBvZiBTY2hvb2xpbmcnLAogICAgICAgICdleHBlcmllbmNlJyA9ICdFeHBlcmllbmNlJywgCiAgICAgICAgJ2V0aG5pY2l0eWFmYW0nID0gJ0FmcmljYW4gQW1lcmljYW4nLAogICAgICAgICdzbXNheWVzJyA9ICdMaXZlcyBpbiBDaXR5JywKICAgICAgICAnc291dGh5ZXMnID0gJ0xpdmVzIGluIFNvdXRoJywKICAgICAgICAnKEludGVyY2VwdCknID0gJ0NvbnN0YW50JykKbXN1bW1hcnkobW9kZWxzLAogICBjb2VmX21hcCA9IGNtLAogICBzdGFycyA9IFRSVUUsCiAgIHRpdGxlID0gJ0Fzc29jaWF0aW9uIEJldHdlZW4gU2Nob29saW5nIGFuZCBMb2coV2FnZSknLAogICBzdWJ0aXRsZSA9ICdNb2RlbHMgZXN0aW1hdGVkIHVzaW5nIHRoZSBTY2hvb2xpbmcgUmV0dXJucyBkYXRhc2V0LicsCiAgIG5vdGVzID0gYygnRmlyc3QgY3VzdG9tIG5vdGUgdG8gY29udGFpbiB0ZXh0LicsCiAgICAgICAgICAgICAnU2Vjb25kIGN1c3RvbSBub3RlIHdpdGggZGlmZmVyZW50IGNvbnRlbnQuJykpIApgYGAKCgpOb3cgd2Ugd2FudCB0byBwZXJmb3JtIHR3byBzdGFnZSBsZWFzdCBzcXVhcmVzL2luc3RydW1lbnRhbCB2YXJpYWJsZXMgcmVncmVzc2lvbi4gIEhlcmUsIGl0IGlzIGJlY2F1c2Ugd2UgdGhpbmsgdGhhdCBvdXIgbW9kZWwgc3VmZmVycyBmcm9tIG9taXR0ZWQgYmlhcyBzaW5jZSBlZHVjYXRpb24gYW5kIHdhZ2UgYXJlIHByb2JhYmx5IGJvdGggaW5mbHVlbmNlZCBieSBzb21lIG9taXR0ZWQgdmFyaWFibGUgcmVsYXRlZCB0byB1bm9ic2VydmVkIGNoYXJhY3RlcmlzdGljcyBvZiB0aGUgcGVyc29uLiAgV2UgbmVlZCBhIHZhbGlkIChpLmUuIHJlbGV2YW50IGFuZCBleG9nZW5vdXMpIGluc3RydW1lbnQgZm9yIGVkdWNhdGlvbi4gIFdlIGNhbiB1c2Ugd2hldGhlciBvciBub3QgdGhlIHBlcnNvbiBncmV3IHVwIG5lYXIgYSBjb2xsZWdlLgoKRmlyc3QsIGxldCdzIHNob3cgdGhlIGZpcnN0IHN0YWdlLCB3aGljaCB3aWxsIHRlbGwgdXMgaWYgdGhlIGluc3RydW1lbnQgaXMgcmVsZXZhbnQ6CmBgYHtyfQpmaXJzdF9pdjwtbG0oZWR1Y2F0aW9ufm5lYXJjb2xsZWdlICsgYWdlICsgZXRobmljaXR5ICsgc21zYSArIHNvdXRoLCBtb2RlbD1UUlVFLCBkYXRhID0gU2Nob29saW5nUmV0dXJucykKbXN1bW1hcnkoZmlyc3RfaXYpCgpgYGAKSGVyZSwgd2Ugc2VlIHRoYXQgdGhlIGVmZmVjdCBvZiAnbmVhcmNvbGxlZ2V5ZXMnIG9uIGVkdWNhdGlvbiBpcyBwb3NpdGl2ZSBhbmQgc3RhdGlzdGljYWxseSBzaWduaWZpY2FudC4gIFdlIGFsc28gc2VlIHRoYXQgdGhlIEYtc3RhdGlzdGljIChhIG1lYXN1cmUgb2YgdGhlIG92ZXJhbGwgZXhwbGFuYXRvcnkgdmFsdWUgb2YgdGhlIFhzIGluIG91ciBtb2RlbCkgaXMgNDUxLjkuICBBIHN0YW5kYXJkIGJlbmNobWFyayBmb3IgcmVsZXZhbmNlIGlzIEY+MzAuCgpOb3csIGxldCdzIGRvIHRoZSBmdWxsIGl2IHJlZ3Jlc3Npb24gKG5vdGUgdGhhdCBleHBlcmllbmNlIGFsc28gZGVwZW5kcyBvbiBlZHVjYXRpb24sIHNvIHdlIHVzZSBhZ2UgYXMgYW4gaW5zdHJ1bWVudCBmb3IgZXhwZXJpZW5jZSk6CmBgYHtyfQptX2l2IDwtIGl2cmVnKGxvZyh3YWdlKSB+IGVkdWNhdGlvbiArIGV4cGVyaWVuY2UgKyBldGhuaWNpdHkgKyBzbXNhICsgCiAgICAgICAgICAgICAgICBzb3V0aCB8bmVhcmNvbGxlZ2UgKyBhZ2UgKyBldGhuaWNpdHkgKyBzbXNhICsgc291dGgsIGRhdGEgPSBTY2hvb2xpbmdSZXR1cm5zKQptc3VtbWFyeShtX2l2KQpgYGAKClRoaXMgbW9kZWwgcmVwcm9kdWNlcyB0aGUgcmVzdWx0cyBmb3IgdGhlIE9MUyBtb2RlbCwgYnV0IG9ubHkgdGhlIHBvcnRpb24gb2YgZWR1Y2F0aW9uIHRoYXQgY2FuIGJlIGV4cGxhaW5lZCBieSBjb2xsZWdlIHByb3hpbWl0eSBpcyB1c2VkIGluIGVzdGltYXRpbmcgdGhlIGVmZmVjdC4gIFdlIGNhbiBjb21wYXJlIHRoZSBjb2VmZmljaWVudHMgYW5kIHN0YW5kYXJkIGVycm9ycyBmcm9tIHRoZSB0d28gbW9kZWxzIHVzaW5nIHRoZSBmb2xsb3dpbmc6CmBgYHtyfQptX2xpc3QgPC0gbGlzdCgiRmlyc3QgU3RhZ2UiID0gZmlyc3RfaXYsICJJViIgPSBtX2l2KQpjbSA8LSBjKCduZWFyY29sbGVnZXllcycgPSAnTmVhciBDb2xsZWdlJywKICAgICAgICAnYWdlJyA9ICdBZ2UnLAogICAgICAgICdlZHVjYXRpb24nID0gJ1llYXJzIG9mIFNjaG9vbGluZycsCiAgICAgICAgJ2V4cGVyaWVuY2UnID0gJ0V4cGVyaWVuY2UnLCAKICAgICAgICAnZXRobmljaXR5YWZhbScgPSAnQWZyaWNhbiBBbWVyaWNhbicsCiAgICAgICAgJ3Ntc2F5ZXMnID0gJ0xpdmVzIGluIENpdHknLAogICAgICAgICdzb3V0aHllcycgPSAnTGl2ZXMgaW4gU291dGgnLAogICAgICAgICcoSW50ZXJjZXB0KScgPSAnQ29uc3RhbnQnKQptc3VtbWFyeShtX2xpc3QsCiAgIGNvZWZfbWFwID0gY20sCiAgIHN0YXJzID0gVFJVRSwKICAgdGl0bGUgPSAnQXNzb2NpYXRpb24gQmV0d2VlbiBTY2hvb2xpbmcgYW5kIExvZyhXYWdlKSBPTFMgYW5kIElWIFJlc3VsdHMnLAogICBzdWJ0aXRsZSA9ICdNb2RlbHMgZXN0aW1hdGVkIHVzaW5nIHRoZSBTY2hvb2xpbmcgUmV0dXJucyBkYXRhc2V0LicsCiAgIG5vdGVzID0gYygnUHJveGltaXR5IHRvIGNvbGxlZ2UgdXNlZCBhcyBpbnN0cnVtZW50IGZvciB5ZWFycyBvZiBzY2hvb2xpbmcuJywnU2Vjb25kIGN1c3RvbSBub3RlIHdpdGggZGlmZmVyZW50IGNvbnRlbnQuJykpIAptc3VtbWFyeShtX2xpc3QpCmBgYAoKCgpOb3cgdHJ5IHRoaXMgd2l0aCB0aGUgRXRoaW9waWEgZGF0YSEgWW91IGNhbiB0cnkgdXNpbmcgc3BvdXNlJ3MgZWR1Y2F0aW9uIGFzIGFuIGluc3RydW1lbnQgZm9yIGEgd29tYW4ncyBvd24gZWR1Y2F0aW9uLiAg</div>
 
 
 
@@ -2109,7 +1952,7 @@ $(document).ready(function () {
 <!-- code folding -->
 <script>
 $(document).ready(function () {
-  window.initializeSourceEmbed("Demography_Lab.Rmd");
+  window.initializeSourceEmbed("Class Exercise IV Regression.Rmd");
   window.initializeCodeFolding("show" === "show");
 });
 </script>
