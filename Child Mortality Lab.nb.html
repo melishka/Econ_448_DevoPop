@@ -1808,8 +1808,26 @@ the unit of observation in each row.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVaR1pmWVc1aGJIbHphWE1nUEMwZ1lYTXVaR0YwWVM1bWNtRnRaU2hrWmw5cGNIVnRjeWxjYmx4dUkwWnBiSFJsY21sdVp5QmtiMjRuZENCcmJtOTNjeUJoYm1RZ2JtOXVjMlZ1YzJVZ2RtRnNkV1Z6WEc1a1psOWhibUZzZVhOcGN6d3RabWxzZEdWeUtHUm1YMkZ1WVd4NWMybHpMQ0JaVWxORFNFOVBURHc1TUNrZ0lGeHVaR1pmWVc1aGJIbHphWE04TFdacGJIUmxjaWhrWmw5aGJtRnNlWE5wY3l3Z1dWSlRRMGhQVDB4ZlUxQThPVEFwSUZ4dVpHWmZZVzVoYkhsemFYTThMV1pwYkhSbGNpaGtabDloYm1Gc2VYTnBjeXdnUTBoQ1QxSk9QRE14S1NBalZtRnNkV1Z6SUc5MlpYSWdNekFnWVhKbElHUnZiaWQwSUd0dWIzZHpYRzVrWmw5aGJtRnNlWE5wY3p3dFptbHNkR1Z5S0dSbVgyRnVZV3g1YzJsekxDQkRTRk5WVWxZOE16RXBJQ05XWVd4MVpYTWdiM1psY2lBek1DQmhjbVVnWkc5dUozUWdhMjV2ZDNOY2JtaGxZV1FvWkdaZllXNWhiSGx6YVhNcFhHNWdZR0FpZlE9PSAtLT5cblxuYGBgclxuZGZfYW5hbHlzaXMgPC0gYXMuZGF0YS5mcmFtZShkZl9pcHVtcylcblxuI0ZpbHRlcmluZyBkb24ndCBrbm93cyBhbmQgbm9uc2Vuc2UgdmFsdWVzXG5kZl9hbmFseXNpczwtZmlsdGVyKGRmX2FuYWx5c2lzLCBZUlNDSE9PTDw5MCkgIFxuZGZfYW5hbHlzaXM8LWZpbHRlcihkZl9hbmFseXNpcywgWVJTQ0hPT0xfU1A8OTApIFxuZGZfYW5hbHlzaXM8LWZpbHRlcihkZl9hbmFseXNpcywgQ0hCT1JOPDMxKSAjVmFsdWVzIG92ZXIgMzAgYXJlIGRvbid0IGtub3dzXG5kZl9hbmFseXNpczwtZmlsdGVyKGRmX2FuYWx5c2lzLCBDSFNVUlY8MzEpICNWYWx1ZXMgb3ZlciAzMCBhcmUgZG9uJ3Qga25vd3NcbmhlYWQoZGZfYW5hbHlzaXMpXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGZfYW5hbHlzaXMgPC0gYXMuZGF0YS5mcmFtZShkZl9pcHVtcylcblxuI0ZpbHRlcmluZyBkb24ndCBrbm93cyBhbmQgbm9uc2Vuc2UgdmFsdWVzXG5kZl9hbmFseXNpczwtZmlsdGVyKGRmX2FuYWx5c2lzLCBZUlNDSE9PTDw5MCkgIFxuZGZfYW5hbHlzaXM8LWZpbHRlcihkZl9hbmFseXNpcywgWVJTQ0hPT0xfU1A8OTApIFxuZGZfYW5hbHlzaXM8LWZpbHRlcihkZl9hbmFseXNpcywgQ0hCT1JOPDMxKSAjVmFsdWVzIG92ZXIgMzAgYXJlIGRvbid0IGtub3dzXG5kZl9hbmFseXNpczwtZmlsdGVyKGRmX2FuYWx5c2lzLCBDSFNVUlY8MzEpICNWYWx1ZXMgb3ZlciAzMCBhcmUgZG9uJ3Qga25vd3NcbmhlYWQoZGZfYW5hbHlzaXMpXG5gYGAifQ== -->
-<pre class="r"><code>df_analysis &lt;- as.data.frame(df_ipums)
+<pre><code>
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGZfYW5hbHlzaXMgPC0gYXMuZGF0YS5mcmFtZShkZl9pcHVtcylcblxuI0ZpbHRlcmluZyBkb24ndCBrbm93cyBhbmQgbm9uc2Vuc2UgdmFsdWVzXG5kZl9hbmFseXNpczwtZmlsdGVyKGRmX2FuYWx5c2lzLCBZUlNDSE9PTDw5MCkgIFxuZGZfYW5hbHlzaXM8LWZpbHRlcihkZl9hbmFseXNpcywgWVJTQ0hPT0xfU1A8OTApIFxuZGZfYW5hbHlzaXM8LWZpbHRlcihkZl9hbmFseXNpcywgQ0hCT1JOPDMxKSAjVmFsdWVzIG92ZXIgMzAgYXJlIGRvbid0IGtub3dzXG5kZl9hbmFseXNpczwtZmlsdGVyKGRmX2FuYWx5c2lzLCBDSFNVUlY8MzEpICNWYWx1ZXMgb3ZlciAzMCBhcmUgZG9uJ3Qga25vd3NcbmhlYWQoZGZfYW5hbHlzaXMpXG5gYGAifQ== --&gt;
+
+```r
+df_analysis &lt;- as.data.frame(df_ipums)
+
+#Filtering don&#39;t knows and nonsense values
+df_analysis&lt;-filter(df_analysis, YRSCHOOL&lt;90)  
+df_analysis&lt;-filter(df_analysis, YRSCHOOL_SP&lt;90) 
+df_analysis&lt;-filter(df_analysis, CHBORN&lt;31) #Values over 30 are don&#39;t knows
+df_analysis&lt;-filter(df_analysis, CHSURV&lt;31) #Values over 30 are don&#39;t knows
+head(df_analysis)
+```
+
+&lt;!-- rnb-source-end --&gt;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVZR0JnY2x4dVpHWmZZVzVoYkhsemFYTWdQQzBnWVhNdVpHRjBZUzVtY21GdFpTaGtabDlwY0hWdGN5bGNibHh1STBacGJIUmxjbWx1WnlCa2IyNG5kQ0JyYm05M2N5QmhibVFnYm05dWMyVnVjMlVnZG1Gc2RXVnpYRzVrWmw5aGJtRnNlWE5wY3p3dFptbHNkR1Z5S0dSbVgyRnVZV3g1YzJsekxDQlpVbE5EU0U5UFREdzVNQ2tnSUZ4dVpHWmZZVzVoYkhsemFYTThMV1pwYkhSbGNpaGtabDloYm1Gc2VYTnBjeXdnV1ZKVFEwaFBUMHhmVTFBOE9UQXBJRnh1WkdaZllXNWhiSGx6YVhNOExXWnBiSFJsY2loa1psOWhibUZzZVhOcGN5d2dRMGhDVDFKT1BETXhLU0FqVm1Gc2RXVnpJRzkyWlhJZ016QWdZWEpsSUdSdmJpZDBJR3R1YjNkelhHNWtabDloYm1Gc2VYTnBjend0Wm1sc2RHVnlLR1JtWDJGdVlXeDVjMmx6TENCRFNGTlZVbFk4TXpFcElDTldZV3gxWlhNZ2IzWmxjaUF6TUNCaGNtVWdaRzl1SjNRZ2EyNXZkM05jYm1obFlXUW9aR1pmWVc1aGJIbHphWE1wWEc1Z1lHQmNibUJnWUNKOSAtLT5cblxuYGBgclxuYGBgclxuZGZfYW5hbHlzaXMgPC0gYXMuZGF0YS5mcmFtZShkZl9pcHVtcylcblxuI0ZpbHRlcmluZyBkb24ndCBrbm93cyBhbmQgbm9uc2Vuc2UgdmFsdWVzXG5kZl9hbmFseXNpczwtZmlsdGVyKGRmX2FuYWx5c2lzLCBZUlNDSE9PTDw5MCkgIFxuZGZfYW5hbHlzaXM8LWZpbHRlcihkZl9hbmFseXNpcywgWVJTQ0hPT0xfU1A8OTApIFxuZGZfYW5hbHlzaXM8LWZpbHRlcihkZl9hbmFseXNpcywgQ0hCT1JOPDMxKSAjVmFsdWVzIG92ZXIgMzAgYXJlIGRvbid0IGtub3dzXG5kZl9hbmFseXNpczwtZmlsdGVyKGRmX2FuYWx5c2lzLCBDSFNVUlY8MzEpICNWYWx1ZXMgb3ZlciAzMCBhcmUgZG9uJ3Qga25vd3NcbmhlYWQoZGZfYW5hbHlzaXMpXG5gYGBcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZGZfYW5hbHlzaXMgPC0gYXMuZGF0YS5mcmFtZShkZl9pcHVtcylcblxuI0ZpbHRlcmluZyBkb24ndCBrbm93cyBhbmQgbm9uc2Vuc2UgdmFsdWVzXG5kZl9hbmFseXNpczwtZmlsdGVyKGRmX2FuYWx5c2lzLCBZUlNDSE9PTDw5MCkgIFxuZGZfYW5hbHlzaXM8LWZpbHRlcihkZl9hbmFseXNpcywgWVJTQ0hPT0xfU1A8OTApIFxuZGZfYW5hbHlzaXM8LWZpbHRlcihkZl9hbmFseXNpcywgQ0hCT1JOPDMxKSAjVmFsdWVzIG92ZXIgMzAgYXJlIGRvbid0IGtub3dzXG5kZl9hbmFseXNpczwtZmlsdGVyKGRmX2FuYWx5c2lzLCBDSFNVUlY8MzEpICNWYWx1ZXMgb3ZlciAzMCBhcmUgZG9uJ3Qga25vd3NcbmhlYWQoZGZfYW5hbHlzaXMpXG5gYGBcbmBgYCJ9 -->
+<pre class="r"><code>```r
+df_analysis &lt;- as.data.frame(df_ipums)
 
 #Filtering don&#39;t knows and nonsense values
 df_analysis&lt;-filter(df_analysis, YRSCHOOL&lt;90)  
@@ -1817,14 +1835,28 @@ df_analysis&lt;-filter(df_analysis, YRSCHOOL_SP&lt;90)
 df_analysis&lt;-filter(df_analysis, CHBORN&lt;31) #Values over 30 are don&#39;t knows
 df_analysis&lt;-filter(df_analysis, CHSURV&lt;31) #Values over 30 are don&#39;t knows
 head(df_analysis)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>We should also create some dummy variables.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVJMDFoYTJVZ1pIVnRiWGtnZG1GeWFXRmliR1Z6SUdadmNpQjFjbUpoYml3Z2JHbDBaWEpoWTNrc0lHRnVaQ0JsYlhCc2IzbHRaVzUwWEc1a1psOWhibUZzZVhOcGN5UlZVa0pCVGlBOExTQnBabVZzYzJVb1pHWmZZVzVoYkhsemFYTWtWVkpDUVU0Z1BUMGdNaXdnTVN3Z01Da2dYRzVrWmw5aGJtRnNlWE5wY3lSTVNWUkZVa0ZVUlR3dGFXWmxiSE5sS0dSbVgyRnVZV3g1YzJsekpFeEpWRDA5TWl3eExEQXBYRzVrWmw5aGJtRnNlWE5wY3lSRlRWQk1UMWxGUkR3dGFXWmxiSE5sS0dSbVgyRnVZV3g1YzJsekpFVk5VRk5VUVZROVBURXNNU3d3S1Z4dVhHNGpWbWxsZHlCMGFHVWdibVYzSUhaaGNtbGhZbXhsY3lCaGJtUWdiM1JvWlhKeklHOW1JSEJ2ZEdWdWRHbGhiQ0JwYm5SbGNtVnpkQzVjYm5OMFlYSm5ZWHBsY2loa1psOWhibUZzZVhOcGN5d2dkSGx3WlQwbmRHVjRkQ2NwWEc1Y2JseHVZR0JnSW4wPSAtLT5cblxuYGBgclxuI01ha2UgZHVtbXkgdmFyaWFibGVzIGZvciB1cmJhbiwgbGl0ZXJhY3ksIGFuZCBlbXBsb3ltZW50XG5kZl9hbmFseXNpcyRVUkJBTiA8LSBpZmVsc2UoZGZfYW5hbHlzaXMkVVJCQU4gPT0gMiwgMSwgMCkgXG5kZl9hbmFseXNpcyRMSVRFUkFURTwtaWZlbHNlKGRmX2FuYWx5c2lzJExJVD09MiwxLDApXG5kZl9hbmFseXNpcyRFTVBMT1lFRDwtaWZlbHNlKGRmX2FuYWx5c2lzJEVNUFNUQVQ9PTEsMSwwKVxuXG4jVmlldyB0aGUgbmV3IHZhcmlhYmxlcyBhbmQgb3RoZXJzIG9mIHBvdGVudGlhbCBpbnRlcmVzdC5cbnN0YXJnYXplcihkZl9hbmFseXNpcywgdHlwZT0ndGV4dCcpXG5cblxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== -->
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+We should also create some dummy variables.
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVJMDFoYTJVZ1pIVnRiWGtnZG1GeWFXRmliR1Z6SUdadmNpQjFjbUpoYml3Z2JHbDBaWEpoWTNrc0lHRnVaQ0JsYlhCc2IzbHRaVzUwWEc1a1psOWhibUZzZVhOcGN5UlZVa0pCVGlBOExTQnBabVZzYzJVb1pHWmZZVzVoYkhsemFYTWtWVkpDUVU0Z1BUMGdNaXdnTVN3Z01Da2dYRzVrWmw5aGJtRnNlWE5wY3lSTVNWUkZVa0ZVUlR3dGFXWmxiSE5sS0dSbVgyRnVZV3g1YzJsekpFeEpWRDA5TWl3eExEQXBYRzVrWmw5aGJtRnNlWE5wY3lSRlRWQk1UMWxGUkR3dGFXWmxiSE5sS0dSbVgyRnVZV3g1YzJsekpFVk5VRk5VUVZROVBURXNNU3d3S1Z4dVhHNGpWbWxsZHlCMGFHVWdibVYzSUhaaGNtbGhZbXhsY3lCaGJtUWdiM1JvWlhKeklHOW1JSEJ2ZEdWdWRHbGhiQ0JwYm5SbGNtVnpkQzVjYm5OMFlYSm5ZWHBsY2loa1psOWhibUZzZVhOcGN5d2dkSGx3WlQwbmRHVjRkQ2NwWEc1Y2JseHVZR0JnSW4wPSAtLT5cblxuYGBgclxuI01ha2UgZHVtbXkgdmFyaWFibGVzIGZvciB1cmJhbiwgbGl0ZXJhY3ksIGFuZCBlbXBsb3ltZW50XG5kZl9hbmFseXNpcyRVUkJBTiA8LSBpZmVsc2UoZGZfYW5hbHlzaXMkVVJCQU4gPT0gMiwgMSwgMCkgXG5kZl9hbmFseXNpcyRMSVRFUkFURTwtaWZlbHNlKGRmX2FuYWx5c2lzJExJVD09MiwxLDApXG5kZl9hbmFseXNpcyRFTVBMT1lFRDwtaWZlbHNlKGRmX2FuYWx5c2lzJEVNUFNUQVQ9PTEsMSwwKVxuXG4jVmlldyB0aGUgbmV3IHZhcmlhYmxlcyBhbmQgb3RoZXJzIG9mIHBvdGVudGlhbCBpbnRlcmVzdC5cbnN0YXJnYXplcihkZl9hbmFseXNpcywgdHlwZT0ndGV4dCcpXG5cblxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== --&gt;
+</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI01ha2UgZHVtbXkgdmFyaWFibGVzIGZvciB1cmJhbiwgbGl0ZXJhY3ksIGFuZCBlbXBsb3ltZW50XG5kZl9hbmFseXNpcyRVUkJBTiA8LSBpZmVsc2UoZGZfYW5hbHlzaXMkVVJCQU4gPT0gMiwgMSwgMCkgXG5kZl9hbmFseXNpcyRMSVRFUkFURTwtaWZlbHNlKGRmX2FuYWx5c2lzJExJVD09MiwxLDApXG5kZl9hbmFseXNpcyRFTVBMT1lFRDwtaWZlbHNlKGRmX2FuYWx5c2lzJEVNUFNUQVQ9PTEsMSwwKVxuXG4jVmlldyB0aGUgbmV3IHZhcmlhYmxlcyBhbmQgb3RoZXJzIG9mIHBvdGVudGlhbCBpbnRlcmVzdC5cbnN0YXJnYXplcihkZl9hbmFseXNpcywgdHlwZT0ndGV4dCcpXG5cblxuYGBgIn0= -->
 <pre class="r"><code>#Make dummy variables for urban, literacy, and employment
 df_analysis$URBAN &lt;- ifelse(df_analysis$URBAN == 2, 1, 0) 
@@ -1835,157 +1867,533 @@ df_analysis$EMPLOYED&lt;-ifelse(df_analysis$EMPSTAT==1,1,0)
 stargazer(df_analysis, type=&#39;text&#39;)
 </code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Now we need to construct a measure of child mortality, using children
-born and children who survived.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVJME55WldGMFpTQjViM1Z5SUc1bGR5QjJZWEpwWVdKc1pYTWdZVzVrSUhSb1pXNGdiRzl2YXlCaGRDQjBhR1ZwY2lCemRXMXRZWEo1SUhOMFlYUnBjM1JwWTNNdUlFbDBKM01nWVd4M1lYbHpJR0VnWjI5dlpDQnBaR1ZoSUhSdklHeHZiMnNnWVhRZ2VXOTFjaUJrWVhSaElHRnpJRzExWTJnZ1lYTWdjRzl6YzJsaWJHVWhYRzVrWmw5aGJtRnNlWE5wY3p3dGRISmhibk5tYjNKdEtHUm1YMkZ1WVd4NWMybHpMRU5OVWowb0tFTklRazlTVGkxRFNGTlZVbFlwTDBOSVFrOVNUaWtwWEc1Y2JuTjBZWEpuWVhwbGNpaGtabDloYm1Gc2VYTnBjMXRqS0Z3aVEwaENUMUpPWENJc1hDSkRUVkpjSWlsZExDQjBlWEJsSUQwZ1hDSjBaWGgwWENJcFhHNWdZR0FpZlE9PSAtLT5cblxuYGBgclxuI0NyZWF0ZSB5b3VyIG5ldyB2YXJpYWJsZXMgYW5kIHRoZW4gbG9vayBhdCB0aGVpciBzdW1tYXJ5IHN0YXRpc3RpY3MuIEl0J3MgYWx3YXlzIGEgZ29vZCBpZGVhIHRvIGxvb2sgYXQgeW91ciBkYXRhIGFzIG11Y2ggYXMgcG9zc2libGUhXG5kZl9hbmFseXNpczwtdHJhbnNmb3JtKGRmX2FuYWx5c2lzLENNUj0oKENIQk9STi1DSFNVUlYpL0NIQk9STikpXG5cbnN0YXJnYXplcihkZl9hbmFseXNpc1tjKFwiQ0hCT1JOXCIsXCJDTVJcIildLCB0eXBlID0gXCJ0ZXh0XCIpXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 -->
+<pre><code>
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVZR0JnY2x4dUkwMWhhMlVnWkhWdGJYa2dkbUZ5YVdGaWJHVnpJR1p2Y2lCMWNtSmhiaXdnYkdsMFpYSmhZM2tzSUdGdVpDQmxiWEJzYjNsdFpXNTBYRzVrWmw5aGJtRnNlWE5wY3lSVlVrSkJUaUE4TFNCcFptVnNjMlVvWkdaZllXNWhiSGx6YVhNa1ZWSkNRVTRnUFQwZ01pd2dNU3dnTUNrZ1hHNWtabDloYm1Gc2VYTnBjeVJNU1ZSRlVrRlVSVHd0YVdabGJITmxLR1JtWDJGdVlXeDVjMmx6SkV4SlZEMDlNaXd4TERBcFhHNWtabDloYm1Gc2VYTnBjeVJGVFZCTVQxbEZSRHd0YVdabGJITmxLR1JtWDJGdVlXeDVjMmx6SkVWTlVGTlVRVlE5UFRFc01Td3dLVnh1WEc0alZtbGxkeUIwYUdVZ2JtVjNJSFpoY21saFlteGxjeUJoYm1RZ2IzUm9aWEp6SUc5bUlIQnZkR1Z1ZEdsaGJDQnBiblJsY21WemRDNWNibk4wWVhKbllYcGxjaWhrWmw5aGJtRnNlWE5wY3l3Z2RIbHdaVDBuZEdWNGRDY3BYRzVjYmx4dVlHQmdYRzVnWUdBaWZRPT0gLS0+XG5cbmBgYHJcbmBgYHJcbiNNYWtlIGR1bW15IHZhcmlhYmxlcyBmb3IgdXJiYW4sIGxpdGVyYWN5LCBhbmQgZW1wbG95bWVudFxuZGZfYW5hbHlzaXMkVVJCQU4gPC0gaWZlbHNlKGRmX2FuYWx5c2lzJFVSQkFOID09IDIsIDEsIDApIFxuZGZfYW5hbHlzaXMkTElURVJBVEU8LWlmZWxzZShkZl9hbmFseXNpcyRMSVQ9PTIsMSwwKVxuZGZfYW5hbHlzaXMkRU1QTE9ZRUQ8LWlmZWxzZShkZl9hbmFseXNpcyRFTVBTVEFUPT0xLDEsMClcblxuI1ZpZXcgdGhlIG5ldyB2YXJpYWJsZXMgYW5kIG90aGVycyBvZiBwb3RlbnRpYWwgaW50ZXJlc3QuXG5zdGFyZ2F6ZXIoZGZfYW5hbHlzaXMsIHR5cGU9J3RleHQnKVxuXG5cbmBgYFxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuI01ha2UgZHVtbXkgdmFyaWFibGVzIGZvciB1cmJhbiwgbGl0ZXJhY3ksIGFuZCBlbXBsb3ltZW50XG5kZl9hbmFseXNpcyRVUkJBTiA8LSBpZmVsc2UoZGZfYW5hbHlzaXMkVVJCQU4gPT0gMiwgMSwgMCkgXG5kZl9hbmFseXNpcyRMSVRFUkFURTwtaWZlbHNlKGRmX2FuYWx5c2lzJExJVD09MiwxLDApXG5kZl9hbmFseXNpcyRFTVBMT1lFRDwtaWZlbHNlKGRmX2FuYWx5c2lzJEVNUFNUQVQ9PTEsMSwwKVxuXG4jVmlldyB0aGUgbmV3IHZhcmlhYmxlcyBhbmQgb3RoZXJzIG9mIHBvdGVudGlhbCBpbnRlcmVzdC5cbnN0YXJnYXplcihkZl9hbmFseXNpcywgdHlwZT0ndGV4dCcpXG5cblxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+#Make dummy variables for urban, literacy, and employment
+df_analysis$URBAN &lt;- ifelse(df_analysis$URBAN == 2, 1, 0) 
+df_analysis$LITERATE&lt;-ifelse(df_analysis$LIT==2,1,0)
+df_analysis$EMPLOYED&lt;-ifelse(df_analysis$EMPSTAT==1,1,0)
+
+#View the new variables and others of potential interest.
+stargazer(df_analysis, type=&#39;text&#39;)
+
+```
+```
+
+&lt;!-- rnb-source-end --&gt;
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+
+Now we need to construct a measure of child mortality, using children born and children who survived.
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVJME55WldGMFpTQjViM1Z5SUc1bGR5QjJZWEpwWVdKc1pYTWdZVzVrSUhSb1pXNGdiRzl2YXlCaGRDQjBhR1ZwY2lCemRXMXRZWEo1SUhOMFlYUnBjM1JwWTNNdUlFbDBKM01nWVd4M1lYbHpJR0VnWjI5dlpDQnBaR1ZoSUhSdklHeHZiMnNnWVhRZ2VXOTFjaUJrWVhSaElHRnpJRzExWTJnZ1lYTWdjRzl6YzJsaWJHVWhYRzVrWmw5aGJtRnNlWE5wY3p3dGRISmhibk5tYjNKdEtHUm1YMkZ1WVd4NWMybHpMRU5OVWowb0tFTklRazlTVGkxRFNGTlZVbFlwTDBOSVFrOVNUaWtwWEc1Y2JuTjBZWEpuWVhwbGNpaGtabDloYm1Gc2VYTnBjMXRqS0Z3aVEwaENUMUpPWENJc1hDSkRUVkpjSWlsZExDQjBlWEJsSUQwZ1hDSjBaWGgwWENJcFhHNWdZR0FpZlE9PSAtLT5cblxuYGBgclxuI0NyZWF0ZSB5b3VyIG5ldyB2YXJpYWJsZXMgYW5kIHRoZW4gbG9vayBhdCB0aGVpciBzdW1tYXJ5IHN0YXRpc3RpY3MuIEl0J3MgYWx3YXlzIGEgZ29vZCBpZGVhIHRvIGxvb2sgYXQgeW91ciBkYXRhIGFzIG11Y2ggYXMgcG9zc2libGUhXG5kZl9hbmFseXNpczwtdHJhbnNmb3JtKGRmX2FuYWx5c2lzLENNUj0oKENIQk9STi1DSFNVUlYpL0NIQk9STikpXG5cbnN0YXJnYXplcihkZl9hbmFseXNpc1tjKFxcQ0hCT1JOXFwsXFxDTVJcXCldLCB0eXBlID0gXFx0ZXh0XFwpXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 --&gt;
+</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI0NyZWF0ZSB5b3VyIG5ldyB2YXJpYWJsZXMgYW5kIHRoZW4gbG9vayBhdCB0aGVpciBzdW1tYXJ5IHN0YXRpc3RpY3MuIEl0J3MgYWx3YXlzIGEgZ29vZCBpZGVhIHRvIGxvb2sgYXQgeW91ciBkYXRhIGFzIG11Y2ggYXMgcG9zc2libGUhXG5kZl9hbmFseXNpczwtdHJhbnNmb3JtKGRmX2FuYWx5c2lzLENNUj0oKENIQk9STi1DSFNVUlYpL0NIQk9STikpXG5cbnN0YXJnYXplcihkZl9hbmFseXNpc1tjKFwiQ0hCT1JOXCIsXCJDTVJcIildLCB0eXBlID0gXCJ0ZXh0XCIpXG5gYGAifQ== -->
 <pre class="r"><code>#Create your new variables and then look at their summary statistics. It&#39;s always a good idea to look at your data as much as possible!
 df_analysis&lt;-transform(df_analysis,CMR=((CHBORN-CHSURV)/CHBORN))
 
-stargazer(df_analysis[c(&quot;CHBORN&quot;,&quot;CMR&quot;)], type = &quot;text&quot;)</code></pre>
+stargazer(df_analysis[c(\CHBORN\,\CMR\)], type = \text\)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Note that we filtered out the women with zero children when we
-filtered out the “don’t knows” from CHSURV.</p>
-</div>
-<div id="analysis" class="section level2">
-<h2>Analysis</h2>
-<p>The first step of analysis is often visualizing our data. Lets look
-at a simple scatter plot.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVaMmR3Ykc5MEtHUm1YMkZ1WVd4NWMybHpMQ0JoWlhNb2VEMVpVbE5EU0U5UFRDeDVQVU5OVWlrcEsyZGxiMjFmY0c5cGJuUW9LVnh1WUdCZ0luMD0gLS0+XG5cbmBgYHJcbmdncGxvdChkZl9hbmFseXNpcywgYWVzKHg9WVJTQ0hPT0wseT1DTVIpKStnZW9tX3BvaW50KClcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
+<pre><code>
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVZR0JnY2x4dUkwTnlaV0YwWlNCNWIzVnlJRzVsZHlCMllYSnBZV0pzWlhNZ1lXNWtJSFJvWlc0Z2JHOXZheUJoZENCMGFHVnBjaUJ6ZFcxdFlYSjVJSE4wWVhScGMzUnBZM011SUVsMEozTWdZV3gzWVhseklHRWdaMjl2WkNCcFpHVmhJSFJ2SUd4dmIyc2dZWFFnZVc5MWNpQmtZWFJoSUdGeklHMTFZMmdnWVhNZ2NHOXpjMmxpYkdVaFhHNWtabDloYm1Gc2VYTnBjend0ZEhKaGJuTm1iM0p0S0dSbVgyRnVZV3g1YzJsekxFTk5VajBvS0VOSVFrOVNUaTFEU0ZOVlVsWXBMME5JUWs5U1Rpa3BYRzVjYm5OMFlYSm5ZWHBsY2loa1psOWhibUZzZVhOcGMxdGpLRnhjUTBoQ1QxSk9YRndzWEZ4RFRWSmNYQ2xkTENCMGVYQmxJRDBnWEZ4MFpYaDBYRndwWEc1Z1lHQmNibUJnWUNKOSAtLT5cblxuYGBgclxuYGBgclxuI0NyZWF0ZSB5b3VyIG5ldyB2YXJpYWJsZXMgYW5kIHRoZW4gbG9vayBhdCB0aGVpciBzdW1tYXJ5IHN0YXRpc3RpY3MuIEl0J3MgYWx3YXlzIGEgZ29vZCBpZGVhIHRvIGxvb2sgYXQgeW91ciBkYXRhIGFzIG11Y2ggYXMgcG9zc2libGUhXG5kZl9hbmFseXNpczwtdHJhbnNmb3JtKGRmX2FuYWx5c2lzLENNUj0oKENIQk9STi1DSFNVUlYpL0NIQk9STikpXG5cbnN0YXJnYXplcihkZl9hbmFseXNpc1tjKFxcQ0hCT1JOXFwsXFxDTVJcXCldLCB0eXBlID0gXFx0ZXh0XFwpXG5gYGBcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuI0NyZWF0ZSB5b3VyIG5ldyB2YXJpYWJsZXMgYW5kIHRoZW4gbG9vayBhdCB0aGVpciBzdW1tYXJ5IHN0YXRpc3RpY3MuIEl0J3MgYWx3YXlzIGEgZ29vZCBpZGVhIHRvIGxvb2sgYXQgeW91ciBkYXRhIGFzIG11Y2ggYXMgcG9zc2libGUhXG5kZl9hbmFseXNpczwtdHJhbnNmb3JtKGRmX2FuYWx5c2lzLENNUj0oKENIQk9STi1DSFNVUlYpL0NIQk9STikpXG5cbnN0YXJnYXplcihkZl9hbmFseXNpc1tjKFxcQ0hCT1JOXFwsXFxDTVJcXCldLCB0eXBlID0gXFx0ZXh0XFwpXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+#Create your new variables and then look at their summary statistics. It&#39;s always a good idea to look at your data as much as possible!
+df_analysis&lt;-transform(df_analysis,CMR=((CHBORN-CHSURV)/CHBORN))
+
+stargazer(df_analysis[c(\CHBORN\,\CMR\)], type = \text\)
+```
+```
+
+&lt;!-- rnb-source-end --&gt;
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+Note that we filtered out the women with zero children when we filtered out the &quot;don&#39;t knows&quot; from CHSURV.
+
+
+
+## Analysis
+The first step of analysis is often visualizing our data. Lets look at a simple scatter plot.
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVaMmR3Ykc5MEtHUm1YMkZ1WVd4NWMybHpMQ0JoWlhNb2VEMVpVbE5EU0U5UFRDeDVQVU5OVWlrcEsyZGxiMjFmY0c5cGJuUW9LVnh1WUdCZ0luMD0gLS0+XG5cbmBgYHJcbmdncGxvdChkZl9hbmFseXNpcywgYWVzKHg9WVJTQ0hPT0wseT1DTVIpKStnZW9tX3BvaW50KClcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= --&gt;
+</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2dwbG90KGRmX2FuYWx5c2lzLCBhZXMoeD1ZUlNDSE9PTCx5PUNNUikpK2dlb21fcG9pbnQoKVxuYGBgIn0= -->
 <pre class="r"><code>ggplot(df_analysis, aes(x=YRSCHOOL,y=CMR))+geom_point()</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>But it’s hard to see what is happening with all of those dots, so
-let’s try just looking at mean CMR by years of education.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVJME55WldGMFpTQmhJRzVsZHlCa1lYUmhJR1p5WVcxbElIUm9ZWFFnYUdGeklHMWxZVzRnUTAxU0lHSjVJSGxsWVhKeklHOW1JSE5qYUc5dmJHbHVaeTVjYmlORFlXNGdlVzkxSUd4dmIyc2dZWFFnYldWa2FXRnVJR2x1YzNSbFlXUS9JRVJ2SUhsdmRTQnpaV1VnWVc1NUlHMWhhbTl5SUdScFptWmxjbVZ1WTJWelB5QlhhR0YwSUdGaWIzVjBJR055WldGMGFXNW5JSFJvWlNCellXMWxJSFJoWW14bElHSjVJSE53YjNWelpTZHpJR05vWVhKaFkzUmxjbWx6ZEdsamN6OWNibU52Ykd4aGNITmxJRHd0SUhOMWJXMWhjbmxDZVNoRFNFSlBVazRyUTAxU0lINGdXVkpUUTBoUFQwd3NJRVpWVGoxaktHMWxZVzRwTEc1aExuSnRQVlJTVlVVc0lHUmhkR0U5WkdaZllXNWhiSGx6YVhNcFhHNWpiMnhzWVhCelpWeHVZR0JnSW4wPSAtLT5cblxuYGBgclxuI0NyZWF0ZSBhIG5ldyBkYXRhIGZyYW1lIHRoYXQgaGFzIG1lYW4gQ01SIGJ5IHllYXJzIG9mIHNjaG9vbGluZy5cbiNDYW4geW91IGxvb2sgYXQgbWVkaWFuIGluc3RlYWQ/IERvIHlvdSBzZWUgYW55IG1ham9yIGRpZmZlcmVuY2VzPyBXaGF0IGFib3V0IGNyZWF0aW5nIHRoZSBzYW1lIHRhYmxlIGJ5IHNwb3VzZSdzIGNoYXJhY3RlcmlzdGljcz9cbmNvbGxhcHNlIDwtIHN1bW1hcnlCeShDSEJPUk4rQ01SIH4gWVJTQ0hPT0wsIEZVTj1jKG1lYW4pLG5hLnJtPVRSVUUsIGRhdGE9ZGZfYW5hbHlzaXMpXG5jb2xsYXBzZVxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== -->
+<pre><code>
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVZR0JnY2x4dVoyZHdiRzkwS0dSbVgyRnVZV3g1YzJsekxDQmhaWE1vZUQxWlVsTkRTRTlQVEN4NVBVTk5VaWtwSzJkbGIyMWZjRzlwYm5Rb0tWeHVZR0JnWEc1Z1lHQWlmUT09IC0tPlxuXG5gYGByXG5gYGByXG5nZ3Bsb3QoZGZfYW5hbHlzaXMsIGFlcyh4PVlSU0NIT09MLHk9Q01SKSkrZ2VvbV9wb2ludCgpXG5gYGBcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2dwbG90KGRmX2FuYWx5c2lzLCBhZXMoeD1ZUlNDSE9PTCx5PUNNUikpK2dlb21fcG9pbnQoKVxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+ggplot(df_analysis, aes(x=YRSCHOOL,y=CMR))+geom_point()
+```
+```
+
+&lt;!-- rnb-source-end --&gt;
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+But it&#39;s hard to see what is happening with all of those dots, so let&#39;s try just looking at mean CMR by years of education.
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVJME55WldGMFpTQmhJRzVsZHlCa1lYUmhJR1p5WVcxbElIUm9ZWFFnYUdGeklHMWxZVzRnUTAxU0lHSjVJSGxsWVhKeklHOW1JSE5qYUc5dmJHbHVaeTVjYmlORFlXNGdlVzkxSUd4dmIyc2dZWFFnYldWa2FXRnVJR2x1YzNSbFlXUS9JRVJ2SUhsdmRTQnpaV1VnWVc1NUlHMWhhbTl5SUdScFptWmxjbVZ1WTJWelB5QlhhR0YwSUdGaWIzVjBJR055WldGMGFXNW5JSFJvWlNCellXMWxJSFJoWW14bElHSjVJSE53YjNWelpTZHpJR05vWVhKaFkzUmxjbWx6ZEdsamN6OWNibU52Ykd4aGNITmxJRHd0SUhOMWJXMWhjbmxDZVNoRFNFSlBVazRyUTAxU0lINGdXVkpUUTBoUFQwd3NJRVpWVGoxaktHMWxZVzRwTEc1aExuSnRQVlJTVlVVc0lHUmhkR0U5WkdaZllXNWhiSGx6YVhNcFhHNWpiMnhzWVhCelpWeHVZR0JnSW4wPSAtLT5cblxuYGBgclxuI0NyZWF0ZSBhIG5ldyBkYXRhIGZyYW1lIHRoYXQgaGFzIG1lYW4gQ01SIGJ5IHllYXJzIG9mIHNjaG9vbGluZy5cbiNDYW4geW91IGxvb2sgYXQgbWVkaWFuIGluc3RlYWQ/IERvIHlvdSBzZWUgYW55IG1ham9yIGRpZmZlcmVuY2VzPyBXaGF0IGFib3V0IGNyZWF0aW5nIHRoZSBzYW1lIHRhYmxlIGJ5IHNwb3VzZSdzIGNoYXJhY3RlcmlzdGljcz9cbmNvbGxhcHNlIDwtIHN1bW1hcnlCeShDSEJPUk4rQ01SIH4gWVJTQ0hPT0wsIEZVTj1jKG1lYW4pLG5hLnJtPVRSVUUsIGRhdGE9ZGZfYW5hbHlzaXMpXG5jb2xsYXBzZVxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== --&gt;
+</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI0NyZWF0ZSBhIG5ldyBkYXRhIGZyYW1lIHRoYXQgaGFzIG1lYW4gQ01SIGJ5IHllYXJzIG9mIHNjaG9vbGluZy5cbiNDYW4geW91IGxvb2sgYXQgbWVkaWFuIGluc3RlYWQ/IERvIHlvdSBzZWUgYW55IG1ham9yIGRpZmZlcmVuY2VzPyBXaGF0IGFib3V0IGNyZWF0aW5nIHRoZSBzYW1lIHRhYmxlIGJ5IHNwb3VzZSdzIGNoYXJhY3RlcmlzdGljcz9cbmNvbGxhcHNlIDwtIHN1bW1hcnlCeShDSEJPUk4rQ01SIH4gWVJTQ0hPT0wsIEZVTj1jKG1lYW4pLG5hLnJtPVRSVUUsIGRhdGE9ZGZfYW5hbHlzaXMpXG5jb2xsYXBzZVxuYGBgIn0= -->
 <pre class="r"><code>#Create a new data frame that has mean CMR by years of schooling.
 #Can you look at median instead? Do you see any major differences? What about creating the same table by spouse&#39;s characteristics?
 collapse &lt;- summaryBy(CHBORN+CMR ~ YRSCHOOL, FUN=c(mean),na.rm=TRUE, data=df_analysis)
 collapse</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Now we can plot these means versus years of education.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVaMmR3Ykc5MEtHTnZiR3hoY0hObExDQmhaWE1vZUQxWlVsTkRTRTlQVEN4NVBVTk5VaTV0WldGdUtTa3JaMlZ2YlY5d2IybHVkQ2dwWEc1Z1lHQWlmUT09IC0tPlxuXG5gYGByXG5nZ3Bsb3QoY29sbGFwc2UsIGFlcyh4PVlSU0NIT09MLHk9Q01SLm1lYW4pKStnZW9tX3BvaW50KClcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
+<pre><code>
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVZR0JnY2x4dUkwTnlaV0YwWlNCaElHNWxkeUJrWVhSaElHWnlZVzFsSUhSb1lYUWdhR0Z6SUcxbFlXNGdRMDFTSUdKNUlIbGxZWEp6SUc5bUlITmphRzl2YkdsdVp5NWNiaU5EWVc0Z2VXOTFJR3h2YjJzZ1lYUWdiV1ZrYVdGdUlHbHVjM1JsWVdRL0lFUnZJSGx2ZFNCelpXVWdZVzU1SUcxaGFtOXlJR1JwWm1abGNtVnVZMlZ6UHlCWGFHRjBJR0ZpYjNWMElHTnlaV0YwYVc1bklIUm9aU0J6WVcxbElIUmhZbXhsSUdKNUlITndiM1Z6WlNkeklHTm9ZWEpoWTNSbGNtbHpkR2xqY3o5Y2JtTnZiR3hoY0hObElEd3RJSE4xYlcxaGNubENlU2hEU0VKUFVrNHJRMDFTSUg0Z1dWSlRRMGhQVDB3c0lFWlZUajFqS0cxbFlXNHBMRzVoTG5KdFBWUlNWVVVzSUdSaGRHRTlaR1pmWVc1aGJIbHphWE1wWEc1amIyeHNZWEJ6WlZ4dVlHQmdYRzVnWUdBaWZRPT0gLS0+XG5cbmBgYHJcbmBgYHJcbiNDcmVhdGUgYSBuZXcgZGF0YSBmcmFtZSB0aGF0IGhhcyBtZWFuIENNUiBieSB5ZWFycyBvZiBzY2hvb2xpbmcuXG4jQ2FuIHlvdSBsb29rIGF0IG1lZGlhbiBpbnN0ZWFkPyBEbyB5b3Ugc2VlIGFueSBtYWpvciBkaWZmZXJlbmNlcz8gV2hhdCBhYm91dCBjcmVhdGluZyB0aGUgc2FtZSB0YWJsZSBieSBzcG91c2UncyBjaGFyYWN0ZXJpc3RpY3M/XG5jb2xsYXBzZSA8LSBzdW1tYXJ5QnkoQ0hCT1JOK0NNUiB+IFlSU0NIT09MLCBGVU49YyhtZWFuKSxuYS5ybT1UUlVFLCBkYXRhPWRmX2FuYWx5c2lzKVxuY29sbGFwc2VcbmBgYFxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuI0NyZWF0ZSBhIG5ldyBkYXRhIGZyYW1lIHRoYXQgaGFzIG1lYW4gQ01SIGJ5IHllYXJzIG9mIHNjaG9vbGluZy5cbiNDYW4geW91IGxvb2sgYXQgbWVkaWFuIGluc3RlYWQ/IERvIHlvdSBzZWUgYW55IG1ham9yIGRpZmZlcmVuY2VzPyBXaGF0IGFib3V0IGNyZWF0aW5nIHRoZSBzYW1lIHRhYmxlIGJ5IHNwb3VzZSdzIGNoYXJhY3RlcmlzdGljcz9cbmNvbGxhcHNlIDwtIHN1bW1hcnlCeShDSEJPUk4rQ01SIH4gWVJTQ0hPT0wsIEZVTj1jKG1lYW4pLG5hLnJtPVRSVUUsIGRhdGE9ZGZfYW5hbHlzaXMpXG5jb2xsYXBzZVxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+#Create a new data frame that has mean CMR by years of schooling.
+#Can you look at median instead? Do you see any major differences? What about creating the same table by spouse&#39;s characteristics?
+collapse &lt;- summaryBy(CHBORN+CMR ~ YRSCHOOL, FUN=c(mean),na.rm=TRUE, data=df_analysis)
+collapse
+```
+```
+
+&lt;!-- rnb-source-end --&gt;
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+Now we can plot these means versus years of education.
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVaMmR3Ykc5MEtHTnZiR3hoY0hObExDQmhaWE1vZUQxWlVsTkRTRTlQVEN4NVBVTk5VaTV0WldGdUtTa3JaMlZ2YlY5d2IybHVkQ2dwWEc1Z1lHQWlmUT09IC0tPlxuXG5gYGByXG5nZ3Bsb3QoY29sbGFwc2UsIGFlcyh4PVlSU0NIT09MLHk9Q01SLm1lYW4pKStnZW9tX3BvaW50KClcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= --&gt;
+</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2dwbG90KGNvbGxhcHNlLCBhZXMoeD1ZUlNDSE9PTCx5PUNNUi5tZWFuKSkrZ2VvbV9wb2ludCgpXG5gYGAifQ== -->
 <pre class="r"><code>ggplot(collapse, aes(x=YRSCHOOL,y=CMR.mean))+geom_point()</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Or, you could look at the same graph, but let the color of the dots
-reflect the mean number of children born at that level of schooling.This
-figure adds the extra information that women with less schooling have,
-on average, both more children and higher child mortality.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVaMmR3Ykc5MEtHTnZiR3hoY0hObExDQmhaWE1vZUQxWlVsTkRTRTlQVEN4NVBVTk5VaTV0WldGdUxDQmpiMnh2Y2oxRFNFSlBVazR1YldWaGJpa3BLMmRsYjIxZmNHOXBiblFvS1Z4dVlHQmdJbjA9IC0tPlxuXG5gYGByXG5nZ3Bsb3QoY29sbGFwc2UsIGFlcyh4PVlSU0NIT09MLHk9Q01SLm1lYW4sIGNvbG9yPUNIQk9STi5tZWFuKSkrZ2VvbV9wb2ludCgpXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 -->
+<pre><code>
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVZR0JnY2x4dVoyZHdiRzkwS0dOdmJHeGhjSE5sTENCaFpYTW9lRDFaVWxORFNFOVBUQ3g1UFVOTlVpNXRaV0Z1S1NrcloyVnZiVjl3YjJsdWRDZ3BYRzVnWUdCY2JtQmdZQ0o5IC0tPlxuXG5gYGByXG5gYGByXG5nZ3Bsb3QoY29sbGFwc2UsIGFlcyh4PVlSU0NIT09MLHk9Q01SLm1lYW4pKStnZW9tX3BvaW50KClcbmBgYFxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2dwbG90KGNvbGxhcHNlLCBhZXMoeD1ZUlNDSE9PTCx5PUNNUi5tZWFuKSkrZ2VvbV9wb2ludCgpXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+ggplot(collapse, aes(x=YRSCHOOL,y=CMR.mean))+geom_point()
+```
+```
+
+&lt;!-- rnb-source-end --&gt;
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+Or, you could look at the same graph, but let the color of the dots reflect the mean number of children born at that level of schooling.This figure adds the extra information that women with less schooling have, on average, both more children and higher child mortality.
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVaMmR3Ykc5MEtHTnZiR3hoY0hObExDQmhaWE1vZUQxWlVsTkRTRTlQVEN4NVBVTk5VaTV0WldGdUxDQmpiMnh2Y2oxRFNFSlBVazR1YldWaGJpa3BLMmRsYjIxZmNHOXBiblFvS1Z4dVlHQmdJbjA9IC0tPlxuXG5gYGByXG5nZ3Bsb3QoY29sbGFwc2UsIGFlcyh4PVlSU0NIT09MLHk9Q01SLm1lYW4sIGNvbG9yPUNIQk9STi5tZWFuKSkrZ2VvbV9wb2ludCgpXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 --&gt;
+</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2dwbG90KGNvbGxhcHNlLCBhZXMoeD1ZUlNDSE9PTCx5PUNNUi5tZWFuLCBjb2xvcj1DSEJPUk4ubWVhbikpK2dlb21fcG9pbnQoKVxuYGBgIn0= -->
 <pre class="r"><code>ggplot(collapse, aes(x=YRSCHOOL,y=CMR.mean, color=CHBORN.mean))+geom_point()</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>An alternative to this type of plot is the “coefficient plot.” With a
-coefficient plot, we regress the outcome on a series of dummy variables
-for years of education and then plot the coefficients and confidence
-intervals. The y-axis shows the difference between the mean outcome for
-each value of years of education, relative to the mean value for zero
-years of education.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVabDl2YkhNeFBDMW1aVzlzY3loRFRWSithU2haVWxORFNFOVBUQ2tzSUdSaGRHRTlaR1pmWVc1aGJIbHphWE1wWEc1emRXMXRZWEo1S0daZmIyeHpNU2xjYm1CZ1lDSjkgLS0+XG5cbmBgYHJcbmZfb2xzMTwtZmVvbHMoQ01SfmkoWVJTQ0hPT0wpLCBkYXRhPWRmX2FuYWx5c2lzKVxuc3VtbWFyeShmX29sczEpXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 -->
+<pre><code>
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVZR0JnY2x4dVoyZHdiRzkwS0dOdmJHeGhjSE5sTENCaFpYTW9lRDFaVWxORFNFOVBUQ3g1UFVOTlVpNXRaV0Z1TENCamIyeHZjajFEU0VKUFVrNHViV1ZoYmlrcEsyZGxiMjFmY0c5cGJuUW9LVnh1WUdCZ1hHNWdZR0FpZlE9PSAtLT5cblxuYGBgclxuYGBgclxuZ2dwbG90KGNvbGxhcHNlLCBhZXMoeD1ZUlNDSE9PTCx5PUNNUi5tZWFuLCBjb2xvcj1DSEJPUk4ubWVhbikpK2dlb21fcG9pbnQoKVxuYGBgXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2dwbG90KGNvbGxhcHNlLCBhZXMoeD1ZUlNDSE9PTCx5PUNNUi5tZWFuLCBjb2xvcj1DSEJPUk4ubWVhbikpK2dlb21fcG9pbnQoKVxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+ggplot(collapse, aes(x=YRSCHOOL,y=CMR.mean, color=CHBORN.mean))+geom_point()
+```
+```
+
+&lt;!-- rnb-source-end --&gt;
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+An alternative to this type of plot is the &quot;coefficient plot.&quot; With a coefficient plot, we regress the outcome on a series of dummy variables for years of education and then plot the coefficients and confidence intervals. The y-axis shows the difference between the mean outcome for each value of years of education, relative to the mean value for zero years of education.
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVabDl2YkhNeFBDMW1aVzlzY3loRFRWSithU2haVWxORFNFOVBUQ2tzSUdSaGRHRTlaR1pmWVc1aGJIbHphWE1wWEc1emRXMXRZWEo1S0daZmIyeHpNU2xjYm1CZ1lDSjkgLS0+XG5cbmBgYHJcbmZfb2xzMTwtZmVvbHMoQ01SfmkoWVJTQ0hPT0wpLCBkYXRhPWRmX2FuYWx5c2lzKVxuc3VtbWFyeShmX29sczEpXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 --&gt;
+</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZl9vbHMxPC1mZW9scyhDTVJ+aShZUlNDSE9PTCksIGRhdGE9ZGZfYW5hbHlzaXMpXG5zdW1tYXJ5KGZfb2xzMSlcbmBgYCJ9 -->
 <pre class="r"><code>f_ols1&lt;-feols(CMR~i(YRSCHOOL), data=df_analysis)
 summary(f_ols1)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Now plot (iplot is part of the coefplot package).</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVhWEJzYjNRb1psOXZiSE14S1Z4dVlHQmdJbjA9IC0tPlxuXG5gYGByXG5pcGxvdChmX29sczEpXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 -->
+<pre><code>
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVZR0JnY2x4dVpsOXZiSE14UEMxbVpXOXNjeWhEVFZKK2FTaFpVbE5EU0U5UFRDa3NJR1JoZEdFOVpHWmZZVzVoYkhsemFYTXBYRzV6ZFcxdFlYSjVLR1pmYjJ4ek1TbGNibUJnWUZ4dVlHQmdJbjA9IC0tPlxuXG5gYGByXG5gYGByXG5mX29sczE8LWZlb2xzKENNUn5pKFlSU0NIT09MKSwgZGF0YT1kZl9hbmFseXNpcylcbnN1bW1hcnkoZl9vbHMxKVxuYGBgXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZl9vbHMxPC1mZW9scyhDTVJ+aShZUlNDSE9PTCksIGRhdGE9ZGZfYW5hbHlzaXMpXG5zdW1tYXJ5KGZfb2xzMSlcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+f_ols1&lt;-feols(CMR~i(YRSCHOOL), data=df_analysis)
+summary(f_ols1)
+```
+```
+
+&lt;!-- rnb-source-end --&gt;
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+Now plot (iplot is part of the coefplot package).
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVhWEJzYjNRb1psOXZiSE14S1Z4dVlHQmdJbjA9IC0tPlxuXG5gYGByXG5pcGxvdChmX29sczEpXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 --&gt;
+</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaXBsb3QoZl9vbHMxKVxuYGBgIn0= -->
 <pre class="r"><code>iplot(f_ols1)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Now let’s see how the effect of schooling changes as we control for
-other important factors that might be associated with schooling.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVabDl2YkhNeVBDMW1aVzlzY3loRFRWSithU2haVWxORFNFOVBUQ2tyUTBoQ1QxSk9LMEZIUlN0RlRWQk1UMWxGUkN0TVNWUkZVa0ZVUlN3Z1pHRjBZVDFrWmw5aGJtRnNlWE5wY3lsY2JtbHdiRzkwS0daZmIyeHpNaWxjYm1CZ1lDSjkgLS0+XG5cbmBgYHJcbmZfb2xzMjwtZmVvbHMoQ01SfmkoWVJTQ0hPT0wpK0NIQk9STitBR0UrRU1QTE9ZRUQrTElURVJBVEUsIGRhdGE9ZGZfYW5hbHlzaXMpXG5pcGxvdChmX29sczIpXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 -->
+<pre><code>
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVZR0JnY2x4dWFYQnNiM1FvWmw5dmJITXhLVnh1WUdCZ1hHNWdZR0FpZlE9PSAtLT5cblxuYGBgclxuYGBgclxuaXBsb3QoZl9vbHMxKVxuYGBgXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuaXBsb3QoZl9vbHMxKVxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+iplot(f_ols1)
+```
+```
+
+&lt;!-- rnb-source-end --&gt;
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+Now let&#39;s see how the effect of schooling changes as we control for other important factors that might be associated with schooling.
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVabDl2YkhNeVBDMW1aVzlzY3loRFRWSithU2haVWxORFNFOVBUQ2tyUTBoQ1QxSk9LMEZIUlN0RlRWQk1UMWxGUkN0TVNWUkZVa0ZVUlN3Z1pHRjBZVDFrWmw5aGJtRnNlWE5wY3lsY2JtbHdiRzkwS0daZmIyeHpNaWxjYm1CZ1lDSjkgLS0+XG5cbmBgYHJcbmZfb2xzMjwtZmVvbHMoQ01SfmkoWVJTQ0hPT0wpK0NIQk9STitBR0UrRU1QTE9ZRUQrTElURVJBVEUsIGRhdGE9ZGZfYW5hbHlzaXMpXG5pcGxvdChmX29sczIpXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 --&gt;
+</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZl9vbHMyPC1mZW9scyhDTVJ+aShZUlNDSE9PTCkrQ0hCT1JOK0FHRStFTVBMT1lFRCtMSVRFUkFURSwgZGF0YT1kZl9hbmFseXNpcylcbmlwbG90KGZfb2xzMilcbmBgYCJ9 -->
 <pre class="r"><code>f_ols2&lt;-feols(CMR~i(YRSCHOOL)+CHBORN+AGE+EMPLOYED+LITERATE, data=df_analysis)
 iplot(f_ols2)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Ok, now we might want to see what we get from the control variables,
-so let’s plot them both together. I found a package (ggiplot) that works
-a bit better than iplot here. Can you interpret the difference in
-coefficients shown in the figure below?</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVhVzV6ZEdGc2JDNXdZV05yWVdkbGN5aGNJbWRuYVhCc2IzUmNJaXdnY21Wd2IzTWdQU0JjSW1oMGRIQnpPaTh2WjNKaGJuUnRZMlJsY20xdmRIUXVjaTExYm1sMlpYSnpaUzVrWlhaY0lpbGNibXhwWW5KaGNua29aMmRwY0d4dmRDbGNibWRuYVhCc2IzUW9iR2x6ZENnblRtOGdRMjl1ZEhKdmJITW5JRDBnWmw5dmJITXhMQ0FuUTI5dWRISnZiSE1uSUQwZ1psOXZiSE15S1N4dFlXbHVJRDBnSjBOb2FXeGtJRTF2Y25SaGJHbDBlU0JoYm1RZ1JXUjFZMkYwYVc5dUp5d2djbVZtTG14cGJtVWdQU0F0TVN3Z2NIUXVhbTlwYmlBOUlGUlNWVVVwWEc1Y2JtQmdZQ0o5IC0tPlxuXG5gYGByXG5pbnN0YWxsLnBhY2thZ2VzKFwiZ2dpcGxvdFwiLCByZXBvcyA9IFwiaHR0cHM6Ly9ncmFudG1jZGVybW90dC5yLXVuaXZlcnNlLmRldlwiKVxubGlicmFyeShnZ2lwbG90KVxuZ2dpcGxvdChsaXN0KCdObyBDb250cm9scycgPSBmX29sczEsICdDb250cm9scycgPSBmX29sczIpLG1haW4gPSAnQ2hpbGQgTW9ydGFsaXR5IGFuZCBFZHVjYXRpb24nLCByZWYubGluZSA9IC0xLCBwdC5qb2luID0gVFJVRSlcblxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== -->
+<pre><code>
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVZR0JnY2x4dVpsOXZiSE15UEMxbVpXOXNjeWhEVFZKK2FTaFpVbE5EU0U5UFRDa3JRMGhDVDFKT0swRkhSU3RGVFZCTVQxbEZSQ3RNU1ZSRlVrRlVSU3dnWkdGMFlUMWtabDloYm1Gc2VYTnBjeWxjYm1sd2JHOTBLR1pmYjJ4ek1pbGNibUJnWUZ4dVlHQmdJbjA9IC0tPlxuXG5gYGByXG5gYGByXG5mX29sczI8LWZlb2xzKENNUn5pKFlSU0NIT09MKStDSEJPUk4rQUdFK0VNUExPWUVEK0xJVEVSQVRFLCBkYXRhPWRmX2FuYWx5c2lzKVxuaXBsb3QoZl9vbHMyKVxuYGBgXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZl9vbHMyPC1mZW9scyhDTVJ+aShZUlNDSE9PTCkrQ0hCT1JOK0FHRStFTVBMT1lFRCtMSVRFUkFURSwgZGF0YT1kZl9hbmFseXNpcylcbmlwbG90KGZfb2xzMilcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+f_ols2&lt;-feols(CMR~i(YRSCHOOL)+CHBORN+AGE+EMPLOYED+LITERATE, data=df_analysis)
+iplot(f_ols2)
+```
+```
+
+&lt;!-- rnb-source-end --&gt;
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+Ok, now we might want to see what we get from the control variables, so let&#39;s plot them both together. I found a package (ggiplot) that works a bit better than iplot here. Can you interpret the difference in coefficients shown in the figure below?
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVhVzV6ZEdGc2JDNXdZV05yWVdkbGN5aGNJbWRuYVhCc2IzUmNJaXdnY21Wd2IzTWdQU0JjSW1oMGRIQnpPaTh2WjNKaGJuUnRZMlJsY20xdmRIUXVjaTExYm1sMlpYSnpaUzVrWlhaY0lpbGNibXhwWW5KaGNua29aMmRwY0d4dmRDbGNibWRuYVhCc2IzUW9iR2x6ZENnblRtOGdRMjl1ZEhKdmJITW5JRDBnWmw5dmJITXhMQ0FuUTI5dWRISnZiSE1uSUQwZ1psOXZiSE15S1N4dFlXbHVJRDBnSjBOb2FXeGtJRTF2Y25SaGJHbDBlU0JoYm1RZ1JXUjFZMkYwYVc5dUp5d2djbVZtTG14cGJtVWdQU0F0TVN3Z2NIUXVhbTlwYmlBOUlGUlNWVVVwWEc1Y2JtQmdZQ0o5IC0tPlxuXG5gYGByXG5pbnN0YWxsLnBhY2thZ2VzKFxcZ2dpcGxvdFxcLCByZXBvcyA9IFxcaHR0cHM6Ly9ncmFudG1jZGVybW90dC5yLXVuaXZlcnNlLmRldlxcKVxubGlicmFyeShnZ2lwbG90KVxuZ2dpcGxvdChsaXN0KCdObyBDb250cm9scycgPSBmX29sczEsICdDb250cm9scycgPSBmX29sczIpLG1haW4gPSAnQ2hpbGQgTW9ydGFsaXR5IGFuZCBFZHVjYXRpb24nLCByZWYubGluZSA9IC0xLCBwdC5qb2luID0gVFJVRSlcblxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== --&gt;
+</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaW5zdGFsbC5wYWNrYWdlcyhcImdnaXBsb3RcIiwgcmVwb3MgPSBcImh0dHBzOi8vZ3JhbnRtY2Rlcm1vdHQuci11bml2ZXJzZS5kZXZcIilcbmxpYnJhcnkoZ2dpcGxvdClcbmdnaXBsb3QobGlzdCgnTm8gQ29udHJvbHMnID0gZl9vbHMxLCAnQ29udHJvbHMnID0gZl9vbHMyKSxtYWluID0gJ0NoaWxkIE1vcnRhbGl0eSBhbmQgRWR1Y2F0aW9uJywgcmVmLmxpbmUgPSAtMSwgcHQuam9pbiA9IFRSVUUpXG5cbmBgYCJ9 -->
-<pre class="r"><code>install.packages(&quot;ggiplot&quot;, repos = &quot;https://grantmcdermott.r-universe.dev&quot;)
+<pre class="r"><code>install.packages(\ggiplot\, repos = \https://grantmcdermott.r-universe.dev\)
 library(ggiplot)
 ggiplot(list(&#39;No Controls&#39; = f_ols1, &#39;Controls&#39; = f_ols2),main = &#39;Child Mortality and Education&#39;, ref.line = -1, pt.join = TRUE)
 </code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Just for “fun” now let’s look at this by child sex.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVaR1pmWVc1aGJIbHphWE04TFhSeVlXNXpabTl5YlNoa1psOWhibUZzZVhOcGN5eERUVkpmVFQwb0tFTklRazlTVGswdFEwaFRWVkpXVFNrdlEwaENUMUpPVFNrcFhHNWtabDloYm1Gc2VYTnBjend0ZEhKaGJuTm1iM0p0S0dSbVgyRnVZV3g1YzJsekxFTk5VbDlHUFNnb1EwaENUMUpPUmkxRFNGTlZVbFpHS1M5RFNFSlBVazVHS1NsY2JuTjBZWEpuWVhwbGNpaGtabDloYm1Gc2VYTnBjMXRqS0Z3aVEwMVNYMDFjSWl4Y0lrTk5VbDlHWENJcFhTd2dkSGx3WlNBOUlGd2lkR1Y0ZEZ3aUtWeHVZR0JnSW4wPSAtLT5cblxuYGBgclxuZGZfYW5hbHlzaXM8LXRyYW5zZm9ybShkZl9hbmFseXNpcyxDTVJfTT0oKENIQk9STk0tQ0hTVVJWTSkvQ0hCT1JOTSkpXG5kZl9hbmFseXNpczwtdHJhbnNmb3JtKGRmX2FuYWx5c2lzLENNUl9GPSgoQ0hCT1JORi1DSFNVUlZGKS9DSEJPUk5GKSlcbnN0YXJnYXplcihkZl9hbmFseXNpc1tjKFwiQ01SX01cIixcIkNNUl9GXCIpXSwgdHlwZSA9IFwidGV4dFwiKVxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== -->
+<pre><code>
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVZR0JnY2x4dWFXNXpkR0ZzYkM1d1lXTnJZV2RsY3loY1hHZG5hWEJzYjNSY1hDd2djbVZ3YjNNZ1BTQmNYR2gwZEhCek9pOHZaM0poYm5SdFkyUmxjbTF2ZEhRdWNpMTFibWwyWlhKelpTNWtaWFpjWENsY2JteHBZbkpoY25rb1oyZHBjR3h2ZENsY2JtZG5hWEJzYjNRb2JHbHpkQ2duVG04Z1EyOXVkSEp2YkhNbklEMGdabDl2YkhNeExDQW5RMjl1ZEhKdmJITW5JRDBnWmw5dmJITXlLU3h0WVdsdUlEMGdKME5vYVd4a0lFMXZjblJoYkdsMGVTQmhibVFnUldSMVkyRjBhVzl1Snl3Z2NtVm1MbXhwYm1VZ1BTQXRNU3dnY0hRdWFtOXBiaUE5SUZSU1ZVVXBYRzVjYm1CZ1lGeHVZR0JnSW4wPSAtLT5cblxuYGBgclxuYGBgclxuaW5zdGFsbC5wYWNrYWdlcyhcXGdnaXBsb3RcXCwgcmVwb3MgPSBcXGh0dHBzOi8vZ3JhbnRtY2Rlcm1vdHQuci11bml2ZXJzZS5kZXZcXClcbmxpYnJhcnkoZ2dpcGxvdClcbmdnaXBsb3QobGlzdCgnTm8gQ29udHJvbHMnID0gZl9vbHMxLCAnQ29udHJvbHMnID0gZl9vbHMyKSxtYWluID0gJ0NoaWxkIE1vcnRhbGl0eSBhbmQgRWR1Y2F0aW9uJywgcmVmLmxpbmUgPSAtMSwgcHQuam9pbiA9IFRSVUUpXG5cbmBgYFxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuaW5zdGFsbC5wYWNrYWdlcyhcXGdnaXBsb3RcXCwgcmVwb3MgPSBcXGh0dHBzOi8vZ3JhbnRtY2Rlcm1vdHQuci11bml2ZXJzZS5kZXZcXClcbmxpYnJhcnkoZ2dpcGxvdClcbmdnaXBsb3QobGlzdCgnTm8gQ29udHJvbHMnID0gZl9vbHMxLCAnQ29udHJvbHMnID0gZl9vbHMyKSxtYWluID0gJ0NoaWxkIE1vcnRhbGl0eSBhbmQgRWR1Y2F0aW9uJywgcmVmLmxpbmUgPSAtMSwgcHQuam9pbiA9IFRSVUUpXG5cbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+install.packages(\ggiplot\, repos = \https://grantmcdermott.r-universe.dev\)
+library(ggiplot)
+ggiplot(list(&#39;No Controls&#39; = f_ols1, &#39;Controls&#39; = f_ols2),main = &#39;Child Mortality and Education&#39;, ref.line = -1, pt.join = TRUE)
+
+```
+```
+
+&lt;!-- rnb-source-end --&gt;
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+Just for &quot;fun&quot; now let&#39;s look at this by child sex.
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVaR1pmWVc1aGJIbHphWE04TFhSeVlXNXpabTl5YlNoa1psOWhibUZzZVhOcGN5eERUVkpmVFQwb0tFTklRazlTVGswdFEwaFRWVkpXVFNrdlEwaENUMUpPVFNrcFhHNWtabDloYm1Gc2VYTnBjend0ZEhKaGJuTm1iM0p0S0dSbVgyRnVZV3g1YzJsekxFTk5VbDlHUFNnb1EwaENUMUpPUmkxRFNGTlZVbFpHS1M5RFNFSlBVazVHS1NsY2JuTjBZWEpuWVhwbGNpaGtabDloYm1Gc2VYTnBjMXRqS0Z3aVEwMVNYMDFjSWl4Y0lrTk5VbDlHWENJcFhTd2dkSGx3WlNBOUlGd2lkR1Y0ZEZ3aUtWeHVZR0JnSW4wPSAtLT5cblxuYGBgclxuZGZfYW5hbHlzaXM8LXRyYW5zZm9ybShkZl9hbmFseXNpcyxDTVJfTT0oKENIQk9STk0tQ0hTVVJWTSkvQ0hCT1JOTSkpXG5kZl9hbmFseXNpczwtdHJhbnNmb3JtKGRmX2FuYWx5c2lzLENNUl9GPSgoQ0hCT1JORi1DSFNVUlZGKS9DSEJPUk5GKSlcbnN0YXJnYXplcihkZl9hbmFseXNpc1tjKFxcQ01SX01cXCxcXENNUl9GXFwpXSwgdHlwZSA9IFxcdGV4dFxcKVxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== --&gt;
+</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGZfYW5hbHlzaXM8LXRyYW5zZm9ybShkZl9hbmFseXNpcyxDTVJfTT0oKENIQk9STk0tQ0hTVVJWTSkvQ0hCT1JOTSkpXG5kZl9hbmFseXNpczwtdHJhbnNmb3JtKGRmX2FuYWx5c2lzLENNUl9GPSgoQ0hCT1JORi1DSFNVUlZGKS9DSEJPUk5GKSlcbnN0YXJnYXplcihkZl9hbmFseXNpc1tjKFwiQ01SX01cIixcIkNNUl9GXCIpXSwgdHlwZSA9IFwidGV4dFwiKVxuYGBgIn0= -->
 <pre class="r"><code>df_analysis&lt;-transform(df_analysis,CMR_M=((CHBORNM-CHSURVM)/CHBORNM))
 df_analysis&lt;-transform(df_analysis,CMR_F=((CHBORNF-CHSURVF)/CHBORNF))
-stargazer(df_analysis[c(&quot;CMR_M&quot;,&quot;CMR_F&quot;)], type = &quot;text&quot;)</code></pre>
+stargazer(df_analysis[c(\CMR_M\,\CMR_F\)], type = \text\)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVabDl2YkhNelBDMW1aVzlzY3loRFRWSmZUWDVwS0ZsU1UwTklUMDlNS1N3Z1pHWmZZVzVoYkhsemFYTXBYRzVtWDI5c2N6UThMV1psYjJ4ektFTk5VbDlHZm1rb1dWSlRRMGhQVDB3cExDQmtabDloYm1Gc2VYTnBjeWxjYm1CZ1lDSjkgLS0+XG5cbmBgYHJcbmZfb2xzMzwtZmVvbHMoQ01SX01+aShZUlNDSE9PTCksIGRmX2FuYWx5c2lzKVxuZl9vbHM0PC1mZW9scyhDTVJfRn5pKFlSU0NIT09MKSwgZGZfYW5hbHlzaXMpXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 -->
+<pre><code>
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVZR0JnY2x4dVpHWmZZVzVoYkhsemFYTThMWFJ5WVc1elptOXliU2hrWmw5aGJtRnNlWE5wY3l4RFRWSmZUVDBvS0VOSVFrOVNUazB0UTBoVFZWSldUU2t2UTBoQ1QxSk9UU2twWEc1a1psOWhibUZzZVhOcGN6d3RkSEpoYm5ObWIzSnRLR1JtWDJGdVlXeDVjMmx6TEVOTlVsOUdQU2dvUTBoQ1QxSk9SaTFEU0ZOVlVsWkdLUzlEU0VKUFVrNUdLU2xjYm5OMFlYSm5ZWHBsY2loa1psOWhibUZzZVhOcGMxdGpLRnhjUTAxU1gwMWNYQ3hjWEVOTlVsOUdYRndwWFN3Z2RIbHdaU0E5SUZ4Y2RHVjRkRnhjS1Z4dVlHQmdYRzVnWUdBaWZRPT0gLS0+XG5cbmBgYHJcbmBgYHJcbmRmX2FuYWx5c2lzPC10cmFuc2Zvcm0oZGZfYW5hbHlzaXMsQ01SX009KChDSEJPUk5NLUNIU1VSVk0pL0NIQk9STk0pKVxuZGZfYW5hbHlzaXM8LXRyYW5zZm9ybShkZl9hbmFseXNpcyxDTVJfRj0oKENIQk9STkYtQ0hTVVJWRikvQ0hCT1JORikpXG5zdGFyZ2F6ZXIoZGZfYW5hbHlzaXNbYyhcXENNUl9NXFwsXFxDTVJfRlxcKV0sIHR5cGUgPSBcXHRleHRcXClcbmBgYFxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZGZfYW5hbHlzaXM8LXRyYW5zZm9ybShkZl9hbmFseXNpcyxDTVJfTT0oKENIQk9STk0tQ0hTVVJWTSkvQ0hCT1JOTSkpXG5kZl9hbmFseXNpczwtdHJhbnNmb3JtKGRmX2FuYWx5c2lzLENNUl9GPSgoQ0hCT1JORi1DSFNVUlZGKS9DSEJPUk5GKSlcbnN0YXJnYXplcihkZl9hbmFseXNpc1tjKFxcQ01SX01cXCxcXENNUl9GXFwpXSwgdHlwZSA9IFxcdGV4dFxcKVxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+df_analysis&lt;-transform(df_analysis,CMR_M=((CHBORNM-CHSURVM)/CHBORNM))
+df_analysis&lt;-transform(df_analysis,CMR_F=((CHBORNF-CHSURVF)/CHBORNF))
+stargazer(df_analysis[c(\CMR_M\,\CMR_F\)], type = \text\)
+```
+```
+
+&lt;!-- rnb-source-end --&gt;
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVabDl2YkhNelBDMW1aVzlzY3loRFRWSmZUWDVwS0ZsU1UwTklUMDlNS1N3Z1pHWmZZVzVoYkhsemFYTXBYRzVtWDI5c2N6UThMV1psYjJ4ektFTk5VbDlHZm1rb1dWSlRRMGhQVDB3cExDQmtabDloYm1Gc2VYTnBjeWxjYm1CZ1lDSjkgLS0+XG5cbmBgYHJcbmZfb2xzMzwtZmVvbHMoQ01SX01+aShZUlNDSE9PTCksIGRmX2FuYWx5c2lzKVxuZl9vbHM0PC1mZW9scyhDTVJfRn5pKFlSU0NIT09MKSwgZGZfYW5hbHlzaXMpXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 --&gt;
+</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZl9vbHMzPC1mZW9scyhDTVJfTX5pKFlSU0NIT09MKSwgZGZfYW5hbHlzaXMpXG5mX29sczQ8LWZlb2xzKENNUl9GfmkoWVJTQ0hPT0wpLCBkZl9hbmFseXNpcylcbmBgYCJ9 -->
 <pre class="r"><code>f_ols3&lt;-feols(CMR_M~i(YRSCHOOL), df_analysis)
 f_ols4&lt;-feols(CMR_F~i(YRSCHOOL), df_analysis)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVaMmRwY0d4dmRDaHNhWE4wS0NkTllXeGxJRU5OVWljZ1BTQm1YMjlzY3pNc0lDZEdaVzFoYkdVZ1EwMVNKeUE5SUdaZmIyeHpOQ2tzYldGcGJpQTlJQ2REYUdsc1pDQlRkWEoyYVhaaGJDQmllU0JUWlhnZ1lXNWtJRVZrZFdOaGRHbHZiaWNzSUhKbFppNXNhVzVsSUQwZ0xURXNJSEIwTG1wdmFXNGdQU0JVVWxWRktWeHVZR0JnSW4wPSAtLT5cblxuYGBgclxuZ2dpcGxvdChsaXN0KCdNYWxlIENNUicgPSBmX29sczMsICdGZW1hbGUgQ01SJyA9IGZfb2xzNCksbWFpbiA9ICdDaGlsZCBTdXJ2aXZhbCBieSBTZXggYW5kIEVkdWNhdGlvbicsIHJlZi5saW5lID0gLTEsIHB0LmpvaW4gPSBUUlVFKVxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== -->
+<pre><code>
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVZR0JnY2x4dVpsOXZiSE16UEMxbVpXOXNjeWhEVFZKZlRYNXBLRmxTVTBOSVQwOU1LU3dnWkdaZllXNWhiSGx6YVhNcFhHNW1YMjlzY3pROExXWmxiMnh6S0VOTlVsOUdmbWtvV1ZKVFEwaFBUMHdwTENCa1psOWhibUZzZVhOcGN5bGNibUJnWUZ4dVlHQmdJbjA9IC0tPlxuXG5gYGByXG5gYGByXG5mX29sczM8LWZlb2xzKENNUl9NfmkoWVJTQ0hPT0wpLCBkZl9hbmFseXNpcylcbmZfb2xzNDwtZmVvbHMoQ01SX0Z+aShZUlNDSE9PTCksIGRmX2FuYWx5c2lzKVxuYGBgXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZl9vbHMzPC1mZW9scyhDTVJfTX5pKFlSU0NIT09MKSwgZGZfYW5hbHlzaXMpXG5mX29sczQ8LWZlb2xzKENNUl9GfmkoWVJTQ0hPT0wpLCBkZl9hbmFseXNpcylcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+f_ols3&lt;-feols(CMR_M~i(YRSCHOOL), df_analysis)
+f_ols4&lt;-feols(CMR_F~i(YRSCHOOL), df_analysis)
+```
+```
+
+&lt;!-- rnb-source-end --&gt;
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVaMmRwY0d4dmRDaHNhWE4wS0NkTllXeGxJRU5OVWljZ1BTQm1YMjlzY3pNc0lDZEdaVzFoYkdVZ1EwMVNKeUE5SUdaZmIyeHpOQ2tzYldGcGJpQTlJQ2REYUdsc1pDQlRkWEoyYVhaaGJDQmllU0JUWlhnZ1lXNWtJRVZrZFdOaGRHbHZiaWNzSUhKbFppNXNhVzVsSUQwZ0xURXNJSEIwTG1wdmFXNGdQU0JVVWxWRktWeHVZR0JnSW4wPSAtLT5cblxuYGBgclxuZ2dpcGxvdChsaXN0KCdNYWxlIENNUicgPSBmX29sczMsICdGZW1hbGUgQ01SJyA9IGZfb2xzNCksbWFpbiA9ICdDaGlsZCBTdXJ2aXZhbCBieSBTZXggYW5kIEVkdWNhdGlvbicsIHJlZi5saW5lID0gLTEsIHB0LmpvaW4gPSBUUlVFKVxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== --&gt;
+</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2dpcGxvdChsaXN0KCdNYWxlIENNUicgPSBmX29sczMsICdGZW1hbGUgQ01SJyA9IGZfb2xzNCksbWFpbiA9ICdDaGlsZCBTdXJ2aXZhbCBieSBTZXggYW5kIEVkdWNhdGlvbicsIHJlZi5saW5lID0gLTEsIHB0LmpvaW4gPSBUUlVFKVxuYGBgIn0= -->
 <pre class="r"><code>ggiplot(list(&#39;Male CMR&#39; = f_ols3, &#39;Female CMR&#39; = f_ols4),main = &#39;Child Survival by Sex and Education&#39;, ref.line = -1, pt.join = TRUE)</code></pre>
+<!-- rnb-source-end -->
+<p>````</p>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVZR0JnY2x4dVoyZHBjR3h2ZENoc2FYTjBLQ2ROWVd4bElFTk5VaWNnUFNCbVgyOXNjek1zSUNkR1pXMWhiR1VnUTAxU0p5QTlJR1pmYjJ4ek5Da3NiV0ZwYmlBOUlDZERhR2xzWkNCVGRYSjJhWFpoYkNCaWVTQlRaWGdnWVc1a0lFVmtkV05oZEdsdmJpY3NJSEpsWmk1c2FXNWxJRDBnTFRFc0lIQjBMbXB2YVc0Z1BTQlVVbFZGS1Z4dVlHQmdYRzVnWUdBaWZRPT0gLS0+XG5cbmBgYHJcbmBgYHJcbmdnaXBsb3QobGlzdCgnTWFsZSBDTVInID0gZl9vbHMzLCAnRmVtYWxlIENNUicgPSBmX29sczQpLG1haW4gPSAnQ2hpbGQgU3Vydml2YWwgYnkgU2V4IGFuZCBFZHVjYXRpb24nLCByZWYubGluZSA9IC0xLCBwdC5qb2luID0gVFJVRSlcbmBgYFxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2dpcGxvdChsaXN0KCdNYWxlIENNUicgPSBmX29sczMsICdGZW1hbGUgQ01SJyA9IGZfb2xzNCksbWFpbiA9ICdDaGlsZCBTdXJ2aXZhbCBieSBTZXggYW5kIEVkdWNhdGlvbicsIHJlZi5saW5lID0gLTEsIHB0LmpvaW4gPSBUUlVFKVxuYGBgXG5gYGAifQ== -->
+<pre class="r"><code>```r
+ggiplot(list(&#39;Male CMR&#39; = f_ols3, &#39;Female CMR&#39; = f_ols4),main = &#39;Child Survival by Sex and Education&#39;, ref.line = -1, pt.join = TRUE)</code></pre>
+<p>```</p>
 <!-- rnb-source-end -->
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
