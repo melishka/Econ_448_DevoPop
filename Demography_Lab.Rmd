@@ -7,7 +7,12 @@ output: html_notebook
 
 ## Overview and Setup
 Install these packages once (if working on your personal machine). You do not need to do this if you are working in the class server. 
+```{r}
+#Adding this in case you need it to get readHMDweb to work
+#install.packages("HMDHFDplus")
+```
 
+Load libraries (every time).
 ```{r message=FALSE, warning=FALSE}
 ## Load every time, but only once per session 
 library("ggplot2")
@@ -43,7 +48,8 @@ Malthus predicted that excessive population growth would correct itself, either 
 
 In this exercise, we will use the HMDHFDplus package to access the Human Mortality Database. To complete this exercise, you will have to go to mortality.org to register for your own account to access the data. Once you do so, you can assign your login and password information to variables in R by using commands like 
 ```{r}
-myname<-"knoxm@uw.edu" and mypass<-"my secret password"
+myname<-"knoxm@uw.edu" 
+mypass<-"my secret password" #Your actual password here
 ```
 
 This is an exercise with several steps that you can use to complete the data questions in your problem set.
