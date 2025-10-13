@@ -40,8 +40,6 @@ CMR
 
 You can even use the notebook to display your results in regular text (look at the html to see this in action). This could be useful for your final paper.
 
-The crude mortality rate in Country A is `r CMR` deaths per 1000 people.
-
 
 ## Was Malthus right? Calculating mortality and fertility rates from real-world data
 Malthus predicted that excessive population growth would correct itself, either through "positive checks" of increased misery and death or "preventive checks" of reduced marriage and fewer births. One crude way to test for evidence of "positive checks" is to look for a positive relationship between the birth rate and the death rate.
@@ -49,7 +47,7 @@ Malthus predicted that excessive population growth would correct itself, either 
 In this exercise, we will use the HMDHFDplus package to access the Human Mortality Database. To complete this exercise, you will have to go to mortality.org to register for your own account to access the data. Once you do so, you can assign your login and password information to variables in R by using commands like 
 ```{r}
 myname<-"knoxm@uw.edu" 
-mypass<-"my secret password" #Your actual password here
+mypass<-"mysecretpassword" #Your actual password here
 ```
 
 This is an exercise with several steps that you can use to complete the data questions in your problem set.
@@ -130,5 +128,5 @@ malthus %>%
   ggplot(aes(x=CMR, y=CBR))+geom_point()+geom_smooth(method=lm, formula= y~poly(x,3))+ggtitle("Malthus Plot for USA with Fitted Polynomial")
 ```
 
-So, what do you think about Malthus's conjecture? Can you repeat with another country with more years of data, like Sweden? Country codes are here: https://www.mortality.org/Data/DataAvailability and Sweden's is CHE. Note: Malthus actually wrote about Sweden and their propensity for vice and reliance on positive population checks.
+So, what do you think about Malthus's conjecture? Can you repeat with another country with more years of data, like Sweden? Country codes are here: https://www.mortality.org/Data/DataAvailability and Sweden's is SWE. Note: Malthus actually wrote about Sweden and their propensity for vice and reliance on positive population checks.
 
