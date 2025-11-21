@@ -24,11 +24,11 @@ library(ipumsr)
 library(vtable)
 ```
 
-Now read the data. You should have downloaded a file called "ipumsi_00007.dat.gz" from your IPUMS account. Make sure you have both files (xml and dat.gz) and that they are in the same directoy.
+Now read the data. You should have downloaded a file called "ipumsi_00018.dat.gz" from your IPUMS account. Make sure you have both files (xml and dat.gz) and that they are in the same directory.
 
 
 ```{r}
-ddi <- read_ipums_ddi("ipumsi_00007.xml")  
+ddi <- read_ipums_ddi("ipumsi_00019.xml")  
 ipumsr::ipums_view(ddi)
 df_ipums <- read_ipums_micro(ddi)
 ```
@@ -49,10 +49,13 @@ head(df_analysis)
 
 We should also create some dummy variables.
 ```{r}
-#Make dummy variables for urban, literacy, and employment
-df_analysis$URBAN <- ifelse(df_analysis$URBAN == 2, 1, 0) 
+#Make dummy variables for urban, literacy, employment, piped water, marriage type
+df_analysis$URBAN_RES <- ifelse(df_analysis$URBAN == 2, 1, 0) 
 df_analysis$LITERATE<-ifelse(df_analysis$LIT==2,1,0)
 df_analysis$EMPLOYED<-ifelse(df_analysis$EMPSTAT==1,1,0)
+df_analysis$NOPIPED<-ifelse(df_analysis$WATSUP==20,1,0)
+df_analysis$HASRADIO<-ifelse(df_analysis$RADIO==2,1,0)
+
 
 #View the new variables and others of potential interest.
 stargazer(df_analysis, type='text')
@@ -111,14 +114,14 @@ iplot(f_ols1)
 
 Now let's see how the effect of schooling changes as we control for other important factors that might be associated with schooling.
 ```{r}
-f_ols2<-feols(CMR~i(YRSCHOOL)+CHBORN+AGE+EMPLOYED+LITERATE, data=df_analysis)
+f_ols2<-feols(CMR~i(YRSCHOOL)+CHBORN+AGE+EMPLOYED, data=df_analysis)
 iplot(f_ols2)
 ```
 Ok, now we might want to see what we get from the control variables, so let's plot them both together. I found a package (ggiplot) that works a bit better than iplot here. Can you interpret the difference in coefficients shown in the figure below?
 
 ```{r}
-install.packages("ggiplot", repos = "https://grantmcdermott.r-universe.dev")
-library(ggiplot)
+#install.packages("ggfixest", dependencies = TRUE)
+#library(ggfixest)
 ggiplot(list('No Controls' = f_ols1, 'Controls' = f_ols2),main = 'Child Mortality and Education', ref.line = -1, pt.join = TRUE)
 
 ```
