@@ -25,7 +25,25 @@ library(gt)
 Load "Returns to Schooling" data from ivreg package:
 ```{r}
 data("SchoolingReturns", package="ivreg")
-stargazer(SchoolingReturns, type = "text")  ##You can also set `type' to latex (default) or html.
+SchoolingReturns <-na.omit(SchoolingReturns)
+df_sum <- SchoolingReturns %>%
+  select('Wage (cents per hour)' = wage, 'Experience (Years)' = experience, 'Education (Years)' = education)
+```
+
+New: I am adding some code to make nicer tables using modelsummary. Info here: https://modelsummary.com/vignettes/datasummary.html#:~:text=Output%20formats-,Data%20Summaries,The%20possibilities%20are%20endless!
+
+```{r}
+datasummary(wage + education + experience + age + kww + iq ~mean + sd, data = SchoolingReturns, output = 'summary_table_1.rtf')
+
+```
+
+```{r}
+datasummary(`Wage (cents per hour)` + `Experience (Years)` + `Education (Years)` ~ mean + sd, data = df_sum)
+```
+
+```{r}
+datasummary((`Wage (cents per hour)` = wage) + (`Experience (Years)` = education) + (`Education (Years)` = experience) ~ parents14*(mean + sd), data = SchoolingReturns)
+
 
 ```
 
