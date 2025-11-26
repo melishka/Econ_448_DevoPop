@@ -59,6 +59,7 @@ library(modelsummary)
 library(tinytex) 
 #install_tinytex('siunitx', force = TRUE)
 #You may need this to get a pdf, but not sure! Try without it first.
+#On my laptop, I also had to run `quarto install tinytex` in the terminal (not console)
 ```
 
 ```{r, warning=FALSE, echo=FALSE}
