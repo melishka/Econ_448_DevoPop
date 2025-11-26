@@ -1,0 +1,136 @@
+---
+title: "Pretend Econ 448 Paper"
+author: "Melissa A. Knox"
+date: "`r format(Sys.time(), '%m/%d/%Y')`"
+format:
+      pdf:
+        include-in-header: 
+          - text: |
+              \usepackage{tabularray}
+              \usepackage{siunitx}
+              \usepackage{floatflt}
+
+##Note, all of the code after pdf (even the :) can be deleted on the server, but I need it on my laptop
+#format: html
+editor: source
+---
+
+## Introduction to Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+### Running Code
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+```
+
+You can add options to executable code like this
+
+```{r}
+#| echo: false
+2 * 2
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
+
+## Introduction
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ultrices, urna vel gravida semper, mauris est vestibulum turpis, non varius nulla augue id ex. Vestibulum et mi et libero fermentum pretium a id orci. Phasellus sodales ligula vel ante rhoncus, ut rhoncus turpis rutrum. Maecenas laoreet congue eros. Etiam egestas vehicula sem in auctor. Nam non bibendum diam. In ac ipsum vehicula, aliquet ante at, tincidunt est. Sed sit amet elit interdum, tincidunt lectus quis, posuere risus. Aliquam erat volutpat. Maecenas id vestibulum leo, ut semper neque. Aenean non orci venenatis, cursus sem sed, scelerisque nibh. Aliquam porttitor rhoncus condimentum. Quisque sem arcu, facilisis a ipsum at, fermentum auctor ex.
+
+## Data
+This report uses data from the U.S. National Longitudinal Survey of Young Men (NLSYM) in 1976.
+
+## Results
+
+### Summary Statistics
+ Summary statistics are shown for African Americans and all other races in @tbl-sum, the mean wage is XX. And mean years of education is YY. Phasellus sodales ligula vel ante rhoncus, ut rhoncus turpis rutrum. Maecenas laoreet congue eros. Etiam egestas vehicula sem in auctor. Nam non bibendum diam. In ac ipsum vehicula, aliquet ante at, tincidunt est. Sed sit amet elit interdum, tincidunt lectus quis, posuere risus. Aliquam erat volutpat. Maecenas id vestibulum leo, ut semper neque. Aenean non orci venenatis, cursus sem sed, scelerisque nibh. Aliquam porttitor rhoncus condimentum. Quisque sem arcu, facilisis a ipsum at, fermentum auctor ex.
+
+
+
+```{r, warning=FALSE, echo=FALSE, message=FALSE}
+library(ggplot2)
+library(tidyr)
+library(ivreg)
+library(dplyr)
+library(fixest)
+library(modelsummary)
+library(tinytex) 
+#install_tinytex('siunitx', force = TRUE)
+#You may need this to get a pdf, but not sure! Try without it first.
+```
+
+```{r, warning=FALSE, echo=FALSE}
+
+data("SchoolingReturns", package="ivreg")
+SchoolingReturns <-na.omit(SchoolingReturns)
+df_sum <- SchoolingReturns %>%
+  select('Wage (cents per hour)' = wage, 'Experience (Years)' = experience, 'Education (Years)' = education, 'Age' = age, 'Lives in South' = south, 'Married' = married, 'Family at 14' = parents14)
+```
+
+```{r, echo=FALSE}
+#| label: tbl-sum
+#| tbl-cap: "Summary Statistics by Race"
+#| tbl-pos: H
+levels(SchoolingReturns$ethnicity) <- c("Other", "African American")
+datasummary((`Wage (cents/hour)` = wage) + (`Years Experience` = education) + (`Years Education` = experience) + (`Age` = age) ~ ethnicity*(Mean + SD+ Min + Max), data = SchoolingReturns)
+```
+
+### Visualizing Results
+Next, we show mean wages by race and years of education in @fig-sum. This figure shows that wages increase in education, but there are persistent pay gaps by race across all values of education.
+
+Phasellus sodales ligula vel ante rhoncus, ut rhoncus turpis rutrum. Maecenas laoreet congue eros. Etiam egestas vehicula sem in auctor. Nam non bibendum diam. In ac ipsum vehicula, aliquet ante at, tincidunt est. Sed sit amet elit interdum, tincidunt lectus quis, posuere risus. Aliquam erat volutpat. Maecenas id vestibulum leo, ut semper neque. Aenean non orci venenatis, cursus sem sed, scelerisque nibh. Aliquam porttitor rhoncus condimentum. Quisque sem arcu, facilisis a ipsum at, fermentum auctor ex.
+```{r, echo=FALSE, message=FALSE}
+#| label: fig-sum
+#| fig-cap: "Mean Wages by Race and Years of Education"
+schooling_plot <- SchoolingReturns %>%
+  # First calculate by program
+  group_by(education, ethnicity) %>%
+  summarize(
+    mean.wage = round(mean(wage),0)
+  ) 
+
+ggplot(schooling_plot, aes(x = education, y = mean.wage, group = ethnicity)) + 
+  geom_line(aes(color = ethnicity)) +
+  scale_y_continuous(breaks=scales::breaks_pretty(n=10)) +
+  labs(y = 'Mean Wage (Cents/Hour)', x= 'Years of Education') +
+  theme_bw() +
+  guides(color=guide_legend("Ethnicity")) +
+  scale_color_manual(values = c("Other" = "gold", "African American" = "purple"))
+
+```
+
+### Ordinary Least Squares Results
+First, we estimate the regression in @eq-ols. In this model, $Y_i$ is the log of individual i's wage, $X_i$ person i's education in years, and $Z_i$ are covariates, including race, age, work experience in years, residence in a city, and residence in the southern U.S. 
+$$
+y_i = \alpha + \beta * X_i + \theta * Z_i + \epsilon_i 
+$$ {#eq-ols}
+
+The results of the OLS regression with and without covariates are given in @tbl-ols below. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ultrices, urna vel gravida semper, mauris est vestibulum turpis, non varius nulla augue id ex. Vestibulum et mi et libero fermentum pretium a id orci. 
+```{r, echo=FALSE}
+#| label: tbl-ols
+#| tbl-cap: "Association Between Schooling and Log(Wage)"
+m_ols1 <- lm(log(wage) ~ education, data = SchoolingReturns)
+m_ols2 <- lm(log(wage) ~ education + experience + ethnicity + smsa + south, data = SchoolingReturns)
+cm <- c('education' = 'Years of Schooling',
+        'experience' = 'Experience', 
+        'ethnicityAfrican American' = 'African American',
+        'smsayes' = 'Lives in City',
+        'southyes' = 'Lives in South',
+        '(Intercept)' = 'Constant')
+msummary(list('No Covariates'=m_ols1,'Covariates'=m_ols2),
+   coef_map = cm,
+   stars = TRUE,
+    gof_map = c("nobs", "adj.r.squared"),
+   notes = c('First custom note to contain text.',
+             'Second custom note with different content.')) 
+
+```
+Phasellus sodales ligula vel ante rhoncus, ut rhoncus turpis rutrum. Maecenas laoreet congue eros. Etiam egestas vehicula sem in auctor. Nam non bibendum diam. 
+
+## Discussion and Limitations
+In ac ipsum vehicula, aliquet ante at, tincidunt est. Sed sit amet elit interdum, tincidunt lectus quis, posuere risus. Aliquam erat volutpat. Maecenas id vestibulum leo, ut semper neque. Aenean non orci venenatis, cursus sem sed, scelerisque nibh. Aliquam porttitor rhoncus condimentum. Quisque sem arcu, facilisis a ipsum at, fermentum auctor ex.
+
+## Conclusion
+In ac ipsum vehicula, aliquet ante at, tincidunt est. Sed sit amet elit interdum, tincidunt lectus quis, posuere risus. Aliquam erat volutpat. Maecenas id vestibulum leo, ut semper neque. Aenean non orci venenatis, cursus sem sed, scelerisque nibh. Aliquam porttitor rhoncus condimentum. Quisque sem arcu, facilisis a ipsum at, fermentum auctor ex.
